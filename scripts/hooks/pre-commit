@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# pre-commit — guardrail meccanico anti-leak (ARCHITECTURE.md §8).
+# Installazione (una tantum):
+#   git config core.hooksPath scripts/hooks
+# Blocca il commit se secret-scan trova segreti/file 🔴 fuori posto nel diff in staging.
+set -uo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+
+if ! bash "$ROOT/scripts/audit/secret-scan.sh" --staged; then
+  echo
+  echo "⛔ Commit bloccato: potenziali segreti o file 🔴 nel diff (vedi sopra)."
+  echo "   Se è un falso positivo, correggi il pattern in scripts/audit/secret-scan.sh"
+  echo "   oppure bypassa consapevolmente con:  git commit --no-verify"
+  exit 1
+fi
+exit 0

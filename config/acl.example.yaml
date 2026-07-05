@@ -1,0 +1,112 @@
+# Zone → cartelle Drive → ACL → direzione di sync. Copia in `acl.yaml` e compila.
+# Fonte di verità per osctl (bootstrap, publish, snapshot, acl-audit).
+# drive_id: li compila `osctl bootstrap` (vuoti finché il Drive non è provisionato).
+# Ruoli speciali usabili in write/read: admin (config/people.yaml), all_internal
+# (type: internal), everyone (interni + esterni registrati). Le persone si citano con la
+# loro chiave di people.yaml; l'accesso è concesso solo se `onboarded: true`.
+
+drive:
+  root_name: "Company HQ"
+  root_id: ""                  # Shared Drive ID (0A...) — vedi bootstrap/README.md
+  shared_drive: true
+
+zones:
+  _os:
+    drive_path: "_OS"
+    drive_id: ""
+    sync: git_to_drive          # publish: zones/ + os/ (agenti, protocolli, viewer) — read-only su Drive
+    write: [admin]
+    read: [everyone]
+
+  direzione:
+    drive_path: "00-Direzione"
+    drive_id: ""
+    sync: drive_master          # snapshot → company/direzione/
+    write: [founder]
+    read: [founder]             # + membri del board
+    contains: [strategy, okrs, decisions, board, investor-updates]
+
+  commerciale:
+    drive_path: "10-Commerciale"
+    drive_id: ""
+    sync: drive_master
+    write: [founder]
+    read: [founder]
+    contains: [pipeline, opportunities, funnel, sequences, battlecards, proposte-bozze]
+
+  clienti:
+    drive_path: "20-Clienti"
+    drive_id: ""
+    sync: drive_master
+    write: [founder]
+    read: [founder]
+    per_folder_acl: true        # ogni 20-Clienti/{slug}/ ha la sua ACL (owner del cliente)
+    # NB: niente sottocartella "contratti" ristretta qui — Drive eredita i permessi verso il
+    # basso senza poterli restringere. I contratti vivono nella zona `contratti` (top-level).
+
+  prodotto:
+    drive_path: "30-Prodotto"
+    drive_id: ""
+    sync: drive_master
+    write: [founder]
+    read: [all_internal]
+    contains: [roadmap, backlog, specs, testing, releases, richieste]
+
+  finance:
+    drive_path: "40-Finance"
+    drive_id: ""
+    sync: drive_master
+    snapshot_target: vault      # snapshot → vault/finance/ (solo clone admin)
+    write: [founder]
+    read: [founder]
+    tier: restricted
+    subfolders:
+      bandi:                    # aggiunge un collaboratore in una zona altrimenti chiusa
+        write: [founder]
+        read: [founder]
+      per-commercialista:       # vetrina one-way per lo studio
+        write: [founder]
+        read: [founder]
+
+  compliance:
+    drive_path: "50-Compliance"
+    drive_id: ""
+    sync: drive_master
+    write: [founder]
+    read: [all_internal]
+    subfolders:
+      evidence:                 # aggiunge l'auditor esterno alla sola sottocartella evidenze
+        write: [founder]
+        read: [all_internal]
+
+  contratti:
+    drive_path: "70-Contratti-Riservati"
+    drive_id: ""
+    sync: drive_master
+    snapshot_target: vault      # snapshot → vault/contratti/{slug}/
+    write: [founder]
+    read: [founder]             # + Head of Sales, quando onboardato
+    tier: restricted
+    per_client_subfolder: true  # una sottocartella per slug cliente, ACL uniforme
+    manual_drive_setup: true    # zona a permessi stretti: crearla top-level (mai sotto 20-Clienti)
+    contains: [contratti firmati, NDA, allegati legali per cliente]
+
+  marketing:
+    drive_path: "60-Marketing"
+    drive_id: ""
+    sync: drive_master
+    write: [founder]
+    read: [all_internal]
+    contains: [content, blog, email-templates, brand]
+
+  shared:
+    drive_path: "90-Condivisi"
+    drive_id: ""
+    sync: git_to_drive          # publish: materiale approvato per tutti
+    write: [admin]
+    read: [everyone]
+    contains: [glossario, onboarding, template-deliverable, viewer]
+
+publish:
+  gdoc_render: true             # .md con frontmatter `render: gdoc` → anche Google Doc
+  gdoc_default_for: [report, proposta, qbr, investor-update]   # per `type:` nel frontmatter

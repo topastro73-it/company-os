@@ -1,0 +1,48 @@
+# Integrazioni — copia in `integrations.yaml`. Solo nomi di variabili e coordinate, MAI
+# valori di secret. Ogni scrittura verso questi sistemi passa da PREPARE → APPROVE → EXECUTE
+# (os/protocols/external-writes.md). MCP assente → graceful degradation sui file.
+# Rimuovi le sezioni che non usi; aggiungine di nuove sullo stesso schema.
+
+google_drive:
+  role: "piano operativo (master delle zone) + conversione Google Doc"
+  auth: "service account per osctl (env GDRIVE_SA_KEY_PATH) o OAuth admin"
+  env: [GDRIVE_SA_KEY_PATH]
+  config: config/acl.yaml
+
+clickup:
+  role: "execution engineering: epic, task, doc (master dell'esecuzione prodotto)"
+  workspace_id: "<workspace-id>"
+  space_product_engineering: "<space-id>"
+  folders: {}                # <label>: "<folder-id>"
+  lists: {}
+  rules:
+    task_language: en
+    created_status: Backlog
+    required_tags: [from-company-os]
+    priority_map: { P0: urgent, P1: high, P2: normal, P3: low }
+  env: [CLICKUP_API_KEY, CLICKUP_TEAM_ID]
+
+hubspot:
+  role: "CRM specchio: la pipeline master è nella zona commerciale; hubspot-id nel frontmatter linka"
+  env: []                    # connector OAuth
+
+gmail:
+  role: "contesto email per ruolo (read-only); bozze solo via APPROVE"
+  env: []
+
+# --- Esempi di integrazioni finance (adatta al tuo stack / paese) ---
+fatturazione:
+  role: "fatturazione elettronica (es. Fatture in Cloud, tool locale)"
+  env: [BILLING_ACCESS_TOKEN, BILLING_COMPANY_ID]
+
+banca:
+  role: "saldi, movimenti, riconciliazione (credenziali in keychain, mai nel repo)"
+  env: [BANK_LOGIN, BANK_SECRET]
+
+stripe:
+  role: "subscription/incassi: MRR, churn, riconciliazione payout"
+  env: []                    # connector OAuth
+
+anthropic:
+  role: "automazioni (job batch, bozze)"
+  env: [ANTHROPIC_API_KEY]

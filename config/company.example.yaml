@@ -1,0 +1,54 @@
+# Identità azienda — copia in `company.yaml` e compila con i dati della tua istanza.
+# `company.yaml` NON è versionato nel template pubblico (vedi .gitignore); qui resta solo l'esempio.
+# privacy: internal
+
+company:
+  legal_name: "<Ragione sociale S.r.l.>"
+  short_name: "<Company>"
+  type: "<forma giuridica, es. Startup innovativa>"
+  founded: <anno>
+  hq: "<città, indirizzo>"
+  sites: []
+  website: "<dominio>"
+  email: "info@example.com"
+  pec: "<pec>"
+
+positioning:
+  one_liner: >
+    <La frase che descrive cosa fai, per chi, e il valore unico. Una riga.>
+  product: "<nome prodotto/servizio>"
+  product_versions: { production: v1, next: v2 }
+  model: "<B2B | B2C | B2B2B | ...>"
+  icp: "<Ideal Customer Profile: chi compra>"
+  end_user: "<chi usa il prodotto, se diverso dal buyer>"
+  flywheel: "<le fasi del ciclo cliente, es. Attract → Retain → Generate>"
+  differentiators: ["<differenziatore 1>", "<differenziatore 2>"]
+
+pricing:
+  # Struttura a tier (adatta numero e nomi al tuo modello). I valori guidano gli agenti sales/finance.
+  tiers:
+    base: { price_month_eur: <€>, for: "<segmento>" }
+    growth: { price_month_eur: <€>, for: "<segmento>" }
+    scale: { price_month_eur: <€>, for: "<segmento>" }
+    enterprise: { price_month_eur: custom, for: "<segmento>" }
+  acv_range_eur: [<min>, <max>]
+
+goals:
+  arr_target_eur: <target>
+  north_star: "<la metrica nord: la cosa che conta più di tutte>"
+  priorities: [<priorità-1>, <priorità-2>, <priorità-3>]
+
+funding:
+  stage: "<pre-seed | seed | series-a | bootstrapped>"
+  raised_eur: <importo>
+  investors: []
+
+certifications:
+  active: []          # es. ["ISO 27001"]
+  target: []          # es. ["NIS2 readiness", "SOC 2"]
+
+board:
+  members: [<persona-key>, ...]   # chiavi da config/people.yaml
+  term: "<durata mandato>"
+
+language: it          # lingua operativa del sistema

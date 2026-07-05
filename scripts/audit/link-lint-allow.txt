@@ -1,0 +1,38 @@
+# link-lint allowlist — un path per riga; una voce che termina con `/` vale
+# come prefisso. I placeholder tipo {slug}/{date} sono già ignorati dal lint.
+
+# Path Drive (non esistono nel repo: sono cartelle del piano operativo)
+_OS/
+00-Direzione/
+10-Commerciale/
+20-Clienti/
+30-Prodotto/
+40-Finance/
+50-Compliance/
+60-Marketing/
+90-Condivisi/
+
+# Zone operative: popolate dallo snapshot nightly, possono non esistere in un clone fresco
+company/
+vault/
+
+# Config d'istanza: nel template esistono solo come `*.example.yaml`; si creano copiandoli.
+config/acl.yaml
+config/company.yaml
+config/people.yaml
+config/integrations.yaml
+
+# Directory create al primo uso
+local/
+system/wiki/sessions
+system/wiki/entities
+70-Contratti-Riservati/
+
+# TODO — riferimenti a componenti non ancora costruiti: quando crei il file,
+# rimuovi la voce da qui (regola: o esiste il file, o esiste la voce).
+os/agents/AGENTS.md
+os/agents/product/templates/prd.md
+scripts/erp_sync.py
+scripts/fic_sync.py
+scripts/qonto.sh
+scripts/qonto_sync.py

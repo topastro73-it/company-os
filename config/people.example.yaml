@@ -1,0 +1,47 @@
+# Persone e ruoli — copia in `people.yaml` e compila. Fonte di verità per identità,
+# agenti di default e ACL Drive. privacy: internal — niente dati retributivi qui (→ vault/).
+#
+# Onboarding progressivo: `zones_write`/`zones_read` descrivono l'accesso TARGET di una
+# persona, ma osctl lo applica su Drive SOLO se `onboarded: true`. Finché è `false`, la
+# persona è fuori dalla matrice — il Drive resta visibile solo all'admin. Si passa a `true`
+# dopo l'intervista di onboarding (os/protocols/onboarding-collaborator.md), poi
+# `osctl bootstrap --apply` (additivo). Vedi anche LRN sul modello progressivo.
+#
+# Zone disponibili (per zones_write / zones_read):
+#   direzione, commerciale, clienti, prodotto, finance, compliance, marketing
+#   sottozone: finance.bandi, finance.per-commercialista, compliance.evidence
+# Agenti di default: ceo, cos, sales, delivery, product, cto, finance, compliance, marketing, admin
+
+admin:
+  - founder            # chiave della persona amministratore (unica a modificare il sistema)
+
+people:
+  founder:
+    name: "<Nome Cognome>"
+    role: "CEO & Founder"
+    emails: ["founder@example.com"]      # deve combaciare con l'account Google usato
+    type: internal
+    onboarded: true                       # l'admin è sempre attivo
+    default_agent: ceo
+    zones_write: [direzione, commerciale, clienti, prodotto, finance, compliance, marketing]
+    board: true
+
+  # --- Esempio di collaboratore (duplica per ogni persona; parte disattivato) ---
+  esempio_sales:
+    name: "<Nome Cognome>"
+    role: "Head of Sales"
+    emails: ["sales@example.com"]
+    type: internal
+    onboarded: false                      # → true solo dopo l'intervista di onboarding
+    default_agent: sales
+    zones_write: [commerciale, clienti]
+    zones_read: [prodotto]
+
+  # --- Esempio di esterno con accesso a una sola sottozona ---
+  esempio_commercialista:
+    name: "<Studio>"
+    role: "Consulente fiscale"
+    type: external
+    onboarded: false
+    default_agent: null                   # non usa il sistema; riceve solo via Drive
+    zones_read: [finance.per-commercialista]

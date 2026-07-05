@@ -1,0 +1,63 @@
+name: nightly-snapshot
+
+# Snapshot Drive → git delle zone operative (ARCHITECTURE.md §4).
+# Git resta versioning e backup completo anche del piano operativo.
+#
+# ⚠️ ATTIVAZIONE: il workflow è inerte finché non aggiungi il secret GDRIVE_SA_KEY
+#    (Settings → Secrets and variables → Actions) con il CONTENUTO JSON della
+#    chiave del service account. Senza secret, il job esce senza fare nulla.
+#    Il service account deve essere membro dello Shared Drive (vedi bootstrap/README.md).
+#
+# Nota: la zona finance ha snapshot_target: vault → in questo repo condiviso
+# vault/ è vuota/ignorata; lo snapshot finance va eseguito dal clone dell'admin.
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # ogni notte alle 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa dipendenze
+        run: pip install google-api-python-client pyyaml
+
+      - name: Scrivi la chiave del service account
+        env:
+          GDRIVE_SA_KEY: ${{ secrets.GDRIVE_SA_KEY }}
+        run: |
+          if [ -z "$GDRIVE_SA_KEY" ]; then
+            echo "Secret GDRIVE_SA_KEY assente — snapshot saltato (vedi commento in testa al file)."
+            echo "SKIP_SNAPSHOT=1" >> "$GITHUB_ENV"
+          else
+            umask 077
+            printf '%s' "$GDRIVE_SA_KEY" > "$RUNNER_TEMP/sa-key.json"
+            echo "GDRIVE_SA_KEY_PATH=$RUNNER_TEMP/sa-key.json" >> "$GITHUB_ENV"
+          fi
+
+      - name: osctl snapshot (Drive → company/)
+        if: env.SKIP_SNAPSHOT != '1'
+        run: python3 tools/osctl/osctl.py snapshot
+
+      - name: Commit e push se ci sono differenze
+        if: env.SKIP_SNAPSHOT != '1'
+        run: |
+          git config user.name "company-os-bot"
+          git config user.email "os-bot@users.noreply.github.com"
+          git add company vault 2>/dev/null || git add company
+          if git diff --cached --quiet; then
+            echo "Nessuna differenza: snapshot già allineato."
+          else
+            git commit -m "[snapshot] drive: $(date -u +%F)"
+            git push
+          fi

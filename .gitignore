@@ -1,0 +1,31 @@
+# Ambiente e scratch personale
+.env
+local/
+
+# Config d'istanza: nel template pubblico si versionano SOLO gli esempi.
+# Copia config/*.example.yaml → config/*.yaml e compila (i reali restano locali).
+config/company.yaml
+config/people.yaml
+config/acl.yaml
+config/integrations.yaml
+
+# Dati operativi: snapshot dal Drive, non nel template (si tiene solo lo scaffold).
+company/*
+!company/README.md
+!company/.gitkeep
+vault/*
+!vault/README.md
+!vault/.gitkeep
+
+# Python
+*.pyc
+__pycache__/
+
+# Credenziali: nessuna chiave JSON di service account nel repo.
+# (i .json legittimi di config/ sono esplicitamente riammessi)
+*.json
+!config/**/*.json
+!company/.snapshot-manifest.json
+
+# macOS
+.DS_Store

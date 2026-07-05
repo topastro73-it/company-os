@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CompanyOS — Viewer</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg2: #f4f5f7; --fg: #1c1e21; --fg2: #5a6270;
+    --accent: #2456c8; --border: #dde1e6; --code-bg: #eef0f3;
+    --badge-bg: #e8ecf4; --hit: #fff3bf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181d; --bg2: #1e2128; --fg: #e8eaed; --fg2: #9aa3b0;
+      --accent: #7ba3ff; --border: #30343c; --code-bg: #23262e;
+      --badge-bg: #2a2f3a; --hit: #5c4d12;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.6 -apple-system, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--fg); height: 100vh; display: flex;
+         flex-direction: column; }
+  header { display: flex; gap: .8rem; align-items: center; padding: .55rem 1rem;
+           border-bottom: 1px solid var(--border); background: var(--bg2); flex-wrap: wrap; }
+  header h1 { font-size: 1rem; margin: 0; white-space: nowrap; }
+  header h1 span { color: var(--fg2); font-weight: 400; }
+  button.primary { background: var(--accent); color: #fff; border: 0; border-radius: 6px;
+           padding: .45rem .9rem; font-size: .9rem; cursor: pointer; }
+  button.primary:hover { filter: brightness(1.1); }
+  #search { flex: 1; min-width: 160px; max-width: 340px; padding: .42rem .7rem;
+            border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg); color: var(--fg); }
+  #root-name { color: var(--fg2); font-size: .85rem; }
+  main { flex: 1; display: flex; min-height: 0; }
+  nav { width: 300px; min-width: 220px; overflow: auto; border-right: 1px solid var(--border);
+        padding: .6rem .4rem; background: var(--bg2); }
+  nav ul { list-style: none; margin: 0; padding-left: .9rem; }
+  nav > ul { padding-left: .3rem; }
+  nav li { margin: 1px 0; }
+  nav .dir > span { cursor: pointer; font-weight: 600; color: var(--fg2);
+                    display: block; padding: 1px 4px; user-select: none; }
+  nav .dir.closed > ul { display: none; }
+  nav .dir > span::before { content: "▾ "; font-size: .7em; }
+  nav .dir.closed > span::before { content: "▸ "; }
+  nav a { color: var(--fg); text-decoration: none; display: block; padding: 1px 6px;
+          border-radius: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  nav a:hover { background: var(--badge-bg); }
+  nav a.active { background: var(--accent); color: #fff; }
+  #results { padding: .3rem; }
+  #results .res { display: block; padding: .35rem .5rem; border-radius: 6px;
+                  cursor: pointer; margin-bottom: .2rem; }
+  #results .res:hover { background: var(--badge-bg); }
+  #results .res b { display: block; font-size: .88rem; color: var(--accent); }
+  #results .res small { color: var(--fg2); }
+  #results mark { background: var(--hit); color: inherit; border-radius: 2px; }
+  #content { flex: 1; overflow: auto; padding: 1.2rem 2rem 4rem; }
+  #doc { max-width: 860px; margin: 0 auto; }
+  .badges { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .badge { background: var(--badge-bg); border: 1px solid var(--border); color: var(--fg2);
+           border-radius: 99px; padding: .05rem .6rem; font-size: .78rem; }
+  .badge b { color: var(--fg); font-weight: 600; }
+  #doc h1, #doc h2, #doc h3 { line-height: 1.25; }
+  #doc h1 { font-size: 1.7rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+  #doc h2 { font-size: 1.3rem; margin-top: 2rem; }
+  #doc code { background: var(--code-bg); border-radius: 4px; padding: .08em .35em;
+              font-size: .88em; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  #doc pre { background: var(--code-bg); border-radius: 8px; padding: .8rem 1rem;
+             overflow-x: auto; }
+  #doc pre code { background: none; padding: 0; }
+  #doc blockquote { border-left: 3px solid var(--accent); margin: 1rem 0;
+                    padding: .1rem 1rem; color: var(--fg2); }
+  #doc table { border-collapse: collapse; display: block; overflow-x: auto; }
+  #doc th, #doc td { border: 1px solid var(--border); padding: .35rem .7rem; text-align: left; }
+  #doc th { background: var(--bg2); }
+  #doc img { max-width: 100%; border-radius: 6px; }
+  #doc a { color: var(--accent); }
+  #doc hr { border: 0; border-top: 1px solid var(--border); margin: 1.6rem 0; }
+  #welcome { max-width: 560px; margin: 12vh auto; text-align: center; color: var(--fg2); }
+  #welcome h2 { color: var(--fg); }
+  #welcome ol { text-align: left; }
+  .muted { color: var(--fg2); font-size: .85rem; }
+  @media (max-width: 720px) { nav { display: none; } #content { padding: 1rem; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>CompanyOS <span>· Viewer</span></h1>
+  <button class="primary" id="open-btn">Apri cartella aziendale</button>
+  <input id="search" type="search" placeholder="Cerca nei documenti… (Invio)" disabled>
+  <span id="root-name"></span>
+  <input id="fallback-input" type="file" webkitdirectory multiple style="display:none">
+</header>
+<main>
+  <nav id="sidebar"><p class="muted" style="padding:.5rem">Nessuna cartella aperta.</p></nav>
+  <div id="content">
+    <div id="welcome">
+      <h2>Lettore markdown del folder aziendale</h2>
+      <p>Apri la cartella <b>Company HQ</b> sincronizzata da Google Drive for Desktop:
+         il viewer costruisce l'indice di tutti i documenti <code>.md</code>,
+         con ricerca e navigazione per zona. Nessun dato lascia il tuo computer.</p>
+      <ol>
+        <li>Clicca <b>“Apri cartella aziendale”</b></li>
+        <li>Seleziona la radice del folder Drive (es. <code>Il mio Drive/Company HQ</code>
+            o <code>Drive condivisi/Company HQ</code>)</li>
+        <li>Naviga dalla barra laterale, o cerca col campo in alto</li>
+      </ol>
+      <p class="muted">Consigliato Chrome o Edge. Su altri browser viene usata una
+         selezione cartella semplificata (sola lettura, senza aggiornamento live).</p>
+    </div>
+    <div id="doc" style="display:none"></div>
+  </div>
+</main>
+<script>
+"use strict";
+// ---------------------------------------------------------------------------
+// Stato
+// ---------------------------------------------------------------------------
+const state = {
+  files: new Map(),   // path relativo → { getFile: async () => File }
+  mdPaths: [],        // solo i .md, ordinati
+  textCache: new Map(),
+  current: null,
+  rootName: "",
+  objectUrls: [],
+};
+const $ = (id) => document.getElementById(id);
+
+// ---------------------------------------------------------------------------
+// Apertura cartella: File System Access API + fallback webkitdirectory
+// ---------------------------------------------------------------------------
+$("open-btn").addEventListener("click", async () => {
+  if (window.showDirectoryPicker) {
+    try {
+      const dir = await window.showDirectoryPicker({ mode: "read" });
+      state.files.clear();
+      await walkHandle(dir, "");
+      finishOpen(dir.name);
+    } catch (e) { if (e && e.name !== "AbortError") alert("Impossibile aprire la cartella: " + e.message); }
+  } else {
+    $("fallback-input").click();
+  }
+});
+
+async function walkHandle(dirHandle, prefix) {
+  for await (const [name, handle] of dirHandle.entries()) {
+    if (name.startsWith(".")) continue;
+    const path = prefix ? prefix + "/" + name : name;
+    if (handle.kind === "directory") {
+      await walkHandle(handle, path);
+    } else {
+      state.files.set(path, { getFile: () => handle.getFile() });
+    }
+  }
+}
+
+$("fallback-input").addEventListener("change", (ev) => {
+  state.files.clear();
+  let rootName = "";
+  for (const f of ev.target.files) {
+    const rel = f.webkitRelativePath || f.name;
+    const parts = rel.split("/");
+    rootName = parts[0];
+    const path = parts.slice(1).join("/");
+    if (!path || parts.some(p => p.startsWith("."))) continue;
+    state.files.set(path, { getFile: async () => f });
+  }
+  finishOpen(rootName);
+});
+
+function finishOpen(rootName) {
+  state.rootName = rootName;
+  state.textCache.clear();
+  state.mdPaths = [...state.files.keys()].filter(p => p.toLowerCase().endsWith(".md")).sort();
+  $("root-name").textContent = rootName + " · " + state.mdPaths.length + " documenti";
+  $("search").disabled = state.mdPaths.length === 0;
+  buildSidebar();
+  if (!state.mdPaths.length) {
+    $("sidebar").innerHTML = "<p class='muted' style='padding:.5rem'>Nessun file .md trovato nella cartella selezionata.</p>";
+    return;
+  }
+  const first = state.mdPaths.find(p => /claude\.md$/i.test(p) && !p.includes("/")) || state.mdPaths[0];
+  openFile(first);
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar ad albero
+// ---------------------------------------------------------------------------
+function buildSidebar() {
+  const tree = {};
+  for (const p of state.mdPaths) {
+    const parts = p.split("/");
+    let node = tree;
+    for (let i = 0; i < parts.length - 1; i++)
+      node = node[parts[i] + "/"] = node[parts[i] + "/"] || {};
+    node[parts[parts.length - 1]] = p;
+  }
+  const nav = $("sidebar");
+  nav.innerHTML = "";
+  nav.appendChild(renderTree(tree));
+}
+
+function renderTree(node) {
+  const ul = document.createElement("ul");
+  const dirs = Object.keys(node).filter(k => k.endsWith("/")).sort();
+  const files = Object.keys(node).filter(k => !k.endsWith("/")).sort();
+  for (const d of dirs) {
+    const li = document.createElement("li");
+    li.className = "dir";
+    const span = document.createElement("span");
+    span.textContent = d.slice(0, -1);
+    span.onclick = () => li.classList.toggle("closed");
+    li.appendChild(span);
+    li.appendChild(renderTree(node[d]));
+    ul.appendChild(li);
+  }
+  for (const f of files) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = f.replace(/\.md$/i, "");
+    a.href = "#" + encodeURIComponent(node[f]);
+    a.dataset.path = node[f];
+    a.onclick = (e) => { e.preventDefault(); openFile(node[f]); };
+    li.appendChild(a);
+    ul.appendChild(li);
+  }
+  return ul;
+}
+
+function markActive(path) {
+  document.querySelectorAll("nav a.active").forEach(a => a.classList.remove("active"));
+  const a = document.querySelector('nav a[data-path="' + CSS.escape(path) + '"]');
+  if (a) { a.classList.add("active"); a.scrollIntoView({ block: "nearest" }); }
+}
+
+// ---------------------------------------------------------------------------
+// Apertura e rendering di un documento
+// ---------------------------------------------------------------------------
+async function loadText(path) {
+  if (state.textCache.has(path)) return state.textCache.get(path);
+  const entry = state.files.get(path);
+  if (!entry) return null;
+  const text = await (await entry.getFile()).text();
+  state.textCache.set(path, text);
+  return text;
+}
+
+async function openFile(path) {
+  const text = await loadText(path);
+  if (text === null) return;
+  state.current = path;
+  state.objectUrls.forEach(u => URL.revokeObjectURL(u));
+  state.objectUrls = [];
+  const { meta, body } = parseFrontmatter(text);
+  const doc = $("doc");
+  $("welcome").style.display = "none";
+  doc.style.display = "block";
+  doc.innerHTML = renderBadges(path, meta) + renderMarkdown(body);
+  await resolveLocalImages(path);
+  bindInternalLinks(path);
+  markActive(path);
+  $("content").scrollTop = 0;
+}
+
+// ---------------------------------------------------------------------------
+// Frontmatter YAML → badge
+// ---------------------------------------------------------------------------
+function parseFrontmatter(text) {
+  const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n?/);
+  if (!m) return { meta: {}, body: text };
+  const meta = {};
+  for (const line of m[1].split("\n")) {
+    const mm = line.match(/^([A-Za-z0-9_-]+)\s*:\s*(.*)$/);
+    if (mm) meta[mm[1].toLowerCase()] = mm[2].replace(/^["']|["']$/g, "").trim();
+  }
+  return { meta, body: text.slice(m[0].length) };
+}
+
+const TIER_ICONS = { restricted: "🔴", internal: "🟡", public: "🟢",
+                     "🔴": "🔴", "🟡": "🟡", "🟢": "🟢" };
+function renderBadges(path, meta) {
+  const badges = [];
+  const dir = path.includes("/") ? path.split("/")[0] : "root";
+  badges.push('<span class="badge">📁 <b>' + esc(dir) + "</b></span>");
+  if (meta.zone) badges.push('<span class="badge">zona <b>' + esc(meta.zone) + "</b></span>");
+  const tier = (meta.tier || meta.privacy || "").toLowerCase();
+  if (tier) {
+    const icon = TIER_ICONS[tier] || "";
+    badges.push('<span class="badge">' + icon + " <b>" + esc(tier) + "</b></span>");
+  }
+  if (meta.type) badges.push('<span class="badge">tipo <b>' + esc(meta.type) + "</b></span>");
+  if (meta.status) badges.push('<span class="badge">stato <b>' + esc(meta.status) + "</b></span>");
+  return '<div class="badges">' + badges.join("") + "</div>";
+}
+
+// ---------------------------------------------------------------------------
+// Renderer markdown minimale
+// ---------------------------------------------------------------------------
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                  .replace(/"/g, "&quot;");
+}
+
+function inline(s) {
+  let out = esc(s);
+  out = out.replace(/`([^`]+)`/g, (_, c) => "<code>" + c + "</code>");
+  out = out.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g,
+    (_, alt, src) => '<img data-src="' + src + '" alt="' + alt + '">');
+  out = out.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,
+    (_, t, href) => '<a href="' + href + '" data-href="' + href + '">' + t + "</a>");
+  out = out.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  out = out.replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, "$1<i>$2</i>");
+  out = out.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+  return out;
+}
+
+function renderMarkdown(md) {
+  const lines = md.split("\n");
+  const out = [];
+  let i = 0, listStack = [], inQuote = false;
+  const closeLists = (depth) => {
+    while (listStack.length > depth) out.push("</" + listStack.pop() + ">");
+  };
+  const closeQuote = () => { if (inQuote) { out.push("</blockquote>"); inQuote = false; } };
+
+  while (i < lines.length) {
+    const line = lines[i];
+    // code fence
+    if (/^\s*```/.test(line)) {
+      closeLists(0); closeQuote();
+      const buf = [];
+      i++;
+      while (i < lines.length && !/^\s*```/.test(lines[i])) { buf.push(lines[i]); i++; }
+      i++;
+      out.push("<pre><code>" + esc(buf.join("\n")) + "</code></pre>");
+      continue;
+    }
+    // heading
+    let m = line.match(/^(#{1,6})\s+(.*)$/);
+    if (m) {
+      closeLists(0); closeQuote();
+      out.push("<h" + m[1].length + ">" + inline(m[2]) + "</h" + m[1].length + ">");
+      i++; continue;
+    }
+    // hr
+    if (/^\s*(---+|\*\*\*+|___+)\s*$/.test(line)) {
+      closeLists(0); closeQuote(); out.push("<hr>"); i++; continue;
+    }
+    // table
+    if (/^\s*\|.*\|\s*$/.test(line) && i + 1 < lines.length &&
+        /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+      closeLists(0); closeQuote();
+      const cells = (l) => l.trim().replace(/^\||\|$/g, "").split("|").map(c => c.trim());
+      let html = "<table><tr>" + cells(line).map(c => "<th>" + inline(c) + "</th>").join("") + "</tr>";
+      i += 2;
+      while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
+        html += "<tr>" + cells(lines[i]).map(c => "<td>" + inline(c) + "</td>").join("") + "</tr>";
+        i++;
+      }
+      out.push(html + "</table>");
+      continue;
+    }
+    // blockquote
+    if (/^\s*>/.test(line)) {
+      closeLists(0);
+      if (!inQuote) { out.push("<blockquote>"); inQuote = true; }
+      out.push("<p>" + inline(line.replace(/^\s*>\s?/, "")) + "</p>");
+      i++; continue;
+    }
+    // list (con nesting per indentazione, 2 spazi per livello)
+    m = line.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+    if (m) {
+      closeQuote();
+      const depth = Math.floor(m[1].length / 2) + 1;
+      const tag = /\d/.test(m[2][0]) ? "ol" : "ul";
+      while (listStack.length > depth) out.push("</" + listStack.pop() + ">");
+      while (listStack.length < depth) { out.push("<" + tag + ">"); listStack.push(tag); }
+      out.push("<li>" + inline(m[3]) + "</li>");
+      i++; continue;
+    }
+    // blank
+    if (!line.trim()) { closeLists(0); closeQuote(); i++; continue; }
+    // paragraph
+    closeLists(0); closeQuote();
+    out.push("<p>" + inline(line) + "</p>");
+    i++;
+  }
+  closeLists(0); closeQuote();
+  return out.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// Immagini locali e link interni
+// ---------------------------------------------------------------------------
+function resolvePath(from, rel) {
+  if (/^[a-z]+:/i.test(rel)) return null;               // URL assoluto
+  const base = from.split("/").slice(0, -1);
+  for (const part of rel.split("/")) {
+    if (part === "." || part === "") continue;
+    if (part === "..") base.pop(); else base.push(part);
+  }
+  return base.join("/");
+}
+
+async function resolveLocalImages(fromPath) {
+  for (const img of $("doc").querySelectorAll("img[data-src]")) {
+    const target = resolvePath(fromPath, decodeURIComponent(img.dataset.src));
+    const entry = target && state.files.get(target);
+    if (entry) {
+      const url = URL.createObjectURL(await entry.getFile());
+      state.objectUrls.push(url);
+      img.src = url;
+    } else if (/^[a-z]+:/i.test(img.dataset.src)) {
+      img.alt += " (immagine esterna non caricata)";
+    } else {
+      img.alt += " (immagine non trovata)";
+    }
+  }
+}
+
+function bindInternalLinks(fromPath) {
+  for (const a of $("doc").querySelectorAll("a[data-href]")) {
+    const href = a.dataset.href;
+    if (/^[a-z]+:/i.test(href)) { a.target = "_blank"; a.rel = "noopener"; continue; }
+    const target = resolvePath(fromPath, decodeURIComponent(href.split("#")[0]));
+    const candidate = target && (state.files.has(target) ? target :
+                      state.files.has(target + ".md") ? target + ".md" : null);
+    if (candidate && candidate.toLowerCase().endsWith(".md")) {
+      a.onclick = (e) => { e.preventDefault(); openFile(candidate); };
+    } else {
+      a.onclick = (e) => e.preventDefault();
+      a.title = "Riferimento non presente nella cartella";
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Ricerca full-text semplice
+// ---------------------------------------------------------------------------
+$("search").addEventListener("keydown", (e) => { if (e.key === "Enter") doSearch(); });
+$("search").addEventListener("search", () => { if (!$("search").value) buildSidebar(); });
+
+async function doSearch() {
+  const q = $("search").value.trim().toLowerCase();
+  if (!q) { buildSidebar(); return; }
+  const nav = $("sidebar");
+  nav.innerHTML = "<p class='muted' style='padding:.5rem'>Ricerca in corso…</p>";
+  const results = [];
+  for (const path of state.mdPaths) {
+    const text = (await loadText(path)) || "";
+    const lower = text.toLowerCase();
+    const idx = lower.indexOf(q);
+    if (idx === -1) continue;
+    let count = 0, j = idx;
+    while (j !== -1 && count < 50) { count++; j = lower.indexOf(q, j + q.length); }
+    const start = Math.max(0, idx - 40);
+    const snippet = text.slice(start, idx + q.length + 60).replace(/\s+/g, " ");
+    results.push({ path, count, snippet, idx: idx - start });
+    if (results.length >= 60) break;
+  }
+  results.sort((a, b) => b.count - a.count);
+  const wrap = document.createElement("div");
+  wrap.id = "results";
+  const head = document.createElement("p");
+  head.className = "muted";
+  head.style.padding = ".2rem .5rem";
+  head.textContent = results.length + " documenti trovati — svuota il campo per tornare all'indice";
+  wrap.appendChild(head);
+  for (const r of results) {
+    const div = document.createElement("div");
+    div.className = "res";
+    const b = document.createElement("b");
+    b.textContent = r.path;
+    const small = document.createElement("small");
+    small.innerHTML = esc(r.snippet.slice(0, r.idx)) + "<mark>" +
+      esc(r.snippet.slice(r.idx, r.idx + q.length)) + "</mark>" +
+      esc(r.snippet.slice(r.idx + q.length)) + " · " + r.count + " occorrenze";
+    div.appendChild(b); div.appendChild(small);
+    div.onclick = () => openFile(r.path);
+    wrap.appendChild(div);
+  }
+  if (!results.length) head.textContent = "Nessun risultato per “" + $("search").value + "”.";
+  nav.innerHTML = "";
+  nav.appendChild(wrap);
+}
+</script>
+</body>
+</html>

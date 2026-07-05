@@ -1,0 +1,33 @@
+name: system-audit
+
+# Audit continuo dei guardrail CompanyOS (ARCHITECTURE.md §8).
+# Gira su ogni push/PR: secret-scan e link-lint bloccano; frontmatter-check
+# e system-health sono informativi (il piano operativo vive su Drive e
+# arriva in git solo via snapshot).
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # secret-scan usa git ls-files
+
+      - name: Secret scan (blocca su segreti / file 🔴 fuori posto)
+        run: bash scripts/audit/secret-scan.sh
+
+      - name: Link lint (blocca su riferimenti di sistema rotti)
+        run: python3 scripts/audit/link-lint.py --strict
+
+      - name: Frontmatter check (report — non blocca)
+        run: python3 scripts/audit/frontmatter-check.py || true
+
+      - name: System health (report — non blocca)
+        run: python3 scripts/audit/system-health.py || true
