@@ -22,7 +22,7 @@ Due oggetti distinti, un terzo generato.
 - Ogni opportunità ha `account: {slug}` che punta all'account. Un account senza opportunità aperte è solo anagrafica/post-sale.
 - Ogni opportunità ha `segment:` (es. `segment-a` | `segment-b` | `msp-mssp` | `vendor-channel` | `tic` — l'ICP reale vive in `config/company.yaml`) per la lettura per-segmento nel board (colonna + subtotali). Allineato a `company/commerciale/segments.md`.
 - `opp-slug` = `{account}-{progetto|tipo}` (es. `acme-pilot`, `acme-vendor-agreement`, `acme-joint-project`).
-- La narrativa di lungo periodo del partner vive in `system/system/wiki/entities/clients/{slug}.md` (timeline). L'account è il SoT di stato; la wiki entity è solo storia + link all'account.
+- La narrativa di lungo periodo del partner vive in `system/wiki/entities/clients/{slug}.md` (timeline). L'account è il SoT di stato; la wiki entity è solo storia + link all'account.
 
 Template: `company/commerciale/opportunities/TEMPLATE.md` · `20-Clienti/TEMPLATE.md`.
 
@@ -129,7 +129,7 @@ Commit: `[sales] board: pipeline cockpit {YYYY-MM-DD}`.
 | Funnel segmento target (target list consolidata, warm/nurture/cold — l'ICP reale vive in `config/company.yaml`) | `company/commerciale/isp-funnel.md` |
 | Account (partner) | `20-Clienti/{slug}/overview.md` |
 | Template account | `20-Clienti/TEMPLATE.md` |
-| Timeline narrativa partner | `system/system/wiki/entities/clients/{slug}.md` |
+| Timeline narrativa partner | `system/wiki/entities/clients/{slug}.md` |
 | Feedback call | `company/commerciale/feedback/{YYYY-MM-DD}-{...}.md` |
 | KPI / coverage | `company/direzione/metrics/kpis.md` |
 | Decisione SoT pipeline | `decisions/2026-06-05-repo-sot-pipeline.md` (supera DEC-005) |

@@ -1,41 +1,61 @@
 # CompanyOS
 
-Sistema operativo aziendale AI — template pubblico OpenSource.
+🇮🇹 [Versione italiana](README.it.md)
 
-**Il principio**: due piani. Questo repo git è il **cervello** (agenti, protocolli, guardrail,
-config) e lo modifica solo l'admin. Il **corpo** è il folder Google Drive aziendale: lì lavorano
-founder e collaboratori — ognuno col proprio Claude Code dentro la propria zona — e i permessi
-sono le **ACL native di Drive**, non convenzioni.
+An AI-driven company operating system — a reusable template.
 
-→ Architettura completa: [ARCHITECTURE.md](ARCHITECTURE.md)
-→ Setup iniziale (Drive, service account, persone): [bootstrap/README.md](bootstrap/README.md)
+**The principle**: two planes. This git repo is the **brain** (agents, protocols, guardrails,
+config) and only the admin changes it. The **body** is the company's Google Drive folder:
+that's where the founder and collaborators work — each with their own Claude Code inside
+their own zone — and permissions are **native Drive ACLs**, not conventions.
 
-## Mappa del repo
+→ Full architecture: [ARCHITECTURE.md](ARCHITECTURE.md) ([EN](ARCHITECTURE.en.md))
+→ Initial setup (language, Drive, service account, people): [bootstrap/README.md](bootstrap/README.md) ([EN](bootstrap/README.en.md))
 
-| Path | Cosa |
+## Language
+
+On the first session the system asks your **working language** (Italian/English) and stores it
+in `config/company.yaml → language`: it governs chat replies, the language every generated
+markdown file is written in, and which variant of the system files is presented (Italian base
+files, `.en.md` English variants). You can switch at any time just by saying so in chat.
+Details: `os/protocols/language.md`.
+
+## Repo map
+
+| Path | What |
 |---|---|
-| `CLAUDE.md` | Kernel per le sessioni admin (questo repo) |
-| `os/agents/` · `os/skills/` · `os/workflows/` · `os/protocols/` | Il sistema: agenti per funzione, skill, workflow cross-agente, protocolli |
-| `zones/` | CLAUDE.md per zona Drive + contesto condiviso (pubblicati in sola lettura) |
-| `config/` | Parametri d'istanza: azienda, persone, ACL zone, integrazioni |
-| `company/` | Snapshot versionato delle zone operative Drive (il master è Drive) |
-| `vault/` | 🔴 finance & legal — solo admin |
-| `tools/osctl/` | Sync engine git ↔ Drive (bootstrap, publish, snapshot, acl-audit) |
-| `tools/viewer/` | Lettore markdown standalone per chi lavora nel folder Drive |
-| `scripts/audit/` | Guardrail meccanici (secret-scan, link-lint, frontmatter, health) — in CI e pre-commit |
+| `CLAUDE.md` | Kernel for admin sessions (this repo) |
+| `os/agents/` · `os/skills/` · `os/workflows/` · `os/protocols/` | The system: per-function agents, skills, cross-agent workflows, protocols (every file has an English `.en.md` variant) |
+| `zones/` | Per-zone Drive CLAUDE.md + shared context (published read-only) |
+| `config/` | Instance parameters (`*.example.yaml` to copy and fill in) |
+| `company/` | Versioned snapshot of the operational Drive zones (Drive is the master) |
+| `vault/` | 🔴 finance & legal & contracts — admin only |
+| `tools/osctl/` | git ↔ Drive sync engine (bootstrap, publish, snapshot, acl-audit) |
+| `tools/viewer/` | Standalone markdown reader for people working in the Drive folder |
+| `scripts/audit/` | Mechanical guardrails (secret-scan, link-lint, frontmatter, health) — in CI and pre-commit |
 | `system/` | CHANGELOG, learnings (LRN-XXX), wiki |
 
-## Quotidiano
+## Day to day
 
-- **Admin**: sessione in questo repo → `/ceo start` … `/ceo close` (snapshot, wiki, push).
-  Modifiche di sistema → changelog nello stesso commit → `osctl publish`.
-- **Collaboratore**: apre Claude Code nella propria cartella Drive (es. `10-Commerciale/`):
-  il CLAUDE.md di zona lo configura da solo. Scrive solo dove la ACL glielo permette.
-- **Lettura senza Claude**: i deliverable sono pubblicati anche come Google Doc;
-  il viewer (`_OS/viewer.html`) naviga tutti i `.md` della cartella aziendale.
+- **Admin**: session in this repo → `/ceo start` … `/ceo close` (snapshot, wiki, push).
+  System changes → changelog in the same commit → `osctl publish`.
+- **Collaborator**: opens Claude Code inside their Drive folder (e.g. `10-Commerciale/`):
+  the zone CLAUDE.md configures it automatically. They can only write where their ACL
+  allows; activation is progressive, one zone at a time
+  (`os/protocols/onboarding-collaborator.md`).
+- **Reading without Claude**: deliverables are also published as Google Docs;
+  the viewer (`_OS/viewer.html`) browses every `.md` in the company folder.
+
+## How to instantiate
+
+1. Clone this repo (private) for your company
+2. Open Claude Code at the repo root: the initial interview asks for language, company
+   identity and people → it fills in `config/*.yaml` from the `*.example.yaml` files
+3. Follow [bootstrap/README.md](bootstrap/README.md): Shared Drive, service account,
+   `osctl bootstrap`, progressive onboarding of your people
 
 ## Template
 
-Questo è il template pubblico **company-os**. Un'istanza privata lo popola con i propri dati
-(`config/`, `company/`, `vault/`, `zones/*/context/`); `/admin export-template` rigenera il
-template da un'istanza (config e dati svuotati, leak-scan automatico).
+A private instance fills `config/`, `company/`, `vault/`, `zones/*/context/` with its own
+data; `/admin export-template` regenerates this template from an instance (config and data
+emptied, automatic leak-scan).

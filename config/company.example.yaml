@@ -51,4 +51,7 @@ board:
   members: [<persona-key>, ...]   # chiavi da config/people.yaml
   term: "<durata mandato>"
 
-language: it          # lingua operativa del sistema
+# Lingua operativa (it | en) — scelta nell'intervista iniziale, cambiabile in qualsiasi
+# momento dicendolo in chat (os/protocols/language.md). Governa risposte, generazione md
+# e quale variante dei file di sistema viene presentata/pubblicata (.en.md se en).
+language: it

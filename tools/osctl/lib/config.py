@@ -300,6 +300,19 @@ class Config:
                 out[e.lower()] = k
         return out
 
+    # -- lingua ---------------------------------------------------------------
+
+    @property
+    def language(self):
+        """Lingua operativa da config/company.yaml (default: it). Vedi os/protocols/language.md."""
+        if not hasattr(self, "_language"):
+            try:
+                doc = load_yaml(os.path.join(self.root, "config", "company.yaml"))
+            except ConfigError:
+                doc = {}
+            self._language = str((doc or {}).get("language") or "it").lower()
+        return self._language
+
     # -- zone ----------------------------------------------------------------
 
     @property

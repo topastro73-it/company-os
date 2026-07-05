@@ -69,6 +69,16 @@ class Publisher:
         return fid
 
     def _put(self, local, folder_id, rel_label, name=None):
+        # Varianti lingua (os/protocols/language.md): i file `.en.md` non si pubblicano
+        # come entità a sé; con language=en sostituiscono il contenuto del file base.
+        if local.endswith(".en.md"):
+            self.count["skip"] += 1
+            return
+        if self.cfg.language == "en" and local.endswith(".md"):
+            variant = local[:-3] + ".en.md"
+            if os.path.isfile(variant):
+                name = name or os.path.basename(local)
+                local = variant
         if self.dry:
             print("  [dry-run] %s → %s" % (local, rel_label))
         else:

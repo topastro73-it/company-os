@@ -14,5 +14,7 @@ non negoziabili; qui c'è il dettaglio operativo. Ogni protocollo è auto-conten
 | [changelog.md](changelog.md) | Entry in `system/CHANGELOG.md` per ogni modifica di sistema, semver, checkpoint, rollback, publish |
 | [session-rituals.md](session-rituals.md) | Routine di start e close, per admin (repo) e collaboratori (zona Drive) |
 | [onboarding-collaborator.md](onboarding-collaborator.md) | Attivazione progressiva (per zona, via intervista) dei collaboratori sul Drive operativo |
+| [language.md](language.md) | Lingua operativa: scelta al setup, generazione md, varianti `.en.md`, cambio in chat |
 
 Workflow cross-agente in `os/workflows/` (indice in `os/workflows/README.md`).
+I file di sistema hanno varianti inglesi `.en.md` accanto (vedi language.md).
