@@ -86,7 +86,7 @@ Populate `## Aging Analysis`:
 
 ```bash
 git add vault/finance/fatturazione.md
-git commit -m "[cfo] fatture-in-cloud: sync invoices YYYY-MM-DD — N invoices, €X invoiced"
+git commit -m "[finance] fatture-in-cloud: sync invoices YYYY-MM-DD — N invoices, €X invoiced"
 ```
 
 ## Guardrails

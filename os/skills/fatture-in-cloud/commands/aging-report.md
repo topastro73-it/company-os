@@ -66,7 +66,7 @@ sezione Log risposte con alert:
 
 ```bash
 git add vault/finance/fatturazione.md company/direzione/metrics/kpis.md company/direzione/ceo-cadence.md
-git commit -m "[cfo] fatture-in-cloud: aging report YYYY-MM-DD — €X scaduto, N fatture"
+git commit -m "[finance] fatture-in-cloud: aging report YYYY-MM-DD — €X scaduto, N fatture"
 ```
 
 ## Soglie di azione

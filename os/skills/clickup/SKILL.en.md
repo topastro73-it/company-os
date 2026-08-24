@@ -80,7 +80,7 @@ Command: sync-spec | sync-roadmap | update-tasks
 |---|------|---------|---------|
 | 1 | CREATE Task | "Task Name" | List: Feature, Priority: High, Tags: from-companyos |
 | 2 | CREATE Subtask | "Subtask Name" | Parent: #1, Assignee: — |
-| 3 | UPDATE Task | CYB-123 | Status: In Progress → Done |
+| 3 | UPDATE Task | TASK-123 | Status: In Progress → Done |
 
 ## Confirmation
 

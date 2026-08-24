@@ -2,7 +2,8 @@
 
 ## Purpose
 Assess the security posture (of a feature, a component or overall) and
-propose mitigations. We sell cybersecurity: we must be more secure than our customers.
+propose mitigations. The bar is set by the product (`zones/_root/context/COMPANY.md`):
+if you hold customer data, you must be more secure than your customers.
 
 ## Input
 - Scope: feature/spec, component, integration, or overall posture
@@ -10,9 +11,9 @@ propose mitigations. We sell cybersecurity: we must be more secure than our cust
 ## Steps
 1. Load the scope (PRD or architecture) and the mapped controls in the `compliance` zone
    (ISO 27001 Annex A, NIS2 requirements) — the review speaks their language.
-2. **Essential threat modeling** on the scope: attack surface, actors (partner,
-   seller, SMB, external), critical assets (SMB scan data, credentials, PII).
-3. **Minimum checklist**: authn/authz across the 3 user levels and tenant isolation ·
+2. **Essential threat modeling** on the scope: attack surface, actors (the product's user
+   roles + the outside), critical assets (customer data, credentials, PII).
+3. **Minimum checklist**: authn/authz across every user role and tenant isolation ·
    input validation and injection · secrets management (never in repos/logs) · encryption
    at rest/in transit · logging and audit trail (without PII) · vulnerable dependencies ·
    backup and recovery.

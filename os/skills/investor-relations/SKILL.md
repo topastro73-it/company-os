@@ -302,7 +302,7 @@ Commit: `[ceo] investor: board meeting prep {data}`
 
 ### Output
 Aggiorna `vault/finance/cap-table.md`
-Commit: `[cfo] finance: updated cap table`
+Commit: `[finance] finance: updated cap table`
 
 ---
 

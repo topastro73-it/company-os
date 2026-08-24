@@ -69,7 +69,7 @@ For matched invoices:
 
 ```bash
 git add vault/finance/fatturazione.md company/direzione/metrics/kpis.md
-git commit -m "[cfo] qonto: reconciliation YYYY-MM — N invoices matched, €X collected"
+git commit -m "[finance] qonto: reconciliation YYYY-MM — N invoices matched, €X collected"
 ```
 
 ## Guardrails

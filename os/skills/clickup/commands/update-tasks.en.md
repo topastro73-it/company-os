@@ -117,7 +117,7 @@ clickup_create_task_comment(
 
 1. Move the file from `clickup-pending/` to `clickup-done/`
 2. If the updates derive from a spec, update the spec with the current state
-3. Commit: `[pm] clickup: update-tasks — N task aggiornati`
+3. Commit: `[product] clickup: update-tasks — N task aggiornati`
 
 ## Typical use cases
 

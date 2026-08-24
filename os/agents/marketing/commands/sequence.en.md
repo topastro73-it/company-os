@@ -5,7 +5,7 @@ Build an email sequence that warms up a segment over time (nurture), complementa
 to sales outbound (which belongs to Sales).
 
 ## Input
-- Target segment (ISP Tier-2, MSP, SMBs via partner…) · goal (cold to warm,
+- Target segment (from `config/company.yaml`) · goal (cold to warm,
   reactivation, content onboarding) · entry trigger (download, event, list)
 
 ## Steps

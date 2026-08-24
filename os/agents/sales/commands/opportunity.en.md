@@ -9,9 +9,10 @@ Create or update a single opportunity: stage, activities, blockers, closing.
 
 ## Steps
 1. **Create**: new file from the opportunity template; fill in the frontmatter (`account`, `segment`
-   ∈ telco-tier1 | isp-tier2 | msp-mssp | vendor-channel | tic, `stage`, `value-gross`,
-   `owner-sales`, `opened` and `last-activity` = today). Add the row to the account's
-   opportunity index (`commerciale/accounts/{slug}.md`).
+   ∈ segment-a | segment-b | segment-c | channel | other, `stage`, `value-gross`,
+   `owner-sales`, `opened` and `last-activity` = today). Your company's real segments
+   are declared in `config/company.yaml`: use those keys, not the placeholders.
+   Add the row to the account's opportunity index (`commerciale/accounts/{slug}.md`).
 2. **Move stage**: update `stage`, **recalculate** `probability` (stage map) and
    `value-weighted`; `last-activity` = today; entry in Timeline.
 3. **Log activity**: `last-activity` = today + entry in Timeline (who, what, outcome, next step).
@@ -28,7 +29,7 @@ zone: commerciale
 tier: 🟡
 type: opportunity
 account: {slug}
-segment: isp-tier2
+segment: segment-a
 stage: negotiation          # probability DERIVED: 20/30/40/60/80/100/0
 probability: 60
 value-gross: 48000

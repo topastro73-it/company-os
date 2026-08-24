@@ -1,14 +1,15 @@
-# /sales funnel — Funnel ISP Tier-2 / MSP
+# /sales funnel — Funnel di segmento
 
 ## Scopo
-Mantenere la target list consolidata del funnel: chi è attivo, chi è warm, chi è cold,
+Mantenere la target list consolidata del funnel dei segmenti dichiarati in
+`config/company.yaml`: chi è attivo, chi è warm, chi è cold,
 e cosa fare dopo per ciascuno.
 
 ## Input
 - Nessuno (lettura/report) oppure aggiornamenti ("sposta {azienda} a warm", "aggiungi {lista}")
 
 ## Passi
-1. Carica `commerciale/isp-funnel.md` — la target list consolidata.
+1. Carica `commerciale/target-funnel.md` — la target list consolidata.
 2. **Classifica** ogni target:
    - **Attivo**: conversazione in corso → deve esistere un'opportunità collegata
    - **Warm**: risposta/interesse ma non qualificato → next touch pianificato
@@ -27,7 +28,7 @@ tier: 🟡
 type: funnel
 updated: YYYY-MM-DD
 ---
-# Funnel ISP Tier-2 / MSP — {YYYY-MM-DD}
+# Funnel di segmento — {YYYY-MM-DD}
 
 ## Summary: attivi {n} · warm {n} · cold {n} · conversioni cold→warm→attivo del mese
 
@@ -39,7 +40,7 @@ updated: YYYY-MM-DD
 ```
 
 ## Destinazione
-Zona `commerciale` → `isp-funnel.md` (aggiornamento in place).
+Zona `commerciale` → `target-funnel.md` (aggiornamento in place).
 Commit (admin): `[sales] funnel: aggiornamento {YYYY-MM-DD}`.
 
 ## Handoff

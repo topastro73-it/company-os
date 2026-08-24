@@ -13,7 +13,7 @@ See at a glance where all onboarding partners are and what is behind schedule.
    next milestone with deadline.
 3. **Detect delays**: tasks past deadline, phase lasting longer than the planned weeks
    (SETUP >2, ENABLEMENT >2, LAUNCH >4, OPTIMIZE >4).
-4. **Critical milestones**: first scan (d.14), team trained (wk.4), first deal (wk.8),
+4. **Critical milestones**: first real product use (d.14), team trained (wk.4), first deal (wk.8),
    health baseline (wk.12) — if one is missed, the onboarding is at risk: flag it.
 5. For a single partner: also show the current phase's checklist with per-task status.
 
@@ -29,7 +29,7 @@ type: report
 | Partner | Phase | Wk. | Completion | Next milestone | Alert |
 |---|---|---|---|---|---|
 | {name} | LAUNCH | 6/12 | 75% | First deal (wk.8) | — |
-| {name} | SETUP | 2/12 | 40% | First scan (d.7) | task 1.4 behind schedule |
+| {name} | SETUP | 2/12 | 40% | First real use (d.7) | task 1.4 behind schedule |
 
 ## Delays and proposed actions (owner + deadline)
 ```

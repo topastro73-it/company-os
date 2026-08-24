@@ -4,6 +4,34 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.4.0] — feat: bonifica pre-pubblicazione + validazione degli slug
+
+Un audit pre-pubblicazione ha mostrato che la sanificazione dell'export era **lessicale, non
+semantica**: toglieva i nomi propri che aveva in lista, e si fermava lì. Quello che restava non
+era un segreto, ma bastava a ricostruire l'azienda sorgente.
+
+- fix(privacy): rimosso `toni@dna.fi` da `os/protocols/external-writes.md` (+ `.en.md`). Era un
+  **indirizzo email funzionante di una persona reale** presso un cliente telco, con nome e
+  riferimento a un artefatto di trattativa. Dato personale di un terzo, in un repo pubblico.
+- fix(privacy): i 6 ticket `CYB-123`/`CYB-456` → `TASK-…`. `CYB-` è il prefisso ClickUp
+  dell'istanza sorgente: una impronta digitale del workspace, corta ma cercabile.
+- fix(privacy): il verticale dell'istanza sorgente (ISP Tier-2 / MSP / Telco / TIC, NIS2 come
+  driver di domanda) era cablato in 22 coppie di file. Ora è parametrizzato su
+  `config/company.yaml`, seguendo il modello che `os/agents/AGENTS.md` già usava. NIS2
+  sopravvive come *esempio* di driver regolatorio, non come il driver del lettore.
+- fix(privacy): rimosse le affermazioni in prima persona sul settore ("Vendiamo cybersecurity",
+  "siamo B2B2B", "dati scan PMI"). Un template generico non può dire al lettore in che mercato
+  è. La guida operativa è conservata, riscritta come condizionale che punta a
+  `zones/_root/context/COMPANY.md`.
+- fix(convention): i 24 esempi con slug `[cfo]` e `[pm]` → `[finance]` e `[product]`. Quei due
+  agenti **non esistono in questo roster**: erano dell'istanza sorgente, e insegnavano
+  all'adottante a violare la convenzione del repo in cui scrive.
+- feat(audit): `scripts/audit/convention-check.py` — è il guardrail che avrebbe intercettato la
+  riga sopra. Deriva il roster da `os/agents/*/` (nessuna lista da mantenere a mano) e verifica
+  ogni `[slug]` negli esempi di commit. **Bloccante in CI.**
+- fix(privacy): rimossi i riferimenti a `DEC-005` e a un audit interno del 2026-07-03, entrambi
+  eventi dell'azienda sorgente citati in path che qui non esistono.
+
 ## [0.3.0] — feat: la parità IT/EN diventa un guardrail meccanico
 
 Il layer bilingue esisteva senza nulla che ne verificasse la tenuta: una traduzione poteva

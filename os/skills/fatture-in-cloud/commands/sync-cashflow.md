@@ -76,7 +76,7 @@ Aggiorna tabella `## Proiezione settimanale`.
 
 ```bash
 git add vault/finance/cashflow.md
-git commit -m "[cfo] fatture-in-cloud: sync cashflow YYYY-MM-DD — saldo €X, proiezione 12 sett"
+git commit -m "[finance] fatture-in-cloud: sync cashflow YYYY-MM-DD — saldo €X, proiezione 12 sett"
 ```
 
 ## Note

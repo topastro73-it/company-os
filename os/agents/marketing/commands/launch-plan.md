@@ -8,13 +8,13 @@ Trasformare una feature shipped in domanda e adozione, con effort proporzionato 
 
 ## Passi
 1. Carica la PRD e le release notes (`prodotto/releases/`) — si lancia solo ciò che è
-   **shipped** con UAT GO; verifica il beneficio per i 3 livelli (Partner, Venditore, PMI).
+   **shipped** con UAT GO; verifica il beneficio per ogni ruolo utente (es. Partner, Venditore, Cliente finale).
 2. **Classifica il lancio**:
    - **Tier 1** (major): blog post + email partner + social + sales enablement + webinar/demo
    - **Tier 2** (notable): blog post + email + changelog
    - **Tier 3** (minor): changelog e nota nelle release notes partner
 3. **Messaggio**: beneficio prima della feature; declinato per audience (il partner vuole
-   revenue, la PMI vuole protezione semplice).
+   revenue, il cliente finale vuole il risultato senza complessità).
 4. **Timeline**: pre-launch (asset pronti, sales brief) → launch day (pubblicazioni,
    invii) → post-launch (follow-up, raccolta feedback a 2 settimane).
 5. **Success metrics**: adozione (partner attivi sulla feature), traffico/lead, feedback.

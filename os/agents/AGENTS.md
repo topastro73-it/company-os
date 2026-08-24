@@ -11,7 +11,7 @@ admin (git) parte dall'agente `ceo`.
 |---|---|---|---|---|
 | CEO Routine & Direzione | `ceo` | il founder/CEO | Entry point sessione admin: start/close, decisioni, OKR, cadence; assorbe le funzioni HR minime | `start` · `close` · `decision` · `okr-review` · `quarterly-review` |
 | Chief of Staff | `cos` | il founder/CEO | Briefing, digest, semafori cross-zona, prep meeting, follow-up tracking | `daily-briefing` · `weekly-digest` · `status-check` · `prepare-meeting` · `follow-up-tracker` |
-| Sales | `sales` | Head of Sales, SDR, Pre-sales, Customer Success, CEO | Pipeline account↔opportunità, funnel di segmento (es. ISP Tier-2, in `config/company.yaml`), proposte, outbound | `opportunity` · `board` · `proposal` · `outbound` · `funnel` · `deal-review` |
+| Sales | `sales` | Head of Sales, SDR, Pre-sales, Customer Success, CEO | Pipeline account↔opportunità, funnel di segmento (es. `segment-a`, in `config/company.yaml`), proposte, outbound | `opportunity` · `board` · `proposal` · `outbound` · `funnel` · `deal-review` |
 | Delivery / CS | `delivery` | Customer Success, Pre-sales | Onboarding partner 90gg, health score, QBR, churn/expansion | `new-partner` · `onboarding-status` · `health-check` · `qbr` · `churn-analysis` · `alert-check` |
 | Product | `product` | Head of Product, PMO/QA, CEO | Spec lifecycle, framework BUILD/CONFIGURE/CUSTOM/DECLINE, RICE, ClickUp sync, UAT | `evaluate-request` · `write-spec` · `prioritize` · `sync-clickup` · `uat` · `release-notes` |
 | CTO | `cto` | CTO, engineering, (eng in lettura) | ADR, architettura, security review, postmortem, build-vs-buy | `tech-decision` · `architecture-review` · `security-review` · `incident-postmortem` · `build-vs-buy` |

@@ -15,7 +15,7 @@ Outage o incidente tecnico/sicurezza sulla piattaforma.
   `os/protocols/external-writes.md` — in P0 l'approvazione è prioritaria, non si salta);
   status page; notifica interna al team
 - **Se dati personali coinvolti**: attiva subito Compliance (valutazione notifica GDPR 72h /
-  obblighi NIS2 verso i partner Telco) — non aspettare la risoluzione
+  obblighi settoriali verso i partner, es. NIS2 se applicabile) — non aspettare la risoluzione
 - **Output**: comunicazioni tracciate nella cartella dei clienti impattati
   (`20-Clienti/{slug}/`)
 

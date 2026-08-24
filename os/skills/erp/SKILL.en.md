@@ -3,7 +3,7 @@
 Bidirectional integration with the ERP system via MCP Server and REST API.
 Allows reading, writing and syncing financial data, CRM, invoices, contracts and KPIs.
 
-> **Boundary with `financial-import`** (audit 2026-07-03): this skill is the *pipe* for **live data**
+> **Boundary with `financial-import`**: this skill is the *pipe* for **live data**
 > (sync via API). To interpret a **static JSON export** (MRR/burn/runway methodology + company-specific
 > rules) when the API is unavailable, use `os/skills/financial-import/SKILL.md`. They do not overlap.
 
@@ -106,7 +106,7 @@ Requires: `ERP_API_URL` and optionally `ERP_AUTH_TOKEN` as env vars.
 
 1. Run `python3 scripts/erp_sync.py sync-all`
 2. Verify that the 3 files were generated
-3. Commit: `[cfo] sync: ERP data update — invoices, cashflow, KPIs`
+3. Commit: `[finance] sync: ERP data update — invoices, cashflow, KPIs`
 
 ### Output
 - `vault/finance/fatturazione-erp.md`

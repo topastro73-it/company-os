@@ -47,7 +47,7 @@ Se il saldo totale differisce significativamente dalla "Cassa stimata" in `compa
 
 ```bash
 git add vault/finance/cashflow.md
-git commit -m "[cfo] qonto: sync saldi — €X.XXX totale disponibile"
+git commit -m "[finance] qonto: sync saldi — €X.XXX totale disponibile"
 ```
 
 ## Note

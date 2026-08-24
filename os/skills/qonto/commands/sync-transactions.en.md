@@ -58,5 +58,5 @@ Populate the `## Proiezione settimanale` section with actual data for past weeks
 
 ```bash
 git add vault/finance/cashflow.md
-git commit -m "[cfo] qonto: sync transactions YYYY-MM — €X inflows, €Y outflows"
+git commit -m "[finance] qonto: sync transactions YYYY-MM — €X inflows, €Y outflows"
 ```

@@ -1,18 +1,20 @@
 # /sales outbound — Sequenza outbound / ABM
 
 ## Scopo
-Creare o aggiornare una sequenza outbound per un segmento del funnel (ISP Tier-2, MSP, Telco).
+Creare o aggiornare una sequenza outbound per un segmento del funnel
+(i segmenti reali sono dichiarati in `config/company.yaml`).
 
 ## Input
-- Segmento target (da `zones/_root/context/` ICP) · obiettivo (meeting, assessment gratuito)
-- Lista target (da `commerciale/isp-funnel.md`) · canale (email, LinkedIn, telefono)
+- Segmento target (da `zones/_root/context/` ICP) · obiettivo (meeting, trial/valutazione gratuita)
+- Lista target (da `commerciale/target-funnel.md`) · canale (email, LinkedIn, telefono)
 
 ## Passi
-1. Carica il funnel (`commerciale/isp-funnel.md`) e i learnings outbound attivi.
+1. Carica il funnel (`commerciale/target-funnel.md`) e i learnings outbound attivi.
 2. **Definisci la sequenza**: 4-6 touch su 2-3 settimane, canali alternati.
    Per ogni touch: giorno, canale, obiettivo, messaggio (personalizzabile con variabili
    `{azienda}`, `{pain}`, `{trigger}`).
-3. **Messaggio**: parla del problema del segmento (es. NIS2 per le PMI clienti dell'ISP),
+3. **Messaggio**: parla del problema del segmento — il suo driver di acquisto
+   (regolatorio, es. una direttiva come NIS2; oppure di costo, rischio o crescita) —
    una sola CTA per touch, zero claim non supportati, zero feature non shipped.
 4. **Criteri di uscita**: risposta → passa a opportunità (`/sales opportunity` in discovery);
    no risposta dopo sequenza completa → nurture/cold nel funnel.
@@ -26,7 +28,7 @@ Creare o aggiornare una sequenza outbound per un segmento del funnel (ISP Tier-2
 zone: commerciale
 tier: 🟡
 type: sequence
-segment: isp-tier2
+segment: segment-a
 ---
 # Sequenza — {segmento} — {obiettivo}
 

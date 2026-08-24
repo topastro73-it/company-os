@@ -47,7 +47,7 @@ If the total balance differs significantly from the "Estimated cash" in `company
 
 ```bash
 git add vault/finance/cashflow.md
-git commit -m "[cfo] qonto: sync balances — €X.XXX total available"
+git commit -m "[finance] qonto: sync balances — €X.XXX total available"
 ```
 
 ## Notes

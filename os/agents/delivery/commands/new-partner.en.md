@@ -4,7 +4,7 @@
 Turn a won deal into a tracked 90-day onboarding, from day 1.
 
 ## Input
-- Partner name · type (Telco Tier-1 / regional ISP / MSP-MSSP) · contract tier
+- Partner name · type (partner segment, from `config/company.yaml`) · contract tier
 - Signature date · main contact (name, role, email) · contractual SMB target
 
 ## Steps
@@ -25,7 +25,7 @@ Turn a won deal into a tracked 90-day onboarding, from day 1.
 zone: clienti/{slug}
 tier: 🟡
 type: partner
-partner-type: isp-tier2
+partner-type: segment-a
 contract-tier: engage
 signed: YYYY-MM-DD
 onboarding-phase: setup

@@ -9,7 +9,7 @@ Understand why we lose (or risk losing) partners and SMBs, and what to change.
 ## Steps
 1. Scan all partner cards: churned in the period, health <60, SMBs lost per
    partner.
-2. **Churn rate**: partner-level and SMB-level, by segment (telco / ISP / MSP) and by tier.
+2. **Churn rate**: partner-level and end-customer-level, by segment (`config/company.yaml`) and by tier.
 3. **Root cause** for each churn or At-Risk/Critical: onboarding never completed? Salespeople
    engagement at zero? Value not perceived (low active SMBs)? Product problem? Price?
    Look for the pattern, not the anecdote — use the 5 indicators as a grid.

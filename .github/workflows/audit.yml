@@ -1,7 +1,8 @@
 name: system-audit
 
 # Audit continuo dei guardrail CompanyOS (ARCHITECTURE.md §8).
-# Gira su ogni push/PR: secret-scan, link-lint e i18n-parity bloccano;
+# Gira su ogni push/PR: secret-scan, link-lint, i18n-parity e convention-check
+# bloccano;
 # frontmatter-check e system-health sono informativi (il piano operativo vive
 # su Drive e arriva in git solo via snapshot).
 # i18n-parity usa la storia git per datare i file: richiede fetch-depth: 0.
@@ -29,6 +30,9 @@ jobs:
 
       - name: i18n parity (blocca su traduzioni mancanti o in deriva)
         run: python3 scripts/audit/i18n-parity.py --strict
+
+      - name: Convention check (blocca su slug di commit fuori roster)
+        run: python3 scripts/audit/convention-check.py --strict
 
       - name: Frontmatter check (report — non blocca)
         run: python3 scripts/audit/frontmatter-check.py || true

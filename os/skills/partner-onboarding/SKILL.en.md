@@ -107,7 +107,7 @@ Week      1-2    3-4       5-8        9-12
 
 ### Input
 - Partner name
-- Type (e.g. `segment-a` / `segment-b` / MSP-MSSP — the real ICP lives in `config/company.yaml`)
+- Type (e.g. `segment-a` / `segment-b` / `segment-c` — the real segments live in `config/company.yaml`)
 - Contract tier (see `config/company.yaml` → `pricing.tiers`, e.g. Starter / Professional / Scale / Enterprise)
 - Contract signature date
 - Main contact (name, role, email)

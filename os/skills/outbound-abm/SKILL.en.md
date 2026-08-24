@@ -31,7 +31,7 @@ Execution of Account-Based Marketing campaigns and personalized outbound sequenc
 ### Input
 - Target company name
 - Contact (name, role, LinkedIn URL if available)
-- Partner type (e.g. `segment-a` / `segment-b` / MSP-MSSP — the real ICP lives in `config/company.yaml`)
+- Partner type (e.g. `segment-a` / `segment-b` / `segment-c` — the real segments live in `config/company.yaml`)
 - Trigger event (why now? what happened?)
 - Referral available? (who can introduce us)
 
@@ -55,7 +55,7 @@ Execution of Account-Based Marketing campaigns and personalized outbound sequenc
 ## Target
 - Company: {name}
 - Contact: {name}, {role}
-- Type: {segment — e.g. segment-a/segment-b/MSP}
+- Type: {segment — e.g. segment-a/segment-b/segment-c}
 - Trigger event: {description}
 - Referral: {name or "None — cold outreach"}
 

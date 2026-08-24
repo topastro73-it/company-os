@@ -10,9 +10,9 @@ Evaluate the current architecture or a proposal: does it support the roadmap? Do
 1. Load the roadmap and incoming specs (`prodotto` zone) — the review is done against the
    expected future, not just the present; load the relevant ADRs.
 2. **Snapshot the current state**: components, dependencies, integrations (ClickUp/HubSpot/ERP…),
-   multi-tenancy (we are B2B2B: partner/SMB isolation is architecture, not a detail).
-3. **Evaluate by dimension**: scalability (does it support 10x partners/SMBs?), reliability and single
-   points of failure, security (attack surface, secrets, authz across the 3 levels),
+   multi-tenancy (if the product is multi-tenant, tenant isolation is architecture, not a detail).
+3. **Evaluate by dimension**: scalability (does it support 10x users/tenants?), reliability and single
+   points of failure, security (attack surface, secrets, authz across every role),
    maintainability and debt, infrastructure cost.
 4. **Compliance check**: does the architecture preserve the mapped controls (ISO 27001, NIS2)?
    Gaps → flag to `compliance` with severity.

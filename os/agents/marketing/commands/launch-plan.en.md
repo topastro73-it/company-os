@@ -8,13 +8,13 @@ Turn a shipped feature into demand and adoption, with effort proportional to its
 
 ## Steps
 1. Load the PRD and the release notes (`prodotto/releases/`) — only what is **shipped**
-   with UAT GO gets launched; verify the benefit for the 3 levels (Partner, Seller, SMB).
+   with UAT GO gets launched; verify the benefit for each user role (e.g. Partner, Seller, End customer).
 2. **Classify the launch**:
    - **Tier 1** (major): blog post + partner email + social + sales enablement + webinar/demo
    - **Tier 2** (notable): blog post + email + changelog
    - **Tier 3** (minor): changelog and note in the partner release notes
 3. **Message**: benefit before the feature; tailored per audience (the partner wants
-   revenue, the SMB wants simple protection).
+   revenue, the end customer wants the outcome without complexity).
 4. **Timeline**: pre-launch (assets ready, sales brief) → launch day (publications,
    sends) → post-launch (follow-up, feedback collection at 2 weeks).
 5. **Success metrics**: adoption (partners active on the feature), traffic/leads, feedback.

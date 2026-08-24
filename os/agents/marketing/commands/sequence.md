@@ -5,7 +5,7 @@ Costruire una sequenza email che scaldi un segmento nel tempo (nurture), complem
 all'outbound di vendita (che è di Sales).
 
 ## Input
-- Segmento target (ISP Tier-2, MSP, PMI via partner…) · obiettivo (da cold a warm,
+- Segmento target (da `config/company.yaml`) · obiettivo (da cold a warm,
   riattivazione, onboarding contenuti) · trigger di ingresso (download, evento, lista)
 
 ## Passi

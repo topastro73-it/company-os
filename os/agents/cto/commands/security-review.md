@@ -2,7 +2,8 @@
 
 ## Scopo
 Valutare la postura di sicurezza (di una feature, di un componente o complessiva) e
-proporre mitigazioni. Vendiamo cybersecurity: dobbiamo essere più sicuri dei nostri clienti.
+proporre mitigazioni. L'asticella la fissa il prodotto (`zones/_root/context/COMPANY.md`):
+se custodisci dati dei clienti, devi essere più sicuro di loro.
 
 ## Input
 - Scope: feature/spec, componente, integrazione, o postura complessiva
@@ -10,9 +11,9 @@ proporre mitigazioni. Vendiamo cybersecurity: dobbiamo essere più sicuri dei no
 ## Passi
 1. Carica lo scope (PRD o architettura) e i controlli mappati in zona `compliance`
    (ISO 27001 Annex A, requisiti NIS2) — la review parla la loro lingua.
-2. **Threat modeling essenziale** sullo scope: superficie di attacco, attori (partner,
-   venditore, PMI, esterno), asset critici (dati scan PMI, credenziali, PII).
-3. **Checklist minima**: authn/authz sui 3 livelli utente e isolamento tenant ·
+2. **Threat modeling essenziale** sullo scope: superficie di attacco, attori (i ruoli utente
+   del prodotto + l'esterno), asset critici (dati dei clienti, credenziali, PII).
+3. **Checklist minima**: authn/authz su ogni ruolo utente e isolamento tenant ·
    input validation e injection · secrets management (mai in repo/log) · encryption
    at rest/in transit · logging e audit trail (senza PII) · dipendenze vulnerabili ·
    backup e recovery.

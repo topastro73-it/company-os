@@ -113,7 +113,7 @@ La `markdown_description` di ogni Epic deve essere **autoconsistente**: il dev d
 [Cosa deve essere vero quando l'epic è completata]
 
 ## Utenti coinvolti
-[Partner MSP / Venditore Telco / PMI end-customer]
+[I ruoli utente del tuo prodotto — es. Partner / Venditore del partner / Cliente finale]
 
 ## Scope
 [IN scope. OUT scope.]
@@ -142,7 +142,7 @@ clickup_update_task(
 
 1. Aggiorna `company/prodotto/roadmap.md`: per ogni feature creata/aggiornata, aggiungi campo `clickup-epic: {task_id}`
 2. Sposta file di approvazione in `clickup-done/`
-3. Committa: `[pm] clickup: sync-roadmap → N epic creati, M aggiornati`
+3. Committa: `[product] clickup: sync-roadmap → N epic creati, M aggiornati`
 
 ## Note
 

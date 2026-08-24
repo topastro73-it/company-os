@@ -9,9 +9,10 @@ Creare o aggiornare una singola opportunità: stage, attività, blocker, chiusur
 
 ## Passi
 1. **Crea**: nuovo file da template opportunità; compila frontmatter (`account`, `segment`
-   ∈ telco-tier1 | isp-tier2 | msp-mssp | vendor-channel | tic, `stage`, `value-gross`,
-   `owner-sales`, `opened` e `last-activity` = oggi). Aggiungi la riga nell'indice
-   opportunità dell'account (`commerciale/accounts/{slug}.md`).
+   ∈ segment-a | segment-b | segment-c | channel | other, `stage`, `value-gross`,
+   `owner-sales`, `opened` e `last-activity` = oggi). I segmenti reali della tua azienda
+   sono dichiarati in `config/company.yaml`: usa quelle chiavi, non i placeholder.
+   Aggiungi la riga nell'indice opportunità dell'account (`commerciale/accounts/{slug}.md`).
 2. **Sposta stage**: aggiorna `stage`, **ricalcola** `probability` (mappa stage) e
    `value-weighted`; `last-activity` = oggi; voce in Timeline.
 3. **Logga attività**: `last-activity` = oggi + voce in Timeline (chi, cosa, esito, next step).
@@ -28,7 +29,7 @@ zone: commerciale
 tier: 🟡
 type: opportunity
 account: {slug}
-segment: isp-tier2
+segment: segment-a
 stage: negotiation          # probability DERIVATA: 20/30/40/60/80/100/0
 probability: 60
 value-gross: 48000

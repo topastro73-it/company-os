@@ -15,7 +15,7 @@ Outage or technical/security incident on the platform.
   `os/protocols/external-writes.md` — in P0 the approval is prioritized, not skipped);
   status page; internal notification to the team
 - **If personal data is involved**: activate Compliance immediately (GDPR 72h notification
-  assessment / NIS2 obligations toward Telco partners) — do not wait for resolution
+  assessment / sector obligations toward partners, e.g. NIS2 where applicable) — do not wait for resolution
 - **Output**: communications tracked in the impacted clients' folders
   (`20-Clienti/{slug}/`)
 

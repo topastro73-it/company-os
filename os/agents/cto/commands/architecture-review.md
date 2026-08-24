@@ -10,9 +10,9 @@ Valutare l'architettura corrente o una proposta: regge la roadmap? Scala? È sic
 1. Carica roadmap e spec in arrivo (zona `prodotto`) — la review si fa contro il futuro
    previsto, non solo contro il presente; carica gli ADR rilevanti.
 2. **Fotografa lo stato**: componenti, dipendenze, integrazioni (ClickUp/HubSpot/ERP…),
-   multi-tenancy (siamo B2B2B: isolamento partner/PMI è architettura, non dettaglio).
-3. **Valuta per dimensione**: scalabilità (regge 10x partner/PMI?), affidabilità e single
-   point of failure, sicurezza (superficie di attacco, secrets, authz sui 3 livelli),
+   multi-tenancy (se il prodotto è multi-tenant, l'isolamento fra tenant è architettura, non dettaglio).
+3. **Valuta per dimensione**: scalabilità (regge 10x utenti/tenant?), affidabilità e single
+   point of failure, sicurezza (superficie di attacco, secrets, authz su ogni ruolo),
    mantenibilità e debito, costo infrastrutturale.
 4. **Compliance check**: l'architettura mantiene i controlli mappati (ISO 27001, NIS2)?
    Gap → segnala a `compliance` con severità.

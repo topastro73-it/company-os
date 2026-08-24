@@ -107,7 +107,7 @@ Settimana  1-2    3-4       5-8        9-12
 
 ### Input
 - Nome partner
-- Tipo (es. `segment-a` / `segment-b` / MSP-MSSP — l'ICP reale vive in `config/company.yaml`)
+- Tipo (es. `segment-a` / `segment-b` / `segment-c` — i segmenti reali vivono in `config/company.yaml`)
 - Tier contrattuale (vedi `config/company.yaml` → `pricing.tiers`, es. Starter / Professional / Scale / Enterprise)
 - Data firma contratto
 - Contatto principale (nome, ruolo, email)

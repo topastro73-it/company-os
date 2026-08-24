@@ -1,6 +1,6 @@
 # Financial Import Skill
 
-**Boundary with the `erp` skill (delimited in the 2026-07-03 audit):**
+**Boundary with the `erp` skill:**
 - **`erp`** = *pipe* for syncing **live data** via ERP API (`scripts/erp_sync.py sync-*`) →
   updates `vault/finance/*` and `company/direzione/metrics/kpis.md`. Use it when `ERP_API_URL` is configured.
 - **`financial-import`** (this one) = *methodology* for parsing and analyzing a **static JSON export**
@@ -143,7 +143,7 @@ To read the pipeline:
 - `<stage-id>` = Won (prob. 100%)
 - `<stage-id>` = Lost (prob. 0%)
 
-**Warning**: many deals in Discovery have amount = €1 (placeholder). Filter them out or flag them as "value TBD" in the analysis.
+**Warning**: early-stage deals may carry a placeholder `amount` (e.g. €1) instead of the real value. Detect them, then filter them out or flag them as "value TBD" in the analysis.
 
 #### Step 4 — Analyses to produce
 
@@ -162,7 +162,7 @@ To read the pipeline:
 
 1. Update `company/direzione/metrics/kpis.md` with the actual numbers
 2. Save the full report in `vault/finance/reports/burn-analysis-{YYYY-MM-DD}.md`
-3. Commit: `[cfo] analysis: financial import and burn analysis from production export`
+3. Commit: `[finance] analysis: financial import and burn analysis from production export`
 
 ### Guardrails
 

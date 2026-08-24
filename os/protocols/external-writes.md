@@ -37,8 +37,8 @@ Data: YYYY-MM-DD · Agente: {slug} · Sorgente: {file spec/pipeline/thread}
 | # | Tipo | Oggetto | Dettagli |
 |---|------|---------|---------|
 | 1 | CREATE Task | "Nome task" | List: Feature, Priority: High, Status: Backlog |
-| 2 | UPDATE Task | CYB-123 | Status: In Progress → Done |
-| 3 | CREATE Draft | a: toni@dna.fi | Oggetto: "Pilot annex", allegato: … |
+| 2 | UPDATE Task | TASK-123 | Status: In Progress → Done |
+| 3 | CREATE Draft | a: {destinatario} | Oggetto: "Pilot annex", allegato: … |
 
 ## Conferma
 Rivedi le azioni, poi: `/{agente} approve {path-del-file}`. Per annullare: status → cancelled.
@@ -59,7 +59,7 @@ file specifico). Regole:
 ## Fase 3 — EXECUTE
 
 L'agente esegue le azioni approvate via MCP, nell'ordine del file:
-1. Ogni azione eseguita viene marcata nel file con esito e ID creato (es. `→ done, task CYB-456`)
+1. Ogni azione eseguita viene marcata nel file con esito e ID creato (es. `→ done, task TASK-456`)
 2. Errore su un'azione → si annota, si prosegue con le successive, si riporta il bilancio finale
 3. Al termine: `status: executed`, file spostato nella cartella `*-done/` corrispondente
 4. Summary in chat: azioni riuscite/fallite, link agli oggetti creati

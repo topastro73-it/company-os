@@ -80,7 +80,7 @@ Se il task ha bisogno di dati specifici per essere completato (es. pesi di uno s
 [Cosa deve essere vero quando questa epic è completata — da punto di vista utente e business]
 
 ## Utenti coinvolti
-[Chi usa questa feature: Partner MSP / Venditore Telco / PMI end-customer]
+[Chi usa questa feature: i ruoli utente del tuo prodotto — es. Partner / Venditore del partner / Cliente finale]
 
 ## Scope
 [Cosa è IN scope. Cosa è esplicitamente OUT scope.]
@@ -234,7 +234,7 @@ Stampa a schermo ogni azione:
    - Se la spec ha già un Doc (`clickup-doc:` nel frontmatter) → aggiorna la pagina esistente con `clickup_update_document_page` (content replace completo)
    - Aggiorna il frontmatter della spec con `clickup-doc: "[{doc_id}](https://app.clickup.com/<workspace-id>/v/dc/{doc_id})"`
    - Questo link è quello che va nella sezione References dei task ClickUp, così il dev clicca e arriva alla spec
-6. Committa: `[pm] clickup: sync-spec {nome-spec} → Epic abc123 + N tasks`
+6. Committa: `[product] clickup: sync-spec {nome-spec} → Epic abc123 + N tasks`
 
 ### Regola di allineamento bidirezionale Spec ↔ ClickUp
 

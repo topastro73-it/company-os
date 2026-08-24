@@ -4,6 +4,34 @@ Every change to system files (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tools/`)
 an entry here in the same commit. Categories: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. After merging a system change → `osctl publish` to distribute it to Drive.
 
+## [0.4.0] — feat: pre-publication sanitization + agent-slug validation
+
+A pre-publication audit showed the export's sanitization was **lexical, not semantic**: it removed
+the proper nouns it had a list for, and stopped there. What remained was not a secret, but it was
+enough to reconstruct the source company.
+
+- fix(privacy): removed `toni@dna.fi` from `os/protocols/external-writes.md` (+ `.en.md`). It was a
+  **working email address of a real person** at a telco customer, with their name and a reference
+  to a deal artifact. Third-party personal data, in a public repo.
+- fix(privacy): the 6 `CYB-123`/`CYB-456` tickets → `TASK-…`. `CYB-` is the source instance's
+  ClickUp prefix: a short but searchable fingerprint of that workspace.
+- fix(privacy): the source instance's vertical (ISP Tier-2 / MSP / Telco / TIC, NIS2 as the demand
+  driver) was hardcoded across 22 file pairs. It is now parameterized on `config/company.yaml`,
+  following the pattern `os/agents/AGENTS.md` already used. NIS2 survives as *an example* of a
+  regulatory driver, not as the reader's driver.
+- fix(privacy): removed the first-person industry claims ("we sell cybersecurity", "we are B2B2B",
+  "SMB scan data"). A generic template cannot tell the reader what market they are in. The
+  operational guidance is preserved, rewritten as conditionals pointing at
+  `zones/_root/context/COMPANY.md`.
+- fix(convention): the 24 examples using `[cfo]` and `[pm]` → `[finance]` and `[product]`. Neither
+  agent **exists in this roster**: they belonged to the source instance, and they taught adopters
+  to break the commit convention of the repo they are writing in.
+- feat(audit): `scripts/audit/convention-check.py` — the guardrail that would have caught the line
+  above. It derives the roster from `os/agents/*/` (no hand-maintained list) and validates every
+  `[slug]` in commit examples. **Blocking in CI.**
+- fix(privacy): removed references to `DEC-005` and to an internal audit dated 2026-07-03, both
+  events of the source company cited in paths that do not exist here.
+
 ## [0.3.0] — feat: IT/EN parity becomes a mechanical guardrail
 
 The bilingual layer existed with nothing verifying that it held. A translation could be missing,

@@ -9,7 +9,7 @@ Capire perché perdiamo (o rischiamo di perdere) partner e PMI, e cosa cambiare.
 ## Passi
 1. Scansiona tutte le schede partner: churned nel periodo, health <60, PMI perse per
    partner.
-2. **Churn rate**: partner-level e PMI-level, per segmento (telco / ISP / MSP) e per tier.
+2. **Churn rate**: partner-level e cliente-finale-level, per segmento (`config/company.yaml`) e per tier.
 3. **Root cause** per ogni churn o At-Risk/Critical: onboarding mai completato? Engagement
    venditori a zero? Value non percepito (PMI attive basse)? Problema di prodotto? Prezzo?
    Cerca il pattern, non l'aneddoto — usa i 5 indicatori come griglia.

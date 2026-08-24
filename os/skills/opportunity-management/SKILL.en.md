@@ -4,7 +4,7 @@ Management of the **commercial cockpit**: account↔opportunity data model, pipe
 
 Primary owner: **Sales**. Used by: Sales, Chief of Staff, CEO Routine, CFO (for coverage/forecast).
 
-> Reference decision: **the repo is the source of truth for the pipeline** (supersedes DEC-005). HubSpot remains an optional external CRM; the `hubspot-id` field keeps the link but is not the source.
+> Reference decision: **the repo is the source of truth for the pipeline**. HubSpot remains an optional external CRM; the `hubspot-id` field keeps the link but is not the source.
 
 ---
 
@@ -20,7 +20,7 @@ Two distinct objects, a third one generated.
 
 **Relationship rules:**
 - Every opportunity has `account: {slug}` pointing to the account. An account with no open opportunities is just master data / post-sale.
-- Every opportunity has `segment:` (e.g. `segment-a` | `segment-b` | `msp-mssp` | `vendor-channel` | `tic` — the real ICP lives in `config/company.yaml`) for per-segment reading on the board (column + subtotals). Aligned with `company/commerciale/segments.md`.
+- Every opportunity has `segment:` (e.g. `segment-a` | `segment-b` | `segment-c` | `channel` | `other` — the real segments live in `config/company.yaml`) for per-segment reading on the board (column + subtotals). Aligned with `company/commerciale/segments.md`.
 - `opp-slug` = `{account}-{project|type}` (e.g. `acme-pilot`, `acme-vendor-agreement`, `acme-joint-project`).
 - The partner's long-term narrative lives in `system/wiki/entities/clients/{slug}.md` (timeline). The account is the SoT for state; the wiki entity is only history + link to the account.
 
@@ -126,10 +126,10 @@ Commit: `[sales] board: pipeline cockpit {YYYY-MM-DD}`.
 | Opportunity template | `company/commerciale/opportunities/TEMPLATE.md` |
 | Opportunities | `company/commerciale/opportunities/{opp-slug}.md` |
 | Board / cockpit | `company/commerciale/PIPELINE.md` |
-| Target segment funnel (consolidated target list, warm/nurture/cold — the real ICP lives in `config/company.yaml`) | `company/commerciale/isp-funnel.md` |
+| Target segment funnel (consolidated target list, warm/nurture/cold — the real ICP lives in `config/company.yaml`) | `company/commerciale/target-funnel.md` |
 | Account (partner) | `20-Clienti/{slug}/overview.md` |
 | Account template | `20-Clienti/TEMPLATE.md` |
 | Partner narrative timeline | `system/wiki/entities/clients/{slug}.md` |
 | Call feedback | `company/commerciale/feedback/{YYYY-MM-DD}-{...}.md` |
 | KPI / coverage | `company/direzione/metrics/kpis.md` |
-| Pipeline SoT decision | `decisions/2026-06-05-repo-sot-pipeline.md` (supersedes DEC-005) |
+| Pipeline SoT decision | `company/direzione/decisions/{YYYY-MM-DD}-repo-sot-pipeline.md` |

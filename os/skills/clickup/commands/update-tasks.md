@@ -117,7 +117,7 @@ clickup_create_task_comment(
 
 1. Sposta file da `clickup-pending/` a `clickup-done/`
 2. Se gli aggiornamenti derivano da una spec, aggiorna la spec con lo stato corrente
-3. Committa: `[pm] clickup: update-tasks — N task aggiornati`
+3. Committa: `[product] clickup: update-tasks — N task aggiornati`
 
 ## Casi d'uso tipici
 

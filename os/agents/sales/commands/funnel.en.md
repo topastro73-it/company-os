@@ -1,14 +1,15 @@
-# /sales funnel — ISP Tier-2 / MSP funnel
+# /sales funnel — Segment funnel
 
 ## Purpose
-Maintain the consolidated funnel target list: who is active, who is warm, who is cold,
+Maintain the consolidated target list for the segments declared in
+`config/company.yaml`: who is active, who is warm, who is cold,
 and what to do next for each.
 
 ## Input
 - None (read/report) or updates ("move {company} to warm", "add {list}")
 
 ## Steps
-1. Load `commerciale/isp-funnel.md` — the consolidated target list.
+1. Load `commerciale/target-funnel.md` — the consolidated target list.
 2. **Classify** each target:
    - **Active**: conversation in progress → a linked opportunity must exist
    - **Warm**: reply/interest but not qualified → next touch planned
@@ -27,7 +28,7 @@ tier: 🟡
 type: funnel
 updated: YYYY-MM-DD
 ---
-# ISP Tier-2 / MSP Funnel — {YYYY-MM-DD}
+# Segment Funnel — {YYYY-MM-DD}
 
 ## Summary: active {n} · warm {n} · cold {n} · cold→warm→active conversions this month
 
@@ -39,7 +40,7 @@ updated: YYYY-MM-DD
 ```
 
 ## Destination
-`commerciale` zone → `isp-funnel.md` (in-place update).
+`commerciale` zone → `target-funnel.md` (in-place update).
 Commit (admin): `[sales] funnel: update {YYYY-MM-DD}`.
 
 ## Handoff
