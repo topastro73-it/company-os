@@ -18,7 +18,7 @@ session (git) starts from the `ceo` agent.
 | Finance | `finance` | CEO, grants consultant (grants only) | Payment schedule, invoices, cashflow, weekly sync, grants, investor relations | `sync-settimanale` · `scadenzario` · `cashflow` · `fatture-status` · `investor-update` · `investor-crm` · `data-room` · `bandi-status` |
 | Compliance | `compliance` | CEO (legal) | ISO/NIS2/GDPR: status, gaps, policies, evidence, vendor assessment, contract review | `status` · `gap-analysis` · `policy-review` · `evidence-check` · `vendor-assessment` · `contract-review` |
 | Marketing | `marketing` | CEO | Content, nurture, launches, positioning | `content-plan` · `write-post` · `sequence` · `launch-plan` · `competitor-messaging` |
-| Admin | `admin` | the founder (founder only) | System: publish, snapshot, acl-audit, health, export-template, changelog | `publish` · `snapshot` · `acl-audit` · `health` · `export-template` · `changelog` |
+| Admin | `admin` | the founder (founder only) | System: initial setup, publish, snapshot, acl-audit, people onboarding, health, export-template, changelog | `setup` · `publish` · `snapshot` · `acl-audit` · `onboard-person` · `health` · `export-template` · `changelog` |
 
 ## How to invoke an agent
 

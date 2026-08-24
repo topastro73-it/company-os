@@ -2,7 +2,7 @@
 
 Integration with Qonto (online bank) via API v2.
 Syncs balances and bank transactions, and reconciles them with invoicing data.
-Used by CFO, CEO, Chief of Staff.
+Used by Finance, CEO, Chief of Staff.
 
 ## Prerequisites
 
@@ -17,8 +17,10 @@ security add-generic-password -a "qonto" -s "QONTO_SECRET" -w "<secret-da-qonto>
 
 The secret key can be retrieved from Qonto → Integrations → API key.
 
-Scripts: `scripts/qonto.sh` (wrapper) → `scripts/qonto_sync.py` (Python)
-Dependencies: `pip3 install requests`
+Scripts: `scripts/integrations/bank-qonto.sh` (wrapper) → `scripts/integrations/bank_qonto_sync.py`
+Dependencies: **none**, standard library only. These are working examples shipped with the template
+(`scripts/integrations/README.md`): if you use Qonto they work as they are, otherwise they are a
+model to adapt to your own bank.
 
 The bash wrapper reads the credentials from the Keychain and exports the env vars to the
 Python process. No plaintext credentials in the repo: the variable names are catalogued in `config/integrations.yaml`.
@@ -29,20 +31,22 @@ Python process. No plaintext credentials in the repo: the variable names are cat
 |---------|------------|--------|
 | `sync-balance` | Reads Qonto account balances | Updates `vault/finance/cashflow.md` balances section |
 | `sync-transactions` | Downloads the month's transactions | Transactions report + updates cashflow |
-| `reconcile` | Cross-matches Qonto transactions with FIC invoices | Identifies collected invoices / unreconciled payments |
+| `reconcile` | Cross-matches transactions with invoices | Identifies collected invoices / unreconciled payments |
+
+> ⚠️ `reconcile` is an **agent** command, not a script one: the agent does the matching by reading
+> transactions and invoices. The example script only exposes `balance` and `transactions`.
 
 ## Authorized agents
 
-CFO (owner), CEO, Chief of Staff
+Finance (owner), CEO, Chief of Staff
 
 ## Standard flow
 
 Wrapper command (reads Keychain automatically):
 
 ```bash
-bash scripts/qonto.sh balance                    # account balances
-bash scripts/qonto.sh transactions --month 2026-04
-bash scripts/qonto.sh reconcile --month 2026-04
+bash scripts/integrations/bank-qonto.sh balance                    # account balances
+bash scripts/integrations/bank-qonto.sh transactions --month 2026-04
 ```
 
 Agent invocation:

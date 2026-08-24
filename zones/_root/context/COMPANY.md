@@ -7,8 +7,8 @@ tier: 🟡
 
 > **Template.** Compila questo file con l'identità della tua azienda: è il contesto che
 > ogni agente carica all'inizio di una sessione. Tienilo allineato a `config/company.yaml`
-> (questo file è la versione narrativa, lo YAML è quella strutturata). In fase di setup puoi
-> generarlo dall'intervista iniziale al founder.
+> (questo file è la versione narrativa, lo YAML è quella strutturata). In fase di setup lo
+> genera `/admin setup` dall'intervista iniziale al founder.
 
 ## One-liner
 <La frase che descrive cosa fai, per chi, e il valore unico.>

@@ -47,8 +47,8 @@ cambiare in qualsiasi momento dicendolo in chat. Dettagli: `os/protocols/languag
 ## Come si istanzia
 
 1. Clona il repo (privato) per la tua azienda
-2. Apri Claude Code nella root: l'intervista iniziale chiede lingua, identità azienda,
-   persone → compila `config/*.yaml` dai `*.example.yaml`
+2. Apri Claude Code nella root e lancia `/admin setup`: l'intervista iniziale chiede lingua,
+   identità azienda, persone e strumenti → compila `config/*.yaml` dai `*.example.yaml`
 3. Segui [bootstrap/README.md](bootstrap/README.md): Shared Drive, service account,
    `osctl bootstrap`, onboarding progressivo delle persone
 

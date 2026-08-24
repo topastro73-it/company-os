@@ -56,11 +56,14 @@ Architettura completa: `ARCHITECTURE.md`. Sessione qui = sessione **admin** (fou
    (`os/protocols/memory.md`). Fine sessione admin → `/ceo close` (snapshot, wiki, commit, push, health).
 10. **Guardrail meccanici verdi**: `scripts/audit/` gira in CI e pre-commit; `osctl acl-audit`
     controlla il drift dei permessi Drive. Se rosso, si ferma e si sistema.
-11. **Lingua** (`os/protocols/language.md`): la lingua operativa è `config/company.yaml →
-    language` (`it` | `en`). Su un'istanza nuova senza `language` impostata, **chiedila prima
-    di generare qualsiasi cosa**. Risposte in chat e ogni file md generato usano quella lingua;
-    con `en` carica/presenta le varianti `.en.md` dei file di sistema. L'utente può cambiarla
-    in qualsiasi momento dicendolo in chat → aggiorna la config e ripubblica.
+11. **Istanza nuova e lingua** (`os/protocols/language.md`): la lingua operativa è
+    `config/company.yaml → language` (`it` | `en`). Su un'istanza nuova (manca
+    `config/company.yaml`) esegui `/admin setup` (`os/agents/admin/commands/setup.md`):
+    l'intervista iniziale parte dalla domanda sulla lingua, **prima di generare qualsiasi
+    cosa**, e prosegue con azienda, persone e strumenti. Risposte in chat e ogni file md
+    generato usano quella lingua; con `en` carica/presenta le varianti `.en.md` dei file di
+    sistema. L'utente può cambiarla in qualsiasi momento dicendolo in chat → aggiorna la
+    config e ripubblica.
 
 ## Commit format
 

@@ -58,11 +58,13 @@ Full architecture: `ARCHITECTURE.md`. A session here is an **admin** session (fo
    push, health).
 10. **Mechanical guardrails green**: `scripts/audit/` runs in CI and pre-commit; `osctl acl-audit`
     checks Drive permission drift. If red, stop and fix.
-11. **Language** (`os/protocols/language.md`): the operating language is `config/company.yaml →
-    language` (`it` | `en`). On a fresh instance with no `language` set, **ask for it before
-    generating anything**. Chat replies and every generated md file use that language; with `en`,
-    load and present the `.en.md` variants of the system files. The user can change it at any
-    time by saying so in chat → update the config and republish.
+11. **Fresh instance and language** (`os/protocols/language.md`): the operating language is
+    `config/company.yaml → language` (`it` | `en`). On a fresh instance (no
+    `config/company.yaml`) run `/admin setup` (`os/agents/admin/commands/setup.md`): the
+    initial interview starts with the language question, **before generating anything**, and
+    goes on with company, people and tools. Chat replies and every generated md file use that
+    language; with `en`, load and present the `.en.md` variants of the system files. The user
+    can change it at any time by saying so in chat → update the config and republish.
 
 ## Commit format
 

@@ -4,17 +4,50 @@ Every change to system files (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tools/`)
 an entry here in the same commit. Categories: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. After merging a system change → `osctl publish` to distribute it to Drive.
 
+## [0.5.0] — feat: MIT license, setup interview, reusable example scripts
+
+The template promised an initial interview in five documents and implemented it in none: whoever
+cloned it was asked their language and then left alone. That was the worst defect for a system that
+lives on its first run.
+
+- feat(legal): added an **MIT** `LICENSE`. Without one the default is all rights reserved: nobody
+  could legally reuse the template the README invites them to reuse.
+- feat(agents): `os/agents/admin/commands/setup.md` (+ `.en.md`) — the initial interview, written for
+  people who are **not technical**. Six phases with binding conduct rules: one question at a time,
+  "I don't know" always offered as a valid answer, no jargon without an immediate translation,
+  progressive writing (an interrupted setup resumes rather than restarts), never a secret dictated
+  in chat. Phase 3 scans the stack by category (bank, invoicing/ERP, payments, CRM, tasks, email,
+  documents, compliance) and for each one **proposes what the template already ships** instead of
+  leaving the field open. Phase 4, the only genuinely technical one, offers a way out: step-by-step
+  guidance, or instructions to hand to whoever runs IT.
+- feat(scripts): new `scripts/integrations/` directory with the first two **working** examples,
+  `bank-qonto.sh` and `bank_qonto_sync.py` (balances and transactions, **read-only**, no
+  dependencies). These are not skeletons: it is code in use in a real deployment, sanitized. The
+  header is written for non-programmers. The Keychain account name is configurable and it works off
+  macOS via environment variables. Bank coordinates are no longer read or printed.
+- fix(skills): `os/skills/qonto/` carried **three false claims**: it pointed at non-existent scripts,
+  declared a `pip install requests` dependency that is not needed, and documented a `reconcile`
+  subcommand the script never implemented. All three fixed, plus the 6 command files.
+- fix(agents): `os/agents/AGENTS.md` did not list `onboard-person`, which exists and is documented in
+  its own agent: anyone reading the index believed the command did not exist.
+- fix(audit): `scripts/audit/system-health.py` counted the format example inside the fenced code
+  block as a learning, so a pristine clone showed an undeserved 🔴 — the first thing a cloner saw
+  was a red light. It now strips fenced blocks and withholds judgement below 3 entries (a percentage
+  over 1 sample is noise).
+- fix(audit): removed three dead entries from `link-lint-allow.txt`, including the two Qonto paths
+  that now exist elsewhere: they were masking a genuinely broken reference.
+
 ## [0.4.0] — feat: pre-publication sanitization + agent-slug validation
 
 A pre-publication audit showed the export's sanitization was **lexical, not semantic**: it removed
 the proper nouns it had a list for, and stopped there. What remained was not a secret, but it was
 enough to reconstruct the source company.
 
-- fix(privacy): removed `toni@dna.fi` from `os/protocols/external-writes.md` (+ `.en.md`). It was a
+- fix(privacy): removed a real email address from `os/protocols/external-writes.md` (+ `.en.md`). It was a
   **working email address of a real person** at a telco customer, with their name and a reference
   to a deal artifact. Third-party personal data, in a public repo.
-- fix(privacy): the 6 `CYB-123`/`CYB-456` tickets → `TASK-…`. `CYB-` is the source instance's
-  ClickUp prefix: a short but searchable fingerprint of that workspace.
+- fix(privacy): the 6 example tickets used the source instance's real ClickUp prefix → `TASK-…`.
+  A short but searchable fingerprint of that workspace.
 - fix(privacy): the source instance's vertical (ISP Tier-2 / MSP / Telco / TIC, NIS2 as the demand
   driver) was hardcoded across 22 file pairs. It is now parameterized on `config/company.yaml`,
   following the pattern `os/agents/AGENTS.md` already used. NIS2 survives as *an example* of a
@@ -23,8 +56,8 @@ enough to reconstruct the source company.
   "SMB scan data"). A generic template cannot tell the reader what market they are in. The
   operational guidance is preserved, rewritten as conditionals pointing at
   `zones/_root/context/COMPANY.md`.
-- fix(convention): the 24 examples using `[cfo]` and `[pm]` → `[finance]` and `[product]`. Neither
-  agent **exists in this roster**: they belonged to the source instance, and they taught adopters
+- fix(convention): 24 examples used two agent slugs inherited from the source instance →
+  `[finance]` and `[product]`. Neither agent **exists in this roster**: they belonged to the source instance, and they taught adopters
   to break the commit convention of the repo they are writing in.
 - feat(audit): `scripts/audit/convention-check.py` — the guardrail that would have caught the line
   above. It derives the roster from `os/agents/*/` (no hand-maintained list) and validates every

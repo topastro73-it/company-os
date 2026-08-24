@@ -18,7 +18,7 @@ CFO, CEO, Chief of Staff
 ### Step 1 — Download transactions via script
 
 ```bash
-python3 scripts/qonto_sync.py transactions --month 2026-03
+python3 scripts/integrations/bank_qonto_sync.py transactions --month 2026-03
 ```
 
 The script calls `GET /v2/transactions` with:

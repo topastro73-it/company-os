@@ -28,6 +28,7 @@ that can be a script, is a script), traceable (no change without a changelog).
 
 | Command | What it does | Output |
 |---|---|---|
+| `/admin setup` | Initial interview: language, company, people, tools (fresh instance) | `config/*.yaml` + `zones/_root/context/COMPANY.md` |
 | `/admin publish` | git → Drive: system and seeds to the zones (gated) | Drive `_OS/` + zones |
 | `/admin snapshot` | Drive → git: operational zones into `company/` and `vault/` | commit `[snapshot]` |
 | `/admin acl-audit` | Actual Drive permissions vs `config/acl.yaml` (drift) | report + proposed fixes |

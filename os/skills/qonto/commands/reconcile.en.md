@@ -24,7 +24,7 @@ Run first:
 ### Step 1 — Load data
 
 1. Read `vault/finance/fatturazione.md` → invoice list with status and amount
-2. Run `python3 scripts/qonto_sync.py transactions --month YYYY-MM` → bank transactions
+2. Run `python3 scripts/integrations/bank_qonto_sync.py transactions --month YYYY-MM` → bank transactions
 
 ### Step 2 — Automatic matching
 

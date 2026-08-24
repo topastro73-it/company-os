@@ -17,7 +17,7 @@ CFO, CEO, Chief of Staff
 ### Step 1 — Read balances via script
 
 ```bash
-python3 scripts/qonto_sync.py balance
+python3 scripts/integrations/bank_qonto_sync.py balance
 ```
 
 The script calls `GET /v2/organization` and extracts for each `bank_accounts[]`:

@@ -18,7 +18,7 @@ admin (git) parte dall'agente `ceo`.
 | Finance | `finance` | CEO, consulente bandi (solo bandi) | Scadenzario, fatture, cashflow, sync settimanale, bandi, investor relations | `sync-settimanale` · `scadenzario` · `cashflow` · `fatture-status` · `investor-update` · `investor-crm` · `data-room` · `bandi-status` |
 | Compliance | `compliance` | CEO (legal) | ISO/NIS2/GDPR: status, gap, policy, evidence, vendor assessment, contract review | `status` · `gap-analysis` · `policy-review` · `evidence-check` · `vendor-assessment` · `contract-review` |
 | Marketing | `marketing` | CEO | Content, nurture, launch, posizionamento | `content-plan` · `write-post` · `sequence` · `launch-plan` · `competitor-messaging` |
-| Admin | `admin` | il founder (solo founder) | Sistema: publish, snapshot, acl-audit, health, export-template, changelog | `publish` · `snapshot` · `acl-audit` · `health` · `export-template` · `changelog` |
+| Admin | `admin` | il founder (solo founder) | Sistema: setup iniziale, publish, snapshot, acl-audit, onboarding persone, health, export-template, changelog | `setup` · `publish` · `snapshot` · `acl-audit` · `onboard-person` · `health` · `export-template` · `changelog` |
 
 ## Come si invoca un agente
 

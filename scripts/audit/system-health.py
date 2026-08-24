@@ -5,7 +5,8 @@ Controlli di freschezza (semaforo 🟢/🟡/🔴):
   1. CHANGELOG: system/CHANGELOG.md aggiornato rispetto alle ultime modifiche
      a os/, zones/, CLAUDE.md (regola: ogni modifica di sistema → entry changelog)
   2. Snapshot: company/.snapshot-manifest.json recente (<48h; warn se assente)
-  3. Learnings: LRN in system/learnings.md con Applied fermi a 0
+  3. Learnings: LRN reali in system/learnings.md con Applied fermi a 0
+     (le intestazioni dentro i blocchi di codice sono esempi di formato, non learning)
   4. Config: i file config/*.yaml sono parsabili
 
 Uso:  python3 scripts/audit/system-health.py
@@ -73,16 +74,30 @@ else:
         rows.append((icon, "snapshot", f"ultimo {ts.date()} ({age_h:.0f}h fa)"))
 
 # 3) Learnings apply-loop -----------------------------------------------------
+# Il conteggio si ancora alle intestazioni `### LRN-XXX` **fuori dai blocchi di codice**:
+# il file documenta il proprio formato in un blocco ```markdown, e contare quell'esempio
+# come learning reale rendeva rosso un clone pristino, dove non c'è niente di rotto.
+# Sotto i 3 learning la percentuale è rumore (0 / 50 / 100%): il controllo resta neutro
+# finché non c'è abbastanza materiale per dire qualcosa di sensato sull'apply-loop.
+LRN_MIN_SAMPLE = 3
+FENCE_RE = re.compile(r"^```.*?^```", re.S | re.M)
+LRN_SPLIT_RE = re.compile(r"^###\s+(?=LRN-\d)", re.M)
+
 lp = "system/learnings.md"
 applied0 = total = 0
 if os.path.isfile(lp):
-    txt = open(lp, encoding="utf-8", errors="ignore").read()
-    for m in re.finditer(r"\*\*Applied\*\*:\s*(\d+)", txt):
+    txt = FENCE_RE.sub("", open(lp, encoding="utf-8", errors="ignore").read())
+    for block in LRN_SPLIT_RE.split(txt)[1:]:
         total += 1
-        if int(m.group(1)) == 0:
+        m = re.search(r"\*\*Applied\*\*:\s*(\d+)", block)
+        if m and int(m.group(1)) == 0:
             applied0 += 1
 if total == 0:
     rows.append(("⚪", "learnings", "nessun LRN registrato (o file assente)"))
+elif total < LRN_MIN_SAMPLE:
+    rows.append(("⚪", "learnings",
+                 f"{total} LRN registrat{'o' if total == 1 else 'i'} — troppo pochi per "
+                 f"valutare l'apply-loop (soglia: {LRN_MIN_SAMPLE})"))
 else:
     pct0 = applied0 / total * 100
     icon = "🔴" if pct0 >= 60 else "🟡" if pct0 >= 30 else "🟢"

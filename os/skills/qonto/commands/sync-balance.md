@@ -17,7 +17,7 @@ CFO, CEO, Chief of Staff
 ### Passo 1 — Leggi saldi via script
 
 ```bash
-python3 scripts/qonto_sync.py balance
+python3 scripts/integrations/bank_qonto_sync.py balance
 ```
 
 Lo script chiama `GET /v2/organization` e estrae per ogni `bank_accounts[]`:

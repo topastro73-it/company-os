@@ -49,8 +49,9 @@ Details: `os/protocols/language.md`.
 ## How to instantiate
 
 1. Clone this repo (private) for your company
-2. Open Claude Code at the repo root: the initial interview asks for language, company
-   identity and people → it fills in `config/*.yaml` from the `*.example.yaml` files
+2. Open Claude Code at the repo root and run `/admin setup`: the initial interview asks for
+   language, company identity, people and tools → it fills in `config/*.yaml` from the
+   `*.example.yaml` files
 3. Follow [bootstrap/README.md](bootstrap/README.md): Shared Drive, service account,
    `osctl bootstrap`, progressive onboarding of your people
 

@@ -30,9 +30,6 @@ system/wiki/entities
 
 # TODO — riferimenti a componenti non ancora costruiti: quando crei il file,
 # rimuovi la voce da qui (regola: o esiste il file, o esiste la voce).
-os/agents/AGENTS.md
 os/agents/product/templates/prd.md
 scripts/erp_sync.py
 scripts/fic_sync.py
-scripts/qonto.sh
-scripts/qonto_sync.py

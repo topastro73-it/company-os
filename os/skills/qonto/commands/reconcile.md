@@ -24,7 +24,7 @@ Eseguire prima:
 ### Passo 1 — Carica dati
 
 1. Leggi `vault/finance/fatturazione.md` → lista fatture con stato e importo
-2. Esegui `python3 scripts/qonto_sync.py transactions --month YYYY-MM` → movimenti bancari
+2. Esegui `python3 scripts/integrations/bank_qonto_sync.py transactions --month YYYY-MM` → movimenti bancari
 
 ### Passo 2 — Matching automatico
 

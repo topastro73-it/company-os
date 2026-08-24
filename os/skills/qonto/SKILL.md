@@ -17,8 +17,10 @@ security add-generic-password -a "qonto" -s "QONTO_SECRET" -w "<secret-da-qonto>
 
 La secret key si recupera da Qonto → Integrazioni → API key.
 
-Script: `scripts/qonto.sh` (wrapper) → `scripts/qonto_sync.py` (Python)
-Dipendenze: `pip3 install requests`
+Script: `scripts/integrations/bank-qonto.sh` (wrapper) → `scripts/integrations/bank_qonto_sync.py`
+Dipendenze: **nessuna**, solo standard library. Sono esempi funzionanti inclusi nel template
+(`scripts/integrations/README.md`): se usi Qonto funzionano così come sono, altrimenti sono un
+modello da adattare alla tua banca.
 
 Il wrapper bash legge le credenziali dal Keychain ed esporta le env vars al
 processo Python. Niente credenziali in chiaro nel repo: i nomi delle variabili sono censiti in `config/integrations.yaml`.
@@ -29,20 +31,22 @@ processo Python. Niente credenziali in chiaro nel repo: i nomi delle variabili s
 |---------|------------|--------|
 | `sync-balance` | Legge saldi conti Qonto | Aggiorna `vault/finance/cashflow.md` sezione saldi |
 | `sync-transactions` | Scarica movimenti del mese | Report movimenti + aggiorna cashflow |
-| `reconcile` | Incrocia movimenti Qonto con fatture FIC | Identifica fatture incassate / pagamenti non riconciliati |
+| `reconcile` | Incrocia movimenti con le fatture | Identifica fatture incassate / pagamenti non riconciliati |
+
+> ⚠️ `reconcile` è un comando **dell'agente**, non dello script: l'incrocio lo fa l'agente leggendo
+> movimenti e fatture. Lo script di esempio espone solo `balance` e `transactions`.
 
 ## Agenti autorizzati
 
-CFO (owner), CEO, Chief of Staff
+Finance (owner), CEO, Chief of Staff
 
 ## Flusso standard
 
 Comando wrapper (legge Keychain automaticamente):
 
 ```bash
-bash scripts/qonto.sh balance                    # saldi conti
-bash scripts/qonto.sh transactions --month 2026-04
-bash scripts/qonto.sh reconcile --month 2026-04
+bash scripts/integrations/bank-qonto.sh balance                    # saldi conti
+bash scripts/integrations/bank-qonto.sh transactions --month 2026-04
 ```
 
 Invocazione agente:

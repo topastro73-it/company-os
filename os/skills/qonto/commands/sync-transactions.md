@@ -18,7 +18,7 @@ CFO, CEO, Chief of Staff
 ### Passo 1 — Scarica movimenti via script
 
 ```bash
-python3 scripts/qonto_sync.py transactions --month 2026-03
+python3 scripts/integrations/bank_qonto_sync.py transactions --month 2026-03
 ```
 
 Lo script chiama `GET /v2/transactions` con:
