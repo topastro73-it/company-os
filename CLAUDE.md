@@ -64,7 +64,7 @@ Architettura completa: `ARCHITECTURE.md`. Sessione qui = sessione **admin** (fou
 
 ## Commit format
 
-`[agente] azione: descrizione` — es. `[sales] opportunity: TIM expansion → negotiation`,
+`[agente] azione: descrizione` — es. `[sales] opportunity: {cliente} expansion → negotiation`,
 `[admin] system: nuovo comando delivery/qbr`, `[snapshot] drive: 2026-07-04`.
 
 ## Template

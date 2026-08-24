@@ -68,7 +68,7 @@ If the person immediately invokes a specific agent: quick check (max 1 urgent al
    - Never `git reset --hard`, never `push --force`
    - Unresolvable conflicts → `CONFLICTS.md` file with details and notification
    - Repo already clean → declare it and stop
-7. **Health check**: `scripts/audit/` (secret-scan, link-lint, frontmatter-check) +
+7. **Health check**: `scripts/audit/` (secret-scan, link-lint, i18n-parity, frontmatter-check) +
    `osctl acl-audit`; outcome in the summary. If a system change was merged during the
    session → verify the publish was done (`changelog.md`)
 8. **Final summary**: commit SHA, files touched, push/snapshot/health outcome, open promises

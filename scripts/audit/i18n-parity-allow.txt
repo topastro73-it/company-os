@@ -1,0 +1,25 @@
+# i18n-parity allowlist — un path per riga; una voce che termina con `/` vale
+# come prefisso. Elenca i file base che NON devono avere una variante `.en.md`.
+#
+# Regola (os/protocols/language.md §4): la variante esiste solo se il file base è
+# in italiano. Un file già scritto in inglese non ne ha bisogno: con `language: en`
+# osctl usa il file base come fallback.
+#
+# Prima di aggiungere una voce qui, chiediti se il file è davvero già in inglese
+# (allora è corretto) o se stai solo rimandando una traduzione (allora non lo è).
+
+# Documentazione di ingresso: qui la convenzione è invertita, l'inglese è il file
+# base e l'italiano la variante (README.it.md).
+README.md
+
+# README di cartella: segnaposto operativi in un template, una riga o due.
+company/README.md
+vault/README.md
+tools/osctl/README.md
+
+# Reference della skill writing: sono guide di stile per l'inglese, quindi il file
+# base e' gia' in inglese. Un'istanza italiana che ne volesse l'equivalente dovrebbe
+# riscriverle per l'italiano, non tradurle.
+os/skills/writing/references/examples.md
+os/skills/writing/references/phrases.md
+os/skills/writing/references/structures.md

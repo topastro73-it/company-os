@@ -4,6 +4,35 @@ Every change to system files (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tools/`)
 an entry here in the same commit. Categories: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. After merging a system change → `osctl publish` to distribute it to Drive.
 
+## [0.3.0] — feat: IT/EN parity becomes a mechanical guardrail
+
+The bilingual layer existed with nothing verifying that it held. A translation could be missing,
+orphaned, or describing behaviour that no longer exists, and nothing said so. In a public
+template that is the worst kind of defect, because it breaks nothing: the English-speaking user
+simply reads the wrong instructions.
+
+- feat(audit): `scripts/audit/i18n-parity.py` — checks three defects: **MISSING** (Italian base
+  file with no variant), **ORPHAN** (variant with no base file), **STALE** (base modified after
+  its translation). Freshness is measured on the last commit timestamp, not on mtime, which says
+  nothing after a clone. It also reads uncommitted files, so it tells the truth about the working
+  tree. Allowlist in `scripts/audit/i18n-parity-allow.txt` for files already in English
+  (`README.md`, the writing skill references) and folder READMEs.
+- feat(ci): `.github/workflows/audit.yml` — the check is **blocking**, alongside secret-scan and
+  link-lint. It needs `fetch-depth: 0`, already present.
+- feat(i18n): added `CLAUDE.en.md`. The kernel, the single most important file in the repo, was
+  the only Italian system file without an English variant: with `language: en` an adopter
+  silently received the kernel in Italian. Pairs are now 142 and the check is green.
+- fix(agents): `os/agents/admin/commands/export-template.md` — the export claimed a "mechanical"
+  derivation from the private instance, but a blind copy of `os/` **would delete the `.en.md`
+  layer**, which lives only here and not in the source instance. Step 2 now states the export is
+  a **merge**: base files are overwritten, variants are never deleted, and a variant whose base
+  changed must be retranslated **before** the push. Step 4 verifies it with
+  `i18n-parity.py --strict`.
+- fix(cleanup): removed `os/skills/gmail/commands/test.md`, which contained only the word "test".
+- fix(privacy): `CLAUDE.md` used a real customer of the source instance as the example in the
+  commit format → replaced with `{customer}`.
+- Ritual guardrails updated (close + session-rituals, IT and EN) to include the check.
+
 ## [0.2.1] — fix: the cadence-log write moves from `start` to `close`
 
 - fix(agents): `os/agents/ceo/commands/close.md` — new step 3 **Cadence log**, as mandatory as the

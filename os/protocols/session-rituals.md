@@ -68,7 +68,7 @@ Se la persona invoca subito un agente specifico: quick check (max 1 alert urgent
    - Mai `git reset --hard`, mai `push --force`
    - Conflitti non risolvibili → file `CONFLICTS.md` con dettaglio e notifica
    - Repo già clean → dichiaralo e fermati
-7. **Health check**: `scripts/audit/` (secret-scan, link-lint, frontmatter-check) +
+7. **Health check**: `scripts/audit/` (secret-scan, link-lint, i18n-parity, frontmatter-check) +
    `osctl acl-audit`; esito nel summary. Se una modifica di sistema è stata mergiata in
    sessione → verifica publish fatto (`changelog.md`)
 8. **Summary finale**: commit SHA, file toccati, esito push/snapshot/health, promesse aperte
