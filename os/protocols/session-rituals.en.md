@@ -29,6 +29,12 @@ copy if available) and from the zone's state files:
 **Stale session detector** (admin only): if the last session shows work but no wiki
 page (close skipped), propose a wiki recovery from logs/commits/decisions BEFORE today's briefing.
 
+**Cadence freshness check** (admin only, the mirror image): if the most recent wiki page is more than
+**5 days ahead** of the most recent date in the cadence log, the log is stale, meaning work was done
+and closed without recording the cadence. Flag it in one line and offer to realign the current dates
+(never backfill the lost history unless explicitly asked). The two checks cover the two directions of
+the same drift: the first a session without a wiki, the second a wiki without a cadence entry.
+
 ### 4. Load the minimum context
 Shared context (`zones/_root/context/` or `_OS/context/`) once per session;
 active learnings in memory (apply-loop, `memory.md` §3). Then get to work.
@@ -49,24 +55,31 @@ If the person immediately invokes a specific agent: quick check (max 1 urgent al
 2. **Wiki session**: generate `system/wiki/sessions/YYYY-MM-DD-{slug}.md` (English,
    pseudonymized — `memory.md` §2); reconcile promises/questions from recent sessions
    (done → closed, open → carried forward); update touched entity pages and `index.md`
-3. **Learnings**: propose max 2 candidates; check unpromoted candidates from the last
+3. **Cadence log**: update `direzione/ceo-cadence.md` (date of the cadence you ran + an entry in the
+   answers log). As mandatory as step 2, and for the same reason: it is the one moment of the day the
+   CEO always invokes. drive_master zone → write on Drive, never on the `company/direzione/` snapshot;
+   if Drive is unreachable, say so in the summary
+4. **Learnings**: propose max 2 candidates; check unpromoted candidates from the last
    30 days (anti-drift); increment `Applied:` for LRNs used in the session
-4. **Snapshot**: `osctl snapshot` (Drive → `company/` + `vault/`) so the commit includes the
+5. **Snapshot**: `osctl snapshot` (Drive → `company/` + `vault/`) so the commit includes the
    real operational state; osctl absent → flag it and continue
-5. **Commit & push**: `git add -A` → commit `[ceo] close: YYYY-MM-DD` → `git fetch` →
+6. **Commit & push**: `git add -A` → commit `[ceo] close: YYYY-MM-DD` → `git fetch` →
    if the remote is ahead, `git merge origin/main --no-edit` → `git push origin main`
    - Never `git reset --hard`, never `push --force`
    - Unresolvable conflicts → `CONFLICTS.md` file with details and notification
    - Repo already clean → declare it and stop
-6. **Health check**: `scripts/audit/` (secret-scan, link-lint, frontmatter-check) +
+7. **Health check**: `scripts/audit/` (secret-scan, link-lint, frontmatter-check) +
    `osctl acl-audit`; outcome in the summary. If a system change was merged during the
    session → verify the publish was done (`changelog.md`)
-7. **Final summary**: commit SHA, files touched, push/snapshot/health outcome, open promises
+8. **Final summary**: commit SHA, files touched, push/snapshot/health outcome, open promises
 
 ## Common rules
 
 - The close is not optional: without a close there is no wiki, counters stall, promises hang —
   the next start detects it and proposes the recovery
+- **A mandatory write does not live inside a long interaction**: if a write is mandatory (wiki,
+  cadence log, counters), anchor it to the close, not to an intermediate step of the briefing. The
+  start re-checks it, it does not replace it
 - Never ask the same thing twice in the same ritual; max 1 urgent question if the
   person is in a hurry
 - Everything the ritual writes respects zones and tiers (`zones-and-permissions.md`)

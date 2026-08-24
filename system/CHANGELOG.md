@@ -4,6 +4,25 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.2.1] — fix: la scrittura del cadence log passa da `start` a `close`
+
+- fix(agents): `os/agents/ceo/commands/close.md` — nuovo passo 3 **Cadence log**, obbligatorio quanto
+  la wiki di sessione. Prima l'aggiornamento di `direzione/ceo-cadence.md` era specificato **solo** nel
+  passo 7 di `/ceo start`, cioè in mezzo al briefing: se la sessione proseguiva su altro, la scrittura
+  saltava in silenzio e il cadence log diventava una falsa fonte di verità per tutte le sessioni
+  successive che lo leggevano. Passi 3-9 rinumerati a 4-10.
+- fix(agents): `os/agents/ceo/commands/start.md` — nuovo passo 2 **Cadence freshness check**, il
+  controllo inverso dello stale session detector: se la wiki più recente è avanti di oltre 5 giorni
+  rispetto al cadence log, il log è stale e si propone il riallineamento. Il passo 1 rileva la sessione
+  senza wiki, il passo 2 la wiki senza cadence. Passi 2-8 rinumerati a 3-9; il passo 8 (ex 7) dichiara
+  di non essere più l'unico punto di scrittura.
+- fix(protocols): `os/protocols/session-rituals.md` — stessi due innesti nel rituale admin (START e
+  CLOSE), più una regola comune: una scrittura obbligatoria non vive dentro un'interazione lunga.
+- Varianti `.en.md` aggiornate in parallelo per tutti e tre i file.
+- **Nota di zona**: `direzione` è `drive_master`, quindi il cadence log si scrive **sul Drive**, mai
+  sullo snapshot `company/direzione/` (regola kernel §5). I passi nuovi lo dicono esplicitamente.
+- Richiede `osctl publish` per distribuire su Drive.
+
 ## [0.2.0] — feat: bilingue IT/EN + protocollo lingua
 
 - feat(protocols): `os/protocols/language.md` — lingua scelta nell'intervista iniziale
