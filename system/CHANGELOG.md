@@ -4,6 +4,17 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.5.1] — fix: le decisioni persistono in git anche senza Drive collegato
+
+Un'istanza può legittimamente restare git-only per un po' (un solo founder, nessun
+collaboratore da onboardare ancora): `.gitignore` ignorava `company/*` per intero, quindi
+`company/direzione/decisions/` — dove `/admin setup` §7 dice di registrare le decisioni
+importanti — non veniva mai committato finché non arrivava un Drive da cui fare snapshot.
+Una decisione "immutabile" che si perdeva al primo `git clean` non era accettabile.
+
+- fix(gitignore): aggiunta eccezione `!company/direzione/decisions/` così le decisioni
+  restano in git indipendentemente dallo stato del Drive.
+
 ## [0.5.0] — feat: licenza MIT, intervista di setup, script d'esempio riutilizzabili
 
 Il template prometteva un'intervista iniziale in cinque documenti e non la implementava in

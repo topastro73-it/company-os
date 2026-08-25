@@ -13,6 +13,10 @@ config/integrations.yaml
 company/*
 !company/README.md
 !company/.gitkeep
+# Le decisioni sono immutabili e vanno in git anche prima che Drive sia collegato.
+!company/direzione/
+!company/direzione/decisions/
+!company/direzione/decisions/*
 vault/*
 !vault/README.md
 !vault/.gitkeep
