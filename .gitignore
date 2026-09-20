@@ -17,6 +17,10 @@ vault/*
 !vault/README.md
 !vault/.gitkeep
 
+# Log di sessione: sono dati d'istanza per definizione, non fanno parte del template.
+system/wiki/sessions/*
+!system/wiki/sessions/.gitkeep
+
 # Python
 *.pyc
 __pycache__/
