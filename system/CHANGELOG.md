@@ -4,6 +4,29 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.5.1] — fix: i dati di un'istanza non devono finire sul template pubblico
+
+Il setup istruiva a committare `zones/_root/context/COMPANY.md` senza mai verificare dove
+puntasse il remote. Chi clonava `company-os` e lanciava `/admin setup` scriveva identità
+aziendale, learnings, decisioni e log di sessione **nel repo pubblico da cui aveva clonato**.
+Il difetto era silenzioso: nessun guardrail lo intercettava, e i `config/*.yaml` gitignorati
+davano la falsa impressione che i dati d'istanza fossero protetti.
+
+- fix(agents): `os/agents/admin/commands/setup.md` (+ `.en.md`) — nuova **Fase 0**, prima della
+  generazione di qualsiasi file: il remote dell'istanza dev'essere un repo privato. L'intervista
+  non prosegue finché non lo è. È l'unico punto del setup senza un "lo facciamo dopo", perché
+  ogni commit successivo scrive dati aziendali.
+- feat(audit): `scripts/audit/instance-privacy-check.sh` — guardrail meccanico. Rileva se
+  l'istanza è compilata (`config/company.yaml` presente, o `COMPANY.md` non più il template)
+  e fallisce se il remote risulta pubblico, stampando i comandi per spostarsi su un repo
+  privato mantenendo `upstream` come sorgente degli aggiornamenti. Degrada con un warning
+  se `gh` non è disponibile, senza mai bloccare.
+- fix(gitignore): `system/wiki/sessions/*` escluso. I log di sessione sono dati d'istanza per
+  definizione e non appartengono al template.
+
+Nota per chi ha già fatto il setup su un clone pubblico: sposta l'istanza su un repo privato,
+poi riporta il pubblico all'ultimo commit del template (`git push <pubblico> <sha>:main --force`).
+
 ## [0.5.0] — feat: licenza MIT, intervista di setup, script d'esempio riutilizzabili
 
 Il template prometteva un'intervista iniziale in cinque documenti e non la implementava in

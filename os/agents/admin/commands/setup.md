@@ -10,6 +10,33 @@ Nessuno. Si attiva quando `config/company.yaml` non esiste, oppure su richiesta 
 
 ---
 
+## Fase 0 — Il repo dell'istanza deve essere privato
+
+**Prima di generare qualsiasi file**, verifica dove punta il remote. Il template `company-os` è
+pubblico; un'istanza compilata non può esserlo, perché da questo momento in poi il repo conterrà
+identità aziendale, learnings, decisioni e log di sessione.
+
+```bash
+scripts/audit/instance-privacy-check.sh
+```
+
+Se il check fallisce, o se il remote è ancora il template, fermati e guida la persona:
+
+```bash
+gh repo create <org>/<nome>-os --private
+git remote rename origin upstream
+git remote add origin https://github.com/<org>/<nome>-os.git
+git push -u origin main
+```
+
+`upstream` resta il template, da cui si tirano gli aggiornamenti con `git pull upstream main`.
+
+Spiegalo in una riga, senza gergo: *"Il repo che hai clonato è pubblico ed è il modello che usano
+tutti. Il tuo, da adesso, contiene i dati della tua azienda: te ne creo uno privato."*
+
+Non proseguire con l'intervista finché il remote non è privato. È l'unico punto del setup in cui
+non esiste un "lo facciamo dopo": ogni commit successivo scrive dati aziendali.
+
 ## Come si conduce (regole non negoziabili)
 
 Queste regole valgono più del contenuto delle domande. Un'intervista fatta male fa abbandonare

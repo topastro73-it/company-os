@@ -4,6 +4,29 @@ Every change to system files (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tools/`)
 an entry here in the same commit. Categories: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. After merging a system change → `osctl publish` to distribute it to Drive.
 
+## [0.5.1] — fix: instance data must not end up on the public template
+
+Setup instructed committing `zones/_root/context/COMPANY.md` without ever checking where the
+remote pointed. Anyone who cloned `company-os` and ran `/admin setup` wrote company identity,
+learnings, decisions and session logs **into the public repo they had cloned from**. The defect
+was silent: no guardrail caught it, and the gitignored `config/*.yaml` gave the false impression
+that instance data was protected.
+
+- fix(agents): `os/agents/admin/commands/setup.en.md` (+ `.md`) — new **Phase 0**, before any file
+  is generated: the instance remote must be a private repo. The interview does not continue until
+  it is. It is the one point in the setup without a "we'll do it later", because every commit from
+  there on writes company data.
+- feat(audit): `scripts/audit/instance-privacy-check.sh` — mechanical guardrail. Detects whether
+  the instance is configured (`config/company.yaml` present, or `COMPANY.md` no longer the
+  template) and fails if the remote turns out to be public, printing the commands to move to a
+  private repo while keeping `upstream` as the source of updates. Degrades to a warning when `gh`
+  is unavailable, never blocking.
+- fix(gitignore): `system/wiki/sessions/*` excluded. Session logs are instance data by definition
+  and do not belong in the template.
+
+Note for anyone who already ran setup on a public clone: move the instance to a private repo, then
+reset the public one to the last template commit (`git push <public> <sha>:main --force`).
+
 ## [0.5.0] — feat: MIT license, setup interview, reusable example scripts
 
 The template promised an initial interview in five documents and implemented it in none: whoever

@@ -10,6 +10,33 @@ None. It triggers when `config/company.yaml` does not exist, or on explicit requ
 
 ---
 
+## Phase 0 — The instance repo must be private
+
+**Before generating any file**, check where the remote points. The `company-os` template is public;
+a configured instance cannot be, because from this point on the repo will contain company identity,
+learnings, decisions and session logs.
+
+```bash
+scripts/audit/instance-privacy-check.sh
+```
+
+If the check fails, or if the remote still points at the template, stop and walk the person through:
+
+```bash
+gh repo create <org>/<name>-os --private
+git remote rename origin upstream
+git remote add origin https://github.com/<org>/<name>-os.git
+git push -u origin main
+```
+
+`upstream` stays the template, to pull updates from with `git pull upstream main`.
+
+Explain it in one line, without jargon: *"The repo you cloned is public and it is the model everyone
+uses. Yours, from now on, holds your company's data: let me create a private one for you."*
+
+Do not continue with the interview until the remote is private. It is the one point in the setup
+where "we'll do it later" does not apply: every commit from here on writes company data.
+
 ## How to run it (non-negotiable rules)
 
 These rules matter more than the content of the questions. A badly run interview makes people
