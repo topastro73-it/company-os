@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{PARTNER}} × {{COMPANY}} — {{TITLE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand.css">
+<style>
+  /* Report template — A4 landscape, Inter. Colori e loghi del brand: assets/brand.css, assets/logo-*.png */
+  @page { size: A4 landscape; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, "Helvetica Neue", Arial, sans-serif; color: var(--body); font-size: 10.2pt; line-height: 1.55; letter-spacing: .005em; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 297mm; height: 210mm; position: relative; overflow: hidden; break-after: page; padding: 27mm 18mm 18mm; background: #fff; }
+  .page:last-child { break-after: auto; }
+
+  /* running header / footer */
+  .hdr { position: absolute; top: 7mm; left: 18mm; right: 18mm; height: 9mm; display: flex; justify-content: space-between; align-items: center; border-bottom: .6pt solid var(--rule); padding-bottom: 2.5mm; }
+  .hdr .logos { display: flex; align-items: center; gap: 2.2mm; }
+  .hdr .logos img.own { height: 5.6mm; }
+  .hdr .logos img.partner { height: 7mm; border-radius: 1mm; }
+  .hdr .logos .x { color: var(--faint); font-size: 8pt; }
+  .hdr .run { font-size: 6.6pt; letter-spacing: .22em; text-transform: uppercase; color: var(--faint); }
+  .ftr { position: absolute; left: 18mm; right: 18mm; bottom: 7mm; display: flex; justify-content: space-between; border-top: .6pt solid var(--rule); padding-top: 2.5mm; font-size: 6.4pt; letter-spacing: .2em; text-transform: uppercase; color: var(--faint); }
+  .ftr .pg { color: var(--ink); font-weight: 600; letter-spacing: .05em; }
+
+  /* type */
+  .kicker { font-size: 7.4pt; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--accent-dk); margin-bottom: 3mm; }
+  h1.action { font-family: "Inter Display", Inter, sans-serif; font-weight: 700; font-size: 21pt; line-height: 1.2; color: var(--ink); letter-spacing: -.012em; max-width: 215mm; margin-bottom: 4mm; }
+  .lead { font-size: 10pt; color: var(--muted); max-width: 205mm; margin-bottom: 5mm; }
+  strong { color: var(--ink); font-weight: 600; }
+  .muted { color: var(--muted); }
+
+  /* exhibits */
+  .ex { margin: 1mm 0 3mm; display: flex; align-items: baseline; gap: 2.5mm; }
+  .ex .lab { font-size: 6.6pt; font-weight: 600; letter-spacing: .12em; color: var(--accent-dk); }
+  .ex .tit { font-size: 9.2pt; font-weight: 600; color: var(--ink); }
+  .source { font-size: 6.6pt; color: var(--muted); margin-top: 2.5mm; letter-spacing: .01em; }
+
+  /* tables */
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; }
+  th { text-align: left; font-size: 6.2pt; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding: 0 3mm 2.2mm 0; border-bottom: 1pt solid var(--ink); }
+  td { padding: 2.6mm 3mm 2.6mm 0; border-bottom: .6pt solid var(--rule); vertical-align: top; color: var(--body); }
+  td.k { color: var(--ink); font-weight: 600; }
+  td small { display: block; font-size: 6.6pt; color: var(--muted); font-weight: 400; margin-top: .4mm; }
+  tr.hl td { background: var(--cream); }
+  tr.hl td:first-child { padding-left: 2mm; }
+
+  .tag { display: inline-flex; align-items: center; gap: 1.2mm; font-size: 6pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 1mm 2.6mm; border-radius: 4mm; white-space: nowrap; }
+  .tag i { width: 1.4mm; height: 1.4mm; border-radius: 50%; background: currentColor; display: inline-block; }
+  .tag.yes { background: var(--green-soft); color: var(--green); }
+  .tag.part { background: var(--accent-soft); color: var(--accent-dk); }
+  .tag.no { background: var(--panel-2); color: var(--muted); }
+  .tag.prog { background: var(--accent-soft); color: var(--accent-dk); }
+  .tag.des { background: var(--blue-soft); color: var(--blue); }
+  .tag.eval { background: var(--panel-2); color: var(--muted); }
+
+  /* cards */
+  .cards { display: grid; gap: 4mm; }
+  .c2 { grid-template-columns: 1fr 1fr; } .c4 { grid-template-columns: repeat(4,1fr); } .c5 { grid-template-columns: repeat(5,1fr); } .c6 { grid-template-columns: repeat(6,1fr); }
+  .card { border: .7pt solid var(--rule); border-radius: 2mm; padding: 5mm; background: #fff; }
+  .card.top { border-top: 1.4pt solid var(--accent); }
+  .card.fill { background: var(--panel); border-color: var(--panel); }
+  .card .no { font-family: "Inter Display", Inter; font-weight: 700; font-size: 14pt; color: var(--accent); line-height: 1; margin-bottom: 4mm; }
+  .card .no.sm { font-size: 8pt; font-weight: 600; margin-bottom: 4mm; }
+  .card h4 { font-size: 9.6pt; font-weight: 600; color: var(--ink); margin-bottom: 2.5mm; line-height: 1.35; }
+  .card p { font-size: 8.8pt; line-height: 1.65; }
+  .card .sn { font-size: 5.8pt; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-dk); margin-bottom: 1.6mm; }
+
+  .stat { background: var(--panel); border-top: 1.4pt solid var(--accent); padding: 4mm; min-height: 33mm; }
+  .stat .n { font-family: "Inter Display", Inter; font-weight: 700; font-size: 22pt; color: var(--ink); line-height: 1; margin-bottom: 3mm; }
+  .stat .n small { font-size: 10pt; font-weight: 600; color: var(--muted); }
+  .stat .l { font-size: 7.6pt; line-height: 1.45; color: var(--muted); }
+
+  .ask { background: var(--navy); color: #fff; border-radius: 2mm; padding: 5mm 6mm; }
+  .ask .kicker { color: var(--accent); font-size: 6.4pt; margin-bottom: 2mm; }
+  .ask p { font-size: 9.8pt; line-height: 1.6; color: #E8ECF1; }
+
+  /* timeline */
+  .tline { position: relative; display: grid; grid-template-columns: repeat(6,1fr); gap: 3mm; margin-top: 2mm; }
+  .tline .ln { position: absolute; left: 1mm; right: 0; top: 1.8mm; height: .6pt; background: var(--rule-2); }
+  .tl { position: relative; padding-top: 6mm; }
+  .tl > .pin { position: absolute; top: 0; left: 0; width: 3.6mm; height: 3.6mm; border-radius: 50%; background: #fff; border: 1.2pt solid var(--accent); }
+  .tl > .d { font-size: 6.4pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-dk); }
+  .tl > .t { font-size: 8pt; line-height: 1.5; margin-top: 1mm; }
+
+  /* process flow */
+  .flow { display: grid; grid-template-columns: 1fr 7mm 1fr 7mm 1fr 7mm 1fr; align-items: stretch; }
+  .flow .ar { display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 10pt; }
+  .flow .card { min-height: 55mm; padding: 4.5mm; }
+  .loop { margin-top: 4mm; background: var(--accent-soft); color: var(--accent-dk); border-radius: 1.6mm; padding: 2.6mm 4mm; font-size: 7.6pt; }
+
+  /* bottleneck visual */
+  .hub { display: grid; grid-template-columns: 1fr 42mm 1fr; gap: 6mm; align-items: center; margin: 4mm 0 5mm; }
+  .dots { display: grid; grid-template-columns: repeat(20, 1fr); gap: 1.4mm; }
+  .dots > span { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--rule-2); }
+  .dots > span.on { background: var(--accent); }
+  .core { text-align: center; }
+  .core .c { width: 24mm; height: 24mm; border-radius: 50%; background: var(--navy); color: #fff; margin: 0 auto 2mm; display: flex; align-items: center; justify-content: center; font-family: "Inter Display", Inter; font-weight: 700; font-size: 20pt; box-shadow: 0 0 0 2mm var(--accent-soft); }
+  .cap { font-size: 6.6pt; color: var(--muted); margin-top: 2mm; }
+  .core .cap { line-height: 1.6; }
+
+  /* checks */
+  ul.chk { list-style: none; }
+  ul.chk > li { display: grid; grid-template-columns: 6mm 1fr; gap: 1mm; margin-bottom: 2.6mm; font-size: 9.2pt; line-height: 1.55; }
+  ul.chk > li > .ck { width: 3.8mm; height: 3.8mm; border-radius: 50%; background: var(--accent); color: #fff; font-size: 6pt; display: flex; align-items: center; justify-content: center; margin-top: .6mm; }
+
+  .pending { border: .8pt dashed var(--accent); background: var(--cream); border-radius: 2mm; padding: 4.5mm 5mm; }
+  .pending .kicker { font-size: 6.2pt; margin-bottom: 2mm; }
+  .pending p { font-size: 9pt; line-height: 1.6; }
+
+  .vs td:first-child { width: 28mm; }
+  .vs td.today { width: 58mm; }
+
+  /* cover */
+  .cover { background: var(--navy); color: #fff; padding: 0; }
+  .cover .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) .4pt, transparent .4pt), linear-gradient(90deg, rgba(255,255,255,.035) .4pt, transparent .4pt); background-size: 9mm 9mm; }
+  .cover .glow { position: absolute; right: -40mm; top: -50mm; width: 170mm; height: 170mm; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%); }
+  .cover .logos { position: absolute; top: 17mm; left: 23mm; display: flex; align-items: center; gap: 3mm; }
+  .cover .logos img.own { height: 10mm; }
+  .cover .logos .x { color: #8A97A8; font-size: 9pt; }
+  .cover .logos img.partner { height: 12.5mm; border-radius: 1.4mm; }
+  .cover .hero { position: absolute; left: 23mm; top: 48mm; width: 140mm; }
+  .cover .hero .kicker { color: var(--accent); font-size: 6.6pt; margin-bottom: 4mm; }
+  .cover h1 { font-family: "Inter Display", Inter; font-weight: 700; font-size: 36pt; line-height: 1.13; letter-spacing: -.02em; margin-bottom: 7mm; }
+  .cover h1 em { font-style: normal; color: var(--accent); }
+  .cover .sub { font-size: 11.4pt; line-height: 1.6; color: #C9D2DD; max-width: 125mm; }
+  .cover .side { position: absolute; right: 23mm; top: 50mm; width: 85mm; display: grid; gap: 5mm; }
+  .cover .gc { border: .6pt solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); border-radius: 2mm; padding: 4.5mm 5mm; }
+  .cover .gc h4 { font-size: 9.4pt; font-weight: 600; color: #fff; margin-bottom: 1.6mm; }
+  .cover .gc p { font-size: 8pt; line-height: 1.6; color: #A9B4C2; }
+  .cover .meta { position: absolute; left: 23mm; right: 23mm; bottom: 15mm; border-top: .6pt solid rgba(255,255,255,.14); padding-top: 5mm; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.6fr; }
+  .cover .meta .l { font-size: 5.8pt; letter-spacing: .24em; text-transform: uppercase; color: #8A97A8; margin-bottom: 1.6mm; }
+  .cover .meta .v { font-size: 8.8pt; font-weight: 600; color: #fff; }
+  .cover .meta > div:last-child { text-align: right; }
+</style>
+</head>
+<body>
+<!--
+  REPORT TEMPLATE — A4 landscape
+  Uso: os/skills/presentations/report/README.md
+  Ogni <section class="page"> è una pagina 297×210 mm a altezza fissa: il testo in eccesso
+  viene tagliato, quindi dopo ogni render controlla le pagine (render.sh fa anche le anteprime).
+  Sostituisci: {{COMPANY}}, {{PARTNER}}, {{TITLE}}, {{DATE}}, i testi segnaposto e assets/partner-logo.png.
+  Le pagine 02–15 sono un catalogo di componenti: tieni quelle che servono, duplica, cancella.
+-->
+
+<!-- 01 · COVER -->
+<section class="page cover">
+  <div class="grid"></div><div class="glow"></div>
+  <div class="logos"><img class="own" src="assets/logo-white.png" alt="{{COMPANY}}"><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt="{{PARTNER}}"></div>
+  <div class="hero">
+    <div class="kicker">Programme · Report type · Draft for discussion</div>
+    <h1>A cover title that states the conclusion, with <em>the key words highlighted</em></h1>
+    <div class="sub">One sentence on what this document contains and who it is for.</div>
+  </div>
+  <div class="side">
+    <div class="gc"><h4>Key message one</h4><p>One or two lines that support the title. The reader should get the point from the cover alone.</p></div>
+    <div class="gc"><h4>Key message two</h4><p>Keep each card to the same length so the column looks even.</p></div>
+    <div class="gc"><h4>Key message three</h4><p>Usually the proposal or the ask.</p></div>
+  </div>
+  <div class="meta">
+    <div><div class="l">Prepared by</div><div class="v">{{COMPANY}} for {{PARTNER}}</div></div>
+    <div><div class="l">Where</div><div class="v">City</div></div>
+    <div><div class="l">When</div><div class="v">{{DATE}}</div></div>
+    <div><div class="l">Status</div><div class="v">Draft for discussion · Confidential</div></div>
+  </div>
+</section>
+
+<!-- 02 · EXECUTIVE SUMMARY: lead + 2 numbered cards -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Executive summary</div>
+  <h1 class="action">Action title: a full sentence that states what the reader should conclude from this page.</h1>
+  <p class="lead">Lead paragraph, two or three lines, in a softer grey. It frames the question the document answers and the short answer.</p>
+  <div class="cards c2">
+    <div class="card"><div class="no">01</div><h4>First takeaway</h4><p>Supporting text for the takeaway: the fact, the evidence, and why it matters. Four or five lines at most.</p></div>
+    <div class="card"><div class="no">02</div><h4>Second takeaway</h4><p>Supporting text for the takeaway: the fact, the evidence, and why it matters. Four or five lines at most.</p></div>
+  </div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">02</div></div>
+</section>
+
+<!-- 03 · CONTINUED PAGE: 2 cards + dark "ask" box -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Executive summary · Continued</div>
+  <h1 class="action">A shorter action title for a continued page.</h1>
+  <div class="cards c2" style="margin-bottom:6mm">
+    <div class="card"><div class="no">03</div><h4>Third takeaway</h4><p>Supporting text for the takeaway.</p></div>
+    <div class="card"><div class="no">04</div><h4>Fourth takeaway</h4><p>Supporting text for the takeaway.</p></div>
+  </div>
+  <div class="ask"><div class="kicker">What we ask {{PARTNER}}</div><p>The concrete decision or input we need from the reader, in one or two sentences.</p></div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">03</div></div>
+</section>
+
+<!-- 04 · AT A GLANCE: 6 stats + timeline -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">At a glance</div>
+  <h1 class="action">The numbers that summarise the period, in one sentence.</h1>
+  <div class="cards c6" style="gap:3mm;margin-bottom:6mm">
+    <div class="stat"><div class="n">1</div><div class="l">Short label for the number</div></div>
+    <div class="stat"><div class="n">1<small>/99</small></div><div class="l">Ratio with a smaller denominator</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">Short label for the number</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">Short label for the number</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">Short label for the number</div></div>
+    <div class="stat"><div class="n">200</div><div class="l">Short label for the number</div></div>
+  </div>
+  <div class="ex"><span class="lab">Exhibit 1</span><span class="tit">Milestones, month–month year</span></div>
+  <div class="tline"><div class="ln"></div>
+    <div class="tl"><div class="pin"></div><div class="d">12 Jun</div><div class="t">What happened, in one or two short lines.</div></div>
+    <div class="tl"><div class="pin"></div><div class="d">30 Jun</div><div class="t">What happened.</div></div>
+    <div class="tl"><div class="pin"></div><div class="d">Aug</div><div class="t">What happened.</div></div>
+    <div class="tl"><div class="pin"></div><div class="d">3 Sep</div><div class="t">What happened.</div></div>
+    <div class="tl"><div class="pin"></div><div class="d">24 Sep</div><div class="t">What happened.</div></div>
+    <div class="tl"><div class="pin"></div><div class="d">15 Oct</div><div class="t">What happened.</div></div>
+  </div>
+  <div class="source">Source: where the data comes from, with dates</div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">04</div></div>
+</section>
+
+<!-- 05 · PROCESS FLOW: 4 steps + loop note -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">How it works today</div>
+  <h1 class="action">Action title describing the process and its main problem.</h1>
+  <div class="ex"><span class="lab">Exhibit 2</span><span class="tit">Current process</span></div>
+  <div class="flow">
+    <div class="card"><div class="sn">Step 1 · Who</div><h4>What happens</h4><p>Description of the step.</p></div>
+    <div class="ar">→</div>
+    <div class="card"><div class="sn">Step 2 · Who</div><h4>What happens</h4><p>Description of the step.</p></div>
+    <div class="ar">→</div>
+    <div class="card"><div class="sn">Step 3 · Who</div><h4>What happens</h4><p>Description of the step.</p></div>
+    <div class="ar">→</div>
+    <div class="card"><div class="sn">Step 4 · Who</div><h4>What happens</h4><p>Description of the step.</p></div>
+  </div>
+  <div class="loop">↺&nbsp;&nbsp;The loop or the problem that repeats</div>
+  <div class="source">Source: working sessions with the partner, month year</div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">05</div></div>
+</section>
+
+<!-- 06 · TWO TEXT CARDS + COMPARISON TABLE -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">How it works today · Continued</div>
+  <div class="cards c2" style="margin-bottom:6mm">
+    <div class="card"><h4>A context point with a headline</h4><p>Paragraph that explains the point. Use cards without numbers for supporting context.</p></div>
+    <div class="card"><h4>The reason for the table below</h4><p>Always say in words what the table shows, so the reader does not have to work it out.</p></div>
+  </div>
+  <div class="ex"><span class="lab">Exhibit 3</span><span class="tit">Comparison table, today and with {{COMPANY}}</span></div>
+  <table>
+    <tr><th style="width:15%">Segment</th><th style="width:14%">Size</th><th style="width:32%">Today</th><th>With {{COMPANY}}</th></tr>
+    <tr><td class="k">Row one</td><td>Value</td><td>How it is today</td><td>What changes</td></tr>
+    <tr><td class="k">Row two</td><td>Value</td><td>How it is today</td><td>What changes</td></tr>
+    <tr><td class="k">Row three</td><td>Value</td><td>How it is today</td><td>What changes</td></tr>
+  </table>
+  <div class="source">Source: …</div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">06</div></div>
+</section>
+
+<!-- 07 · DOTS VISUAL + 4 CARDS WITH AMBER TOP BORDER -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Insight 1 · Name</div>
+  <h1 class="action">Action title for the insight.</h1>
+  <div class="ex"><span class="lab">Exhibit 4</span><span class="tit">Illustrative visual: many on one side, one in the middle, coverage on the other</span></div>
+  <div class="hub">
+    <div><div class="dots" data-n="100" data-on="0"></div><div class="cap">Left group (illustrative)</div></div>
+    <div class="core"><div class="c">1</div><div class="cap">the constraint<br>in the middle</div></div>
+    <div><div class="dots" data-n="200" data-on="10"></div><div class="cap">Reached (accent) vs. total (illustrative)</div></div>
+  </div>
+  <p style="font-size:9pt;color:var(--ink);margin-bottom:3.5mm">One sentence that introduces the four consequences:</p>
+  <div class="cards c4">
+    <div class="card top"><h4>Consequence one</h4><p>Short explanation.</p></div>
+    <div class="card top"><h4>Consequence two</h4><p>Short explanation.</p></div>
+    <div class="card top"><h4>Consequence three</h4><p>Short explanation.</p></div>
+    <div class="card top"><h4>Consequence four</h4><p>Short explanation.</p></div>
+  </div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">07</div></div>
+</section>
+
+<!-- 08 · STATUS TABLE WITH TAGS (yes / part / no) -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Insight 2 · Name</div>
+  <h1 class="action">Action title for the insight.</h1>
+  <div class="ex"><span class="lab">Exhibit 5</span><span class="tit">Steps and current use</span></div>
+  <table>
+    <tr><th style="width:27%">Step</th><th>What it does</th><th style="width:18%">Used today</th></tr>
+    <tr><td class="k">1. Step name</td><td>Description</td><td><span class="tag yes"><i></i>Yes</span></td></tr>
+    <tr><td class="k">2. Step name<small>Co-worker or sub-label</small></td><td>Description</td><td><span class="tag part"><i></i>Partly</span></td></tr>
+    <tr class="hl"><td class="k">3. Step name<small>Co-worker or sub-label</small></td><td>Highlighted row (class "hl")</td><td><span class="tag no"><i></i>Not yet</span></td></tr>
+    <tr class="hl"><td class="k">4. Step name<small>Co-worker or sub-label</small></td><td>Highlighted row (class "hl")</td><td><span class="tag no"><i></i>Not yet</span></td></tr>
+  </table>
+  <div class="source">Source: …</div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">08</div></div>
+</section>
+
+<!-- 09 · TWO CARDS WITH CHECK LISTS -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Insight 3 · Name</div>
+  <h1 class="action">Action title for the insight.</h1>
+  <div class="cards c2" style="margin-top:6mm">
+    <div class="card" style="min-height:58mm"><div class="kicker" style="font-size:6.2pt">Card label</div>
+      <ul class="chk">
+        <li><span class="ck">✓</span><span><strong>Point:</strong> explanation.</span></li>
+        <li><span class="ck">✓</span><span><strong>Point:</strong> explanation.</span></li>
+        <li><span class="ck">✓</span><span><strong>Point:</strong> explanation.</span></li>
+      </ul></div>
+    <div class="card" style="min-height:58mm"><div class="kicker" style="font-size:6.2pt">Card label</div>
+      <ul class="chk">
+        <li><span class="ck">✓</span><span><strong>Point.</strong> Explanation.</span></li>
+      </ul></div>
+  </div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">09</div></div>
+</section>
+
+<!-- 10 · LEAD + TABLE WITH STATUS PILLS (prog / des / eval) -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Insight 4 · Name</div>
+  <h1 class="action" style="margin-bottom:2mm">Action title for the insight.</h1>
+  <p class="lead" style="margin-bottom:3mm">Lead paragraph that explains the table below.</p>
+  <div class="ex"><span class="lab">Exhibit 6</span><span class="tit">Requests, why they matter, and their status</span></div>
+  <table style="font-size:8.2pt">
+    <tr><th style="width:42%">Request</th><th>Why it matters</th><th style="width:15%">Status</th></tr>
+    <tr><td>Request description</td><td>Why it matters for the partner</td><td><span class="tag prog">In progress</span></td></tr>
+    <tr><td>Request description</td><td>Why it matters for the partner</td><td><span class="tag des">In design</span></td></tr>
+    <tr><td>Request description</td><td>Why it matters for the partner</td><td><span class="tag eval">Under evaluation</span></td></tr>
+  </table>
+  <div class="source">Status as of date. Never write release dates that Product/CTO have not confirmed.</div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">10</div></div>
+</section>
+
+<!-- 11 · FOUR GREY CARDS (principles, ways of working) -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Insight 4 · Continued</div>
+  <h1 class="action">Short title for a supporting page</h1>
+  <div class="cards c4">
+    <div class="card fill"><div class="no sm">01</div><h4 style="margin-bottom:1mm">Principle one.</h4><p>Explanation.</p></div>
+    <div class="card fill"><div class="no sm">02</div><h4 style="margin-bottom:1mm">Principle two.</h4><p>Explanation.</p></div>
+    <div class="card fill"><div class="no sm">03</div><h4 style="margin-bottom:1mm">Principle three.</h4><p>Explanation.</p></div>
+    <div class="card fill"><div class="no sm">04</div><h4 style="margin-bottom:1mm">Principle four.</h4><p>Explanation.</p></div>
+  </div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">11</div></div>
+</section>
+
+<!-- 12 · BEFORE / AFTER TABLE -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">The target process</div>
+  <h1 class="action" style="margin-bottom:2mm">Action title for the target state.</h1>
+  <p class="lead" style="margin-bottom:3mm">Lead paragraph on the principle behind the change.</p>
+  <div class="ex"><span class="lab">Exhibit 7</span><span class="tit">From today's process to the target process</span></div>
+  <table class="vs">
+    <tr><th></th><th>Today</th><th>Target</th></tr>
+    <tr><td class="k">Dimension</td><td class="today">How it is today</td><td><strong>Key phrase in bold:</strong> how it will be</td></tr>
+    <tr><td class="k">Dimension</td><td class="today">How it is today</td><td><strong>Key phrase in bold:</strong> how it will be</td></tr>
+    <tr><td class="k">Dimension</td><td class="today">How it is today</td><td><strong>Key phrase in bold:</strong> how it will be</td></tr>
+  </table>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">12</div></div>
+</section>
+
+<!-- 13 · FIVE NUMBERED STEPS + PENDING BOX -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Proposal</div>
+  <h1 class="action">Action title for the proposal.</h1>
+  <div class="ex"><span class="lab">Exhibit 8</span><span class="tit">Approach</span></div>
+  <div class="cards c5" style="gap:3mm;margin-bottom:5mm">
+    <div class="card"><div class="no">1</div><h4>Step</h4><p>Description.</p></div>
+    <div class="card"><div class="no">2</div><h4>Step</h4><p>Description.</p></div>
+    <div class="card"><div class="no">3</div><h4>Step</h4><p>Description.</p></div>
+    <div class="card"><div class="no">4</div><h4>Step</h4><p>Description.</p></div>
+    <div class="card"><div class="no">5</div><h4>Step</h4><p>Description.</p></div>
+  </div>
+  <div class="pending"><div class="kicker">Exhibit 9 · To be completed</div><p><strong>What is missing</strong>, what it will show, and which input it is waiting for.</p></div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">13</div></div>
+</section>
+
+<!-- 14 · KPI TABLE -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Proposal · Continued</div>
+  <h1 class="action">KPIs to measure success, with targets agreed with {{PARTNER}}.</h1>
+  <div class="ex"><span class="lab">Exhibit 10</span><span class="tit">Proposed KPIs</span></div>
+  <table>
+    <tr><th style="width:18%">KPI</th><th style="width:44%">What it measures</th><th style="width:26%">Formula</th><th>Target</th></tr>
+    <tr><td class="k">1. KPI name</td><td>Definition</td><td>Formula</td><td><span class="tag no">To agree</span></td></tr>
+    <tr><td class="k">2. KPI name</td><td>Definition</td><td>Formula</td><td><span class="tag no">To agree</span></td></tr>
+    <tr><td class="k">3. KPI name</td><td>Definition</td><td>Formula</td><td><span class="tag no">To agree</span></td></tr>
+  </table>
+  <div class="source">How the KPIs relate to each other.</div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">14</div></div>
+</section>
+
+<!-- 15 · NEXT STEPS + ASK -->
+<section class="page">
+  <div class="hdr"><div class="logos"><img class="own" src="assets/logo-ink.png" alt=""><span class="x">×</span><img class="partner" src="assets/partner-logo.png" alt=""></div><div class="run">{{TITLE}} · {{DATE}}</div></div>
+  <div class="kicker">Next steps</div>
+  <h1 class="action">N actions, each with an owner.</h1>
+  <table style="margin-bottom:7mm">
+    <tr><th style="width:6%">#</th><th>Action</th><th style="width:34%">Who</th></tr>
+    <tr><td style="color:var(--accent);font-weight:600">01</td><td>Action</td><td class="k">Owner</td></tr>
+    <tr><td style="color:var(--accent);font-weight:600">02</td><td>Action</td><td class="k">Owner</td></tr>
+    <tr><td style="color:var(--accent);font-weight:600">03</td><td>Action</td><td class="k">Owner</td></tr>
+  </table>
+  <div class="ask"><div class="kicker">What we ask {{PARTNER}}</div><p>Repeat the ask from the executive summary.</p></div>
+  <div class="ftr"><div>{{PARTNER}} × {{COMPANY}} · Draft for discussion · Confidential</div><div class="pg">15</div></div>
+</section>
+
+<script>
+  // Dots visual: <div class="dots" data-n="TOTAL" data-on="HIGHLIGHTED"></div>
+  document.querySelectorAll('.dots[data-n]').forEach(function(el){
+    var n=+el.dataset.n, on=+(el.dataset.on||0), h='';
+    for(var i=0;i<n;i++) h+= i<on ? '<span class="on"></span>' : '<span></span>';
+    el.innerHTML=h;
+  });
+</script>
+</body>
+</html>

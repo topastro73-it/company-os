@@ -65,6 +65,19 @@ footer con wordmark + sito + pagina.
 
 Workflow: scegli la struttura dal tipo di deck (sotto) → mappa ogni slide su un helper del template → genera il `.pptx`.
 
+## Report template (documenti PDF, A4 orizzontale)
+
+Per **report e documenti** destinati a clienti e partner (report di PoC, QBR, assessment,
+proposte in forma di documento) non si usa il deck `.pptx` ma il **template HTML**
+in `os/skills/presentations/report/`:
+
+- `report-template.html`: copertina più 14 pagine d'esempio, una per componente (titoli d'azione,
+  card, exhibit, tabelle con pill di stato, timeline, KPI, next steps).
+- `render.sh <file.html>`: PDF con Chrome headless e anteprime PNG per controllare ogni pagina.
+- Istruzioni e regole: `os/skills/presentations/report/README.md`.
+
+Look & feel: A4 orizzontale, Inter, copertina scura, logo del partner accanto a quello aziendale.
+Colori e loghi del brand stanno in `report/assets/` (`brand.css`, `logo-ink.png`, `logo-white.png`).
 
 ## Principi di Design
 - **Una idea per slide** — non sovraccaricare

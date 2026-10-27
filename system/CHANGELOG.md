@@ -4,6 +4,18 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.7.0] — feat: template report PDF (A4 orizzontale)
+
+- feat(presentations): `os/skills/presentations/report/` — template HTML per report e documenti
+  destinati a clienti e partner (PoC, QBR, assessment): copertina e 14 pagine d'esempio, una per
+  componente (titoli d'azione, card, exhibit, tabelle con pill di stato, timeline, KPI, next steps),
+  più `render.sh` che genera il PDF con Chrome headless e le anteprime PNG.
+- Il brand è separato dal markup: colori in `assets/brand.css` (valori neutri d'esempio), loghi in
+  `assets/logo-ink.png` / `logo-white.png` (segnaposto "YOUR LOGO"). La sezione "Brand" del README
+  spiega come adattarlo.
+- Indice `os/skills/SKILLS.md` e skill presentations aggiornati.
+- Allineamento: CyberangelsOS kernel 2.10.1 ↔ company-os 0.7.0.
+
 ## [0.6.0] — feat: Org-OS, export meccanico, allineamento al kernel 2.10.0
 
 Prima versione derivata con `osctl export-template` invece che a mano: il template riprende tutto

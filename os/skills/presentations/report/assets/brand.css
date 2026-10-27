@@ -1,0 +1,11 @@
+/* Brand del report (report-template.html): colori. Il template usa solo queste variabili.
+   Per un altro brand cambia i valori, non i nomi. Loghi: assets/logo-ink.png (su fondo chiaro)
+   e assets/logo-white.png (su fondo scuro, copertina). Valori neutri di esempio: sostituiscili
+   con quelli del tuo brand (os/skills/presentations/report/README.md, sezione "Brand"). */
+:root {
+  --navy: #182233; --ink: #151C28; --body: #3D4757; --muted: #697384; --faint: #939CAB;
+  --rule: #E3E6EB; --rule-2: #D5DAE1; --panel: #F5F6F8; --panel-2: #EDEFF3;
+  --accent: #4F6BED; --accent-dk: #3149B8; --accent-soft: #ECEFFD; --cream: #F8F9FF;
+  --accent-glow: rgba(79,107,237,.24);  /* bagliore in copertina: l'accento al 24% */
+  --green: #1F8A4C; --green-soft: #E6F4EC; --blue: #2A5BB5; --blue-soft: #EAF0FB;
+}

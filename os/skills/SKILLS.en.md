@@ -38,6 +38,7 @@ Reference agents: see `ARCHITECTURE.md` §6 (`ceo`, `cos`, `sales`, `delivery`, 
 |-------|------|----------|----------|
 | **Pricing** | `os/skills/pricing/SKILL.md` | Product, Finance, Sales | Company tiers, bundling, packaging, quotes (`20-Clienti/{slug}/proposte/quote-*`) |
 | **Presentations** | `os/skills/presentations/SKILL.md` | CEO, Finance, Marketing, Sales, Delivery | Decks with the brand kit (`brand/company-theme.js`): pitch, board, proposals — pptx as on-demand build |
+| **Report PDF** | `os/skills/presentations/report/README.md` | CEO, Sales, Delivery | PDF reports for clients and partners with the HTML template `report/` (A4 landscape) |
 | **Spreadsheets** | `os/skills/spreadsheets/SKILL.md` | Finance, Product, Sales | Templates and conventions for financial models and xlsx dashboards |
 | **Writing** | `os/skills/writing/SKILL.md` | Marketing, CEO, Sales | Tone of voice, structures, anti-slop (`references/`) for content and copy |
 
