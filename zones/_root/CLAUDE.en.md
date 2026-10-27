@@ -6,7 +6,7 @@
 
 ## Who we are
 
-{company} — description, mission, business model and flywheel in `_OS/context/COMPANY.md`.
+Who we are — description, mission, business model and flywheel — in `_OS/context/COMPANY.md`.
 Load it at the start of the session: it is the source of truth on who we are, what we do and for whom.
 
 ## First line of every reply

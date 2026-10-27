@@ -32,6 +32,10 @@ Fonte di verità: `config/acl.yaml` (zone, ACL, direzione di sync) + `config/peo
    Senza `google-api-python-client` funzionano comunque `osctl status` e i parser
    di config; i comandi che toccano Drive falliscono con messaggio d'installazione.
 
+   Gli errori transitori di Drive (5xx, 429, rate limit, rete) si ritentano da soli con
+   backoff esponenziale, fino a 5 volte per chiamata. Per cambiarlo:
+   `export OSCTL_DRIVE_RETRIES=8` (0 = nessun retry).
+
 ## Comandi
 
 ```bash
@@ -45,6 +49,8 @@ python3 tools/osctl/osctl.py snapshot                # Drive → git (company/, 
 python3 tools/osctl/osctl.py acl-audit               # drift permessi (exit 1 se critico)
 python3 tools/osctl/osctl.py acl-audit --fix         # correzioni in DRY-RUN
 python3 tools/osctl/osctl.py acl-audit --fix --apply # applica le correzioni
+python3 tools/osctl/osctl.py export-template         # istanza → template company-os, DRY-RUN
+python3 tools/osctl/osctl.py export-template --apply # scrive nel clone (mai commit né push)
 ```
 
 Note operative:

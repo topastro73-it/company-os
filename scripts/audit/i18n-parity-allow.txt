@@ -23,3 +23,6 @@ tools/osctl/README.md
 os/skills/writing/references/examples.md
 os/skills/writing/references/phrases.md
 os/skills/writing/references/structures.md
+
+# Fixture dei selftest (ledger finto per ledger-check): dati di prova, non documentazione.
+scripts/audit/fixtures/

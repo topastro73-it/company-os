@@ -20,6 +20,13 @@ None. Cadence: weekly (Monday, or first access of the week).
    has been paid).
 5. **Flash report**: 6 lines — balance, collected, spent, overdue, next 7-day deadlines,
    anomalies. Loans/financing received: separate line, **never inside revenue**.
+6. **Scorecard** (Org-OS): for each weekly measurable of the active goals, append a dated row
+   to `00-Direzione/ops/scorecard.md` (ledger, `direzione` zone; in admin on the Drive mount):
+   date, measurable, owner `human:<slug>`, week, status 🟢/🔴 against the criterion's threshold,
+   path of the flash report in the finance zone. **Never figures**: the value stays in the 🔴 flash report.
+   If the file does not exist, create it from the template below. Then
+   `python3 scripts/audit/ledger-check.py --drive`, copy into the snapshot `company/direzione/ops/`,
+   `python3 scripts/audit/ledger-check.py`.
 
 ## Output format
 ```markdown
@@ -35,8 +42,23 @@ Overdue to collect: €… · 7-day deadlines: … · Anomalies: …
 ## Reconciliation detail  ## Actions (owner + due by)
 ```
 
+Scorecard template (ledger, no amounts):
+```markdown
+---
+zone: direzione
+tier: 🟡
+type: scorecard
+---
+# Weekly scorecard
+
+| Date | Measurable | Owner | Week | Status | Ref |
+|---|---|---|---|---|---|
+| YYYY-MM-DD | {goal measurable, e.g. runway in months vs threshold} | human:{slug} | YYYY-Wnn | 🟢/🔴 | `vault/finance/sync/sync-{YYYY-Wnn}.md` |
+```
+
 ## Destination
 Zone `finance` → `sync/sync-{YYYY-Wnn}.md` + registries updated in place.
+Ledger (`direzione` zone, `ops` subzone) → row in `scorecard.md`.
 Commit (admin): `[finance] sync: week {n}`.
 
 ## Handoff

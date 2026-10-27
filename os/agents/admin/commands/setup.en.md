@@ -49,10 +49,10 @@ Five questions, in this order. After each one, write the field.
 
 | # | Question | Where it lands |
 |---|---------|--------------|
-| 1 | What is the company called? | `company.yaml → name` |
-| 2 | In one line: what do you do, and for whom? | `company.yaml → one_liner` + `zones/_root/context/COMPANY.md` |
+| 1 | What is the company called? | `company.yaml → company.legal_name`, `company.short_name` |
+| 2 | In one line: what do you do, and for whom? | `company.yaml → positioning.one_liner` + `zones/_root/context/COMPANY.md` |
 | 3 | Do you sell to businesses, to consumers, or both? And do you go through resellers/partners? | `company.yaml → positioning.model` |
-| 4 | What are your two or three main types of customer? (your own names for them, not standard categories) | `company.yaml → segments` |
+| 4 | What are your two or three main types of customer? (your own names for them, not standard categories) | `company.yaml → positioning.segments` |
 | 5 | Is there a regulated sector that constrains you? (e.g. healthcare, finance, security; or none) | `zones/_root/context/COMPANY.md` |
 
 On number 4: these are the labels that will show up all through the sales pipeline. If they don't

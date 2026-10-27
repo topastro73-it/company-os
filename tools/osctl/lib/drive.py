@@ -18,6 +18,14 @@ FOLDER_MIME = "application/vnd.google-apps.folder"
 GDOC_MIME = "application/vnd.google-apps.document"
 SCOPES = ["https://www.googleapis.com/auth/drive"]
 
+# Retry delle chiamate Drive su errori transitori (5xx, 429, 403 rate limit, errori di rete):
+# googleapiclient ritenta con backoff esponenziale randomizzato (1s, 2s, 4s, 8s, 16s...).
+# Override con l'env OSCTL_DRIVE_RETRIES (0 = nessun retry).
+try:
+    API_RETRIES = max(0, int(os.environ.get("OSCTL_DRIVE_RETRIES", "5")))
+except ValueError:
+    API_RETRIES = 5
+
 INSTALL_MSG = (
     "google-api-python-client non installato.\n"
     "Installa con:  pip install google-api-python-client google-auth pyyaml"
@@ -200,7 +208,7 @@ class Drive:
             resp = self.svc.files().list(
                 q="'%s' in parents and trashed=false" % folder_id,
                 fields="nextPageToken,files(id,name,mimeType,modifiedTime)",
-                pageSize=200, pageToken=page, **self._list_kwargs()).execute()
+                pageSize=200, pageToken=page, **self._list_kwargs()).execute(num_retries=API_RETRIES)
             items.extend(resp.get("files", []))
             page = resp.get("nextPageToken")
             if not page:
@@ -224,7 +232,7 @@ class Drive:
             else:
                 created = self.svc.files().create(
                     body={"name": part, "mimeType": FOLDER_MIME, "parents": [parent]},
-                    fields="id", supportsAllDrives=True).execute()
+                    fields="id", supportsAllDrives=True).execute(num_retries=API_RETRIES)
                 parent = created["id"]
         return parent
 
@@ -242,11 +250,11 @@ class Drive:
         if existing and existing["mimeType"] != FOLDER_MIME and existing["mimeType"] != GDOC_MIME:
             self.svc.files().update(
                 fileId=existing["id"], media_body=media,
-                supportsAllDrives=True).execute()
+                supportsAllDrives=True).execute(num_retries=API_RETRIES)
             return existing["id"], "aggiornato"
         created = self.svc.files().create(
             body={"name": name, "parents": [parent_id]},
-            media_body=media, fields="id", supportsAllDrives=True).execute()
+            media_body=media, fields="id", supportsAllDrives=True).execute(num_retries=API_RETRIES)
         return created["id"], "creato"
 
     def convert_md_to_gdoc(self, md_path, parent_id, name=None):
@@ -261,11 +269,11 @@ class Drive:
         if existing:
             self.svc.files().update(
                 fileId=existing["id"], media_body=media,
-                supportsAllDrives=True).execute()
+                supportsAllDrives=True).execute(num_retries=API_RETRIES)
             return existing["id"], "aggiornato"
         created = self.svc.files().create(
             body={"name": name, "mimeType": GDOC_MIME, "parents": [parent_id]},
-            media_body=media, fields="id", supportsAllDrives=True).execute()
+            media_body=media, fields="id", supportsAllDrives=True).execute(num_retries=API_RETRIES)
         return created["id"], "creato"
 
     # -- permissions -----------------------------------------------------------
@@ -276,7 +284,7 @@ class Drive:
             resp = self.svc.permissions().list(
                 fileId=file_id, pageSize=100, pageToken=page,
                 fields="nextPageToken,permissions(id,type,role,emailAddress,permissionDetails)",
-                supportsAllDrives=True).execute()
+                supportsAllDrives=True).execute(num_retries=API_RETRIES)
             perms.extend(resp.get("permissions", []))
             page = resp.get("nextPageToken")
             if not page:
@@ -287,11 +295,11 @@ class Drive:
         self.svc.permissions().create(
             fileId=file_id,
             body={"type": "user", "role": role, "emailAddress": email},
-            sendNotificationEmail=False, supportsAllDrives=True).execute()
+            sendNotificationEmail=False, supportsAllDrives=True).execute(num_retries=API_RETRIES)
 
     def remove_permission(self, file_id, perm_id):
         self.svc.permissions().delete(
-            fileId=file_id, permissionId=perm_id, supportsAllDrives=True).execute()
+            fileId=file_id, permissionId=perm_id, supportsAllDrives=True).execute(num_retries=API_RETRIES)
 
     # -- download -----------------------------------------------------------
 
@@ -301,7 +309,7 @@ class Drive:
         downloader = self._MediaDownload(buf, request)
         done = False
         while not done:
-            _, done = downloader.next_chunk()
+            _, done = downloader.next_chunk(num_retries=API_RETRIES)
         with open(dest, "wb") as fh:
             fh.write(buf.getvalue())
 

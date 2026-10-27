@@ -28,20 +28,33 @@ Nessuno (implicito: prima interazione della sessione admin).
    - zona `clienti`: partner Critical/At-Risk (health score), onboarding in ritardo
    - zona `compliance`: scadenze ≤7gg, audit ≤30gg, evidenze mancanti
    - zona `prodotto`: spec stale, decisioni in attesa del CEO
-7. **Componi il briefing** (formato sotto) e **poni le domande** del ritmo attivo.
-8. **Registra le risposte** in `direzione/ceo-cadence.md` e aggiorna i file di zona toccati.
-   ⚠️ Questo passo **non è l'unico punto di scrittura** del cadence log: la scrittura obbligatoria è
-   al passo 3 di `/ceo close`. Qui si registra ciò che emerge durante il briefing, ma se la sessione
+7. **Standup COO** (Org-OS): segui `os/agents/coo/commands/standup.md` sui goal attivi del
+   ledger (zona `direzione`, sottozona `ops`; in admin sul mount Drive, altrimenti lo snapshot
+   `company/direzione/ops/`). Per ogni goal: ondata corrente, WO bloccati (motivo + via
+   d'uscita), checkpoint in attesa di firma, proposta per la prossima ondata. Scrivi
+   `00-Direzione/ops/standup/YYYY-MM-DD.md`, esegui `python3 scripts/audit/ledger-check.py --drive`,
+   copia nello snapshot ed esegui `python3 scripts/audit/ledger-check.py`. Ledger assente → salta
+   il passo e scrivi "nessun goal attivo". I blocchi entrano in URGENTE se chiedono una firma o una
+   decisione del CEO.
+8. **Componi il briefing** (formato sotto) e **poni le domande** del ritmo attivo.
+9. **Registra le risposte** in `direzione/ceo-cadence.md` e aggiorna i file di zona toccati.
+   ⚠️ Questo passo **non è più l'unico punto di scrittura** del cadence log: la scrittura obbligatoria
+   è al passo 3 di `/ceo close`. Qui si registra ciò che emerge durante il briefing, ma se la sessione
    prosegue e questo passo salta, il close recupera comunque.
-9. Chiudi con: "cosa vuoi fare oggi?" → handoff all'agente richiesto.
+10. Chiudi con: "cosa vuoi fare oggi?" → handoff all'agente richiesto.
 
 ## Formato output (in chat, non file)
+
+Eccezione: lo **standup COO** del passo 7 è un file del ledger (`ops/standup/YYYY-MM-DD.md`,
+formato in `os/agents/coo/commands/standup.md`); in chat ne va solo la riga `GOAL ATTIVI`.
+
 ```
 🟣 **[Claude]**
 Buongiorno {nome}. Ecco la tua giornata.
 
 QUICK STATUS — decisioni in attesa: N · follow-up scaduti: N · partner alert: N ·
 deal 🔴: N · scadenze fiscali 3gg: N · fatture scadute 30+gg: N
+GOAL ATTIVI: N · WO bloccati: N · checkpoint da firmare: N (standup: ops/standup/YYYY-MM-DD.md)
 
 URGENTE (risposta ORA)
 1. [cosa] — [1 riga contesto] — [opzioni A/B/C]

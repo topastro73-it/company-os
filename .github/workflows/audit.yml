@@ -1,11 +1,10 @@
 name: system-audit
 
 # Audit continuo dei guardrail CompanyOS (ARCHITECTURE.md §8).
-# Gira su ogni push/PR: secret-scan, link-lint, i18n-parity e convention-check
-# bloccano;
-# frontmatter-check e system-health sono informativi (il piano operativo vive
-# su Drive e arriva in git solo via snapshot).
-# i18n-parity usa la storia git per datare i file: richiede fetch-depth: 0.
+# Gira su ogni push/PR: secret-scan, link-lint, ledger-check (+ selftest), convention-check
+# e i18n-parity (solo dove esistono le varianti .en.md) bloccano; frontmatter-check e
+# system-health sono informativi (il piano operativo vive su Drive e arriva in git solo
+# via snapshot). i18n-parity usa la storia git per datare i file: richiede fetch-depth: 0.
 on:
   push:
     branches: ["**"]
@@ -28,11 +27,18 @@ jobs:
       - name: Link lint (blocca su riferimenti di sistema rotti)
         run: python3 scripts/audit/link-lint.py --strict
 
-      - name: i18n parity (blocca su traduzioni mancanti o in deriva)
-        run: python3 scripts/audit/i18n-parity.py --strict
+      - name: Ledger check (blocca su cifre/🔴/formato nel ledger Org-OS)
+        run: python3 scripts/audit/ledger-check.py
+
+      - name: Ledger check selftest (blocca se il guardrail non funziona)
+        run: python3 -m unittest scripts/audit/tests/test_ledger_check.py scripts/audit/tests/test_precommit_hook.py scripts/audit/tests/test_export_template.py
 
       - name: Convention check (blocca su slug di commit fuori roster)
         run: python3 scripts/audit/convention-check.py --strict
+
+      - name: i18n parity (blocca su traduzioni mancanti o in deriva)
+        if: hashFiles('scripts/audit/i18n-parity.py') != ''
+        run: python3 scripts/audit/i18n-parity.py --strict
 
       - name: Frontmatter check (report — non blocca)
         run: python3 scripts/audit/frontmatter-check.py || true

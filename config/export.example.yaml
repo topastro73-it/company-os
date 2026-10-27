@@ -1,0 +1,51 @@
+# Export di un template pubblico da questa istanza — copia in `export.yaml` solo se pubblichi
+# un tuo template derivato (`osctl export-template`, os/agents/admin/commands/export-template.md).
+# Chi usa il template e basta non ne ha bisogno.
+# privacy: internal
+
+# Clone locale del template di destinazione (relativo alla radice del repo, o assoluto)
+target: "../my-company-os-template"
+
+# Radici di sistema che si esportano. Tutto il resto non esce mai.
+include:
+  - os
+  - tools
+  - scripts
+  - .github
+  - bootstrap
+  - zones
+  - Home.md
+
+# File d'istanza dentro le radici incluse: non escono (glob, `**` = qualunque profondità).
+# Una riga d'istanza dentro un file condiviso si marca invece con un commento `@instance`.
+exclude:
+  - "zones/*/context/**"
+  - "**/node_modules/**"
+  - "**/__pycache__/**"
+  - "**/.DS_Store"
+
+# File che nel template hanno contenuto proprio: l'export non li sovrascrive né li cancella.
+template_owned:
+  - "CLAUDE.md"
+  - "ARCHITECTURE.md"
+  - "README.md"
+  - "LICENSE"
+  - ".gitignore"
+  - ".env.example"
+  - "config/**"
+  - "company/**"
+  - "vault/**"
+  - "system/**"
+  - "zones/*/context/**"
+
+# Leak-scan: oltre a questi termini l'export aggiunge da solo ragione sociale, nome breve e
+# dominio (company.yaml), nomi ed email delle persone (people.yaml) e gli slug dei clienti
+# (company/clienti/). Confronto senza maiuscole, a parola intera.
+deny_terms: []
+
+# File dove un nome reale è voluto (es. il titolare del copyright): il leak-scan li salta.
+scan_skip:
+  - "LICENSE"
+
+# Parole generiche che coincidono con uno slug cliente: non sono leak.
+allow_terms: []

@@ -15,6 +15,8 @@ non-negotiable rules; the operational detail lives here. Each protocol is self-c
 | [session-rituals.md](session-rituals.md) | Start and close routines, for admin (repo) and collaborators (Drive zone) |
 | [onboarding-collaborator.md](onboarding-collaborator.md) | Progressive activation (per zone, via interview) of collaborators on the operational Drive |
 | [language.md](language.md) | Working language: choice at setup, md generation, `.en.md` variants, change via chat |
+| [collaboration.md](collaboration.md) | Org-OS: goal ledger, work orders, states, Team Topologies modes, escalation, anti-loop, plan-blind |
+| [autonomy.md](autonomy.md) | Agent autonomy levels L0–L3; AI goes at most as far as `verified`, closure only with a human sign-off |
 
 Cross-agent workflows in `os/workflows/` (index in `os/workflows/README.md`).
-System files have English variants `.en.md` alongside (see language.md).
+In the `company-os` template, system files have English variants `.en.md` alongside (see language.md).

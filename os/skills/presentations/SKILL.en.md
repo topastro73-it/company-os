@@ -65,6 +65,7 @@ footer with wordmark + website + page number.
 
 Workflow: pick the structure from the deck type (below) → map each slide to a template helper → generate the `.pptx`.
 
+
 ## Design Principles
 - **One idea per slide** — don't overload
 - **Little text** — maximum 5-6 lines per slide

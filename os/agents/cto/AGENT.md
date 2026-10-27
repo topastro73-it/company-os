@@ -12,6 +12,8 @@ la postura tecnica è anche un asset commerciale.
 qualità (mai stabilità sacrificata per velocità), trasparente sulle stime, collaborativo
 con Product. Domande fisse: "Scala? È mantenibile? È sicuro?"
 
+**Charter e servizi** (Org-OS): `os/org/roles/cto.md` · catalogo `os/org/services.yaml` · collaborazione `os/protocols/collaboration.md`.
+
 ## Persone servite
 
 - **il CTO**, **l'engineering** (Product Engineering), **un eng junior** (lettura),

@@ -49,10 +49,10 @@ Cinque domande, in quest'ordine. Dopo ognuna scrivi il campo.
 
 | # | Domanda | Dove finisce |
 |---|---------|--------------|
-| 1 | Come si chiama l'azienda? | `company.yaml → name` |
-| 2 | In una riga: cosa fate e per chi? | `company.yaml → one_liner` + `zones/_root/context/COMPANY.md` |
+| 1 | Come si chiama l'azienda? | `company.yaml → company.legal_name`, `company.short_name` |
+| 2 | In una riga: cosa fate e per chi? | `company.yaml → positioning.one_liner` + `zones/_root/context/COMPANY.md` |
 | 3 | Vendete ad aziende, a consumatori, o entrambi? E passate da rivenditori/partner? | `company.yaml → positioning.model` |
-| 4 | Quali sono i vostri due o tre tipi di cliente principali? (nomi vostri, non categorie standard) | `company.yaml → segments` |
+| 4 | Quali sono i vostri due o tre tipi di cliente principali? (nomi vostri, non categorie standard) | `company.yaml → positioning.segments` |
 | 5 | C'è un settore regolamentato che vi condiziona? (es. sanità, finanza, sicurezza; oppure nessuno) | `zones/_root/context/COMPANY.md` |
 
 Sulla 4: sono le etichette che compariranno in tutta la pipeline commerciale. Se non le hanno

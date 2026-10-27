@@ -65,6 +65,7 @@ footer con wordmark + sito + pagina.
 
 Workflow: scegli la struttura dal tipo di deck (sotto) → mappa ogni slide su un helper del template → genera il `.pptx`.
 
+
 ## Principi di Design
 - **Una idea per slide** — non sovraccaricare
 - **Poco testo** — massimo 5-6 righe per slide

@@ -17,6 +17,10 @@ Full architecture: `ARCHITECTURE.md`. A session here is an **admin** session (fo
 - **Zones, ACLs, sync directions** → `config/acl.yaml`
 - **Agents** → `os/agents/AGENTS.md` · **Skills** → `os/skills/SKILLS.md` · **Workflows** → `os/workflows/`
 - **Protocols** → `os/protocols/` (index in `os/protocols/README.md`)
+- **Org-OS (agents working as a team on goals)** → `os/protocols/collaboration.md` · autonomy
+  `os/protocols/autonomy.md` · services `os/org/services.yaml` · decisions
+  `os/org/decision-rights.yaml` · charters `os/org/roles/` · orchestrator `os/agents/coo/AGENT.md`
+  (reports to the CEO) · verifier `os/agents/controller/AGENT.md` · ledger in `company/direzione/ops/`
 - **Company state** (snapshot of the Drive zones) → `company/` · 🔴 → `vault/`
 - **History** → `system/wiki/` · **Learned rules** → `system/learnings.md`
 
@@ -77,3 +81,10 @@ This repo is the public template `company-os`. A private instance derives from i
 `config/`, `company/`, `vault/`, `zones/*/context/` with company data; everything company-specific
 must live only there. The `/admin export-template` command (empties config/company/vault,
 leak-scan, push) regenerates this template from a private instance.
+
+## Frontmatter of .md files
+
+Every new `.md` file starts with this frontmatter: `status` (`da-smistare` | `attivo` |
+`in-attesa` | `fatto` | `archiviato`), `area` and, if `status: in-attesa`, also
+`waiting_on` (who or what is awaited). The views in `Home.md` (Obsidian Bases) run on
+these fields. The status values are identifiers: keep them as written.

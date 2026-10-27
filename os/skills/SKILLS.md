@@ -37,7 +37,7 @@ Agenti di riferimento: vedi `ARCHITECTURE.md` §6 (`ceo`, `cos`, `sales`, `deliv
 | Skill | Path | Usata da | Una riga |
 |-------|------|----------|----------|
 | **Pricing** | `os/skills/pricing/SKILL.md` | Product, Finance, Sales | Tiers dell'azienda, bundling, packaging, quotazioni (`20-Clienti/{slug}/proposte/quote-*`) |
-| **Presentations** | `os/skills/presentations/SKILL.md` | CEO, Finance, Marketing, Sales | Deck con brand kit (`brand/company-theme.js`): pitch, board, proposte — pptx come build on-demand |
+| **Presentations** | `os/skills/presentations/SKILL.md` | CEO, Finance, Marketing, Sales, Delivery | Deck con il brand kit (`brand/company-theme.js`): pitch, board, proposte — pptx come build on-demand |
 | **Spreadsheets** | `os/skills/spreadsheets/SKILL.md` | Finance, Product, Sales | Template e convenzioni per modelli finanziari e dashboard xlsx |
 | **Writing** | `os/skills/writing/SKILL.md` | Marketing, CEO, Sales | Tone of voice, strutture, anti-slop (`references/`) per contenuti e copy |
 

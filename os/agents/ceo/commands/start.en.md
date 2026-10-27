@@ -28,20 +28,33 @@ None (implicit: first interaction of the admin session).
    - `clienti` zone: Critical/At-Risk partners (health score), delayed onboarding
    - `compliance` zone: deadlines ≤7 days, audits ≤30 days, missing evidence
    - `prodotto` zone: stale specs, decisions awaiting the CEO
-7. **Compose the briefing** (format below) and **ask the questions** of the active cadence.
-8. **Record the answers** in `direzione/ceo-cadence.md` and update the touched zone files.
-   ⚠️ This step is **not the only write point** for the cadence log: the mandatory write is step 3 of
-   `/ceo close`. Here you record what emerges during the briefing, but if the session moves on and this
-   step is skipped, the close still recovers it.
-9. Close with: "what do you want to do today?" → handoff to the requested agent.
+7. **COO standup** (Org-OS): follow `os/agents/coo/commands/standup.md` on the ledger's active goals
+   (`direzione` zone, `ops` subzone; in admin on the Drive mount, otherwise the snapshot
+   `company/direzione/ops/`). For each goal: current wave, blocked WOs (reason + way out),
+   checkpoints awaiting sign-off, proposal for the next wave. Write
+   `00-Direzione/ops/standup/YYYY-MM-DD.md`, run `python3 scripts/audit/ledger-check.py --drive`,
+   copy into the snapshot and run `python3 scripts/audit/ledger-check.py`. No ledger → skip the
+   step and write "no active goals". Blockers go into URGENT if they need a CEO sign-off or
+   decision.
+8. **Compose the briefing** (format below) and **ask the questions** of the active cadence.
+9. **Record the answers** in `direzione/ceo-cadence.md` and update the touched zone files.
+   ⚠️ This step is **no longer the only write point** for the cadence log: the mandatory write is step 3
+   of `/ceo close`. Here you record what emerges during the briefing, but if the session moves on and
+   this step is skipped, the close still recovers it.
+10. Close with: "what do you want to do today?" → handoff to the requested agent.
 
 ## Output format (in chat, not a file)
+
+Exception: the **COO standup** from step 7 is a ledger file (`ops/standup/YYYY-MM-DD.md`,
+format in `os/agents/coo/commands/standup.md`); only its `ACTIVE GOALS` line goes in chat.
+
 ```
 🟣 **[Claude]**
 Good morning {name}. Here is your day.
 
 QUICK STATUS — pending decisions: N · overdue follow-ups: N · partner alerts: N ·
 🔴 deals: N · tax deadlines 3 days: N · invoices overdue 30+ days: N
+ACTIVE GOALS: N · blocked WOs: N · checkpoints to sign: N (standup: ops/standup/YYYY-MM-DD.md)
 
 URGENT (answer NOW)
 1. [what] — [1 line of context] — [options A/B/C]

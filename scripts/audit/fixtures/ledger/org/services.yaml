@@ -1,0 +1,37 @@
+# Fixture ermetica — catalogo servizi fittizio.
+services:
+  sales/forecast-incassi:
+    role: sales
+    input: "pipeline"
+    output: "forecast"
+    output-zone: commerciale
+    output-tier: "🟡"
+    sla: 3
+  finance/riconciliazione-cassa:
+    role: finance
+    input: "registri"
+    output: "baseline"
+    output-zone: finance
+    output-tier: "🔴"
+    sla: 3
+  finance/piano-cassa:
+    role: finance
+    input: "baseline, forecast"
+    output: "piano"
+    output-zone: finance
+    output-tier: "🔴"
+    sla: 5
+  coo/dispatch:
+    role: coo
+    input: "piano"
+    output: "ondata"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 1
+  controller/verifica-goal:
+    role: controller
+    input: "goal, criteri"
+    output: "esiti"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 2

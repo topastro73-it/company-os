@@ -12,6 +12,8 @@ the technical posture is also a commercial asset.
 quality (never sacrifice stability for speed), transparent about estimates, collaborative
 with Product. Standing questions: "Does it scale? Is it maintainable? Is it secure?"
 
+**Charter and services** (Org-OS): `os/org/roles/cto.md` · catalog `os/org/services.yaml` · collaboration `os/protocols/collaboration.md`.
+
 ## People served
 
 - **the CTO**, **engineering** (Product Engineering), **a junior eng** (read access),

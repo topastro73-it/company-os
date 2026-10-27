@@ -17,6 +17,10 @@ Architettura completa: `ARCHITECTURE.md`. Sessione qui = sessione **admin** (fou
 - **Zone, ACL, direzioni di sync** → `config/acl.yaml`
 - **Agenti** → `os/agents/AGENTS.md` · **Skill** → `os/skills/SKILLS.md` · **Workflow** → `os/workflows/`
 - **Protocolli** → `os/protocols/` (indice in `os/protocols/README.md`)
+- **Org-OS (agenti in squadra sui goal)** → `os/protocols/collaboration.md` · autonomia
+  `os/protocols/autonomy.md` · servizi `os/org/services.yaml` · decisioni
+  `os/org/decision-rights.yaml` · charter `os/org/roles/` · orchestratore `os/agents/coo/AGENT.md`
+  (risponde al CEO) · verifier `os/agents/controller/AGENT.md` · ledger in `company/direzione/ops/`
 - **Stato aziendale** (snapshot delle zone Drive) → `company/` · 🔴 → `vault/`
 - **Storia** → `system/wiki/` · **Regole apprese** → `system/learnings.md`
 
@@ -76,3 +80,10 @@ Questo repo è il template pubblico `company-os`. Un'istanza privata lo deriva r
 `config/`, `company/`, `vault/`, `zones/*/context/` con i dati aziendali; tutto ciò che è
 specifico dell'azienda deve vivere solo lì. Il comando `/admin export-template`
 (svuota config/company/vault, leak-scan, push) rigenera questo template da un'istanza privata.
+
+## Frontmatter dei file .md
+
+Ogni nuovo file `.md` nasce con questo frontmatter: `status` (`da-smistare` | `attivo` |
+`in-attesa` | `fatto` | `archiviato`), `area` e, se `status: in-attesa`, anche
+`waiting_on` (chi o cosa si aspetta). Su questi campi girano le viste di `Home.md`
+(Obsidian Bases).

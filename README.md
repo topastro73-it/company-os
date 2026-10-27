@@ -32,7 +32,7 @@ Details: `os/protocols/language.md`.
 | `vault/` | 🔴 finance & legal & contracts — admin only |
 | `tools/osctl/` | git ↔ Drive sync engine (bootstrap, publish, snapshot, acl-audit) |
 | `tools/viewer/` | Standalone markdown reader for people working in the Drive folder |
-| `scripts/audit/` | Mechanical guardrails (secret-scan, link-lint, frontmatter, health) — in CI and pre-commit |
+| `scripts/audit/` | Mechanical guardrails (secret-scan, link-lint, i18n-parity, convention, Org-OS ledger, frontmatter, health) — in CI and pre-commit |
 | `system/` | CHANGELOG, learnings (LRN-XXX), wiki |
 
 ## Day to day

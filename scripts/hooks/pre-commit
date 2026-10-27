@@ -2,7 +2,8 @@
 # pre-commit — guardrail meccanico anti-leak (ARCHITECTURE.md §8).
 # Installazione (una tantum):
 #   git config core.hooksPath scripts/hooks
-# Blocca il commit se secret-scan trova segreti/file 🔴 fuori posto nel diff in staging.
+# Blocca il commit se secret-scan trova segreti/file 🔴 fuori posto nel diff in staging,
+# o se ledger-check trova violazioni nel ledger Org-OS in stage (company/direzione/ops/).
 set -uo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 
@@ -12,5 +13,21 @@ if ! bash "$ROOT/scripts/audit/secret-scan.sh" --staged; then
   echo "   Se è un falso positivo, correggi il pattern in scripts/audit/secret-scan.sh"
   echo "   oppure bypassa consapevolmente con:  git commit --no-verify"
   exit 1
+fi
+
+# Ledger Org-OS (ADR-004/006): se nello stage ci sono file del ledger, oppure le regole che lo
+# validano (ACL, persone, catalogo e charter dei ruoli, lo script stesso): una modifica alle
+# regole può invalidare un ledger già committato.
+LEDGER_RULES="config/acl.yaml config/people.yaml os/org/ scripts/audit/ledger-check.py"
+ledger_fail() {
+  echo
+  echo "⛔ Commit bloccato: il ledger viola os/protocols/collaboration.md (vedi sopra)."
+  echo "   Nel ledger solo riferimenti: niente importi, IBAN, P.IVA/CF; WO 🔴 solo verso chi ha ACL."
+  exit 1
+}
+# Ledger e regole nella versione IN STAGE (quella che entra nel commit): `--staged` prende
+# dall'indice sia il ledger completo sia ACL, persone e catalogo.
+if git diff --cached --name-only --diff-filter=ACMRD -- company/direzione/ops/ $LEDGER_RULES | grep -q .; then
+  python3 "$ROOT/scripts/audit/ledger-check.py" --staged || ledger_fail
 fi
 exit 0

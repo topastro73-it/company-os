@@ -4,6 +4,43 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.6.0] — feat: Org-OS, export meccanico, allineamento al kernel 2.10.0
+
+Prima versione derivata con `osctl export-template` invece che a mano: il template riprende tutto
+quello che l'istanza sorgente ha costruito da agosto a oggi ed è generico.
+
+- feat(org-os): agenti in squadra sui goal. Nuovi agenti `coo` (orchestratore: piano a ondate di
+  work order, dispatch, standup, sblocco, checkpoint; risponde al CEO) e `controller` (verifier
+  plan-blind: criteri falsificabili prima del piano, verifica sulle fonti). Charter dei ruoli in
+  `os/org/roles/`, catalogo servizi `os/org/services.yaml`, diritti di decisione
+  `os/org/decision-rights.yaml`, protocolli `os/protocols/collaboration.md` (ledger, work order,
+  stati, escalation, anti-loop) e `os/protocols/autonomy.md` (livelli L0–L3: l'AI arriva al
+  massimo a `verified`, la chiusura richiede una firma umana). Il ledger vive nella zona
+  `direzione` (`ops/`). `/ceo start` fa lo standup COO sui goal attivi.
+- feat(audit): `scripts/audit/ledger-check.py` — il ledger Org-OS senza cifre, IBAN, P.IVA/CF o
+  contenuto 🔴, con formato valido, WO risolvibili, instradamento 🔴 solo verso chi ha ACL, firme
+  umane e budget anti-loop. Bloccante in pre-commit (`--staged`) e in CI, con 97 selftest e un
+  ledger finto in `scripts/audit/fixtures/ledger/`.
+- feat(osctl): `osctl export-template` — deriva un template pubblico da un'istanza
+  (`config/export.example.yaml`). Merge e non sovrascrittura: le `.en.md` restano, le righe marcate
+  `@instance` si tolgono, leak-scan su azienda, persone, email e clienti presi dalla config, elenco
+  delle traduzioni da fare. Dry-run di default, mai commit né push. Selftest in CI.
+- feat(osctl): retry con backoff sugli errori transitori di Drive; `publish` include `os/skills` e
+  salta `node_modules`.
+- feat(kernel): regola del frontmatter (`status`, `area`, `waiting_on`) in `CLAUDE.md` e `Home.md`,
+  cruscotto Obsidian Bases che ne ricava le viste.
+- feat(config): `company.example.yaml → positioning.segments`: i segmenti citati da sales e
+  opportunità ora hanno una chiave dove dichiararli (prima i file rimandavano a una chiave che
+  l'esempio non aveva). `integrations.example.yaml → banca.external_accounts` per i conti non
+  coperti dall'API della banca.
+- fix(skills): la skill Qonto documenta i limiti reali dell'API (conti Open Banking esclusi,
+  User-Agent rifiutato da Cloudflare con errore 1010).
+- fix(audit): `system-health.py` controlla anche ledger e hook pre-commit; il grace period sui
+  contatori dei learning dopo una migrazione.
+- change(i18n): fixture dei selftest in `i18n-parity-allow.txt` (dati di prova, non documentazione).
+- fix(privacy): tolta dal changelog 0.4.0 la descrizione del verticale dell'istanza sorgente.
+- Allineamento: CyberangelsOS kernel 2.10.0 ↔ company-os 0.6.0.
+
 ## [0.5.0] — feat: licenza MIT, intervista di setup, script d'esempio riutilizzabili
 
 Il template prometteva un'intervista iniziale in cinque documenti e non la implementava in
@@ -48,7 +85,7 @@ era un segreto, ma bastava a ricostruire l'azienda sorgente.
   riferimento a un artefatto di trattativa. Dato personale di un terzo, in un repo pubblico.
 - fix(privacy): i 6 ticket d'esempio usavano il prefisso ClickUp reale dell'istanza sorgente →
   `TASK-…`. Una impronta digitale del workspace, corta ma cercabile.
-- fix(privacy): il verticale dell'istanza sorgente (ISP Tier-2 / MSP / Telco / TIC, NIS2 come
+- fix(privacy): il verticale dell'istanza sorgente (segmenti di mercato e regolamento usato come
   driver di domanda) era cablato in 22 coppie di file. Ora è parametrizzato su
   `config/company.yaml`, seguendo il modello che `os/agents/AGENTS.md` già usava. NIS2
   sopravvive come *esempio* di driver regolatorio, non come il driver del lettore.

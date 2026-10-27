@@ -19,7 +19,7 @@ or if right afterwards you republish the change to the Drive master; otherwise e
 
 `osctl publish` distributes the system to the Drive zones:
 - `zones/` → the zone `CLAUDE.md` files and context (`_OS/`, root, `90-Condivisi/`)
-- selected `os/` (agents, protocols, templates) → `_OS/`
+- selected `os/` (agents, protocols, workflows, templates, skills) → `_OS/`
 - `tools/viewer/viewer.html` → `_OS/`
 - initial `company/` seeds at bootstrap
 

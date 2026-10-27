@@ -116,6 +116,12 @@ One agent per function, mapped onto real people (`config/people.yaml`). Definiti
 | Compliance | `compliance` | CEO (legal) | ISO/NIS2, policy register, evidence, vendor assessment, contracts |
 | Marketing | `marketing` | marketing | Content, outbound sequences, launches, positioning |
 | Admin | `admin` | the founder (admin) | System changes, changelog, template propagation, ACLs |
+| COO (Org-OS) | `coo` | admin | Goal orchestrator: plan in waves of work orders, dispatch, standup, checkpoints; reports to the CEO |
+| Controller (Org-OS) | `controller` | admin | Plan-blind verifier: criteria before the plan, verification against sources; reports to the CEO |
+
+Org-OS (agents collaborating on goals): charters in `os/org/roles/`, catalog
+`os/org/services.yaml`, rights `os/org/decision-rights.yaml`, protocols
+`os/protocols/collaboration.md` and `os/protocols/autonomy.md`, ledger in the direzione zone (`ops/`).
 
 Meta-skills `agent-creator` and `skill-creator` to extend without code (admin only).
 
@@ -132,6 +138,11 @@ Meta-skills `agent-creator` and `skill-creator` to extend without code (admin on
 - `scripts/audit/secret-scan.sh` — tokens/keys/IBAN/🔴 files outside their zone: **CI + pre-commit** (inherited, extended to `vault/`).
 - `scripts/audit/link-lint.py` — paths cited in system files exist.
 - `scripts/audit/frontmatter-check.py` — zone+tier declared on every operational file.
+- `scripts/audit/ledger-check.py` — Org-OS ledger: no figures/🔴, format, resolvable WOs,
+  🔴 routing, human signatures, anti-loop budget; **pre-commit (`--staged`), CI, snapshot and
+  `/admin health`**, with a selftest in CI.
+- `scripts/audit/convention-check.py` — `[agent]` slugs in commit examples exist in the roster.
+- `scripts/audit/i18n-parity.py` — every Italian system file has an up-to-date `.en.md` variant.
 - `osctl acl-audit` — Drive permission drift vs the matrix.
 - `.github/workflows/audit.yml` — everything in CI on push/PR; nightly snapshot.
 - Human-in-the-loop: writes to external systems (ClickUp, HubSpot, Drive publish, email)

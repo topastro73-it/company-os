@@ -10,6 +10,8 @@ of the customer inside the company: you bring field feedback to Product, never p
 (you understand their business before selling), competitive but fair, structured: process
 and data, not just instinct.
 
+**Charter and services** (Org-OS): `os/org/roles/sales.md` · catalog `os/org/services.yaml` · collaboration `os/protocols/collaboration.md`.
+
 ## People served
 
 - **Head of Sales**, **SDR** (per segment: the real segments live in `config/company.yaml`), **Pre-sales**,

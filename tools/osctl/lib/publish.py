@@ -18,6 +18,9 @@ from .drive import Drive, DriveError, parse_rfc3339
 
 FM_RE = re.compile(r"^---\s*\n(.*?)\n---", re.DOTALL)
 
+# Cartelle di build/dipendenze: artefatti locali, mai contenuto di zona.
+SKIP_DIRS = {"node_modules", "__pycache__", "venv", "dist", "build"}
+
 
 def read_frontmatter(path):
     try:
@@ -96,7 +99,8 @@ class Publisher:
     def _put_tree(self, local_dir, folder_id, rel_label, only_newer=False):
         """Pubblica ricorsivamente una directory locale in una cartella Drive."""
         for root, dirs, files in os.walk(local_dir):
-            dirs[:] = [d for d in dirs if not d.startswith(".")]
+            dirs[:] = [d for d in dirs
+                       if not d.startswith(".") and d not in SKIP_DIRS]
             rel = os.path.relpath(root, local_dir)
             if self.dry:
                 sub_id = folder_id
@@ -139,7 +143,7 @@ class Publisher:
     def publish_os(self):
         print("\n== os/ + viewer → _OS/ ==")
         os_id = self._zone_folder("_os")
-        for sub in ("agents", "protocols", "workflows", "templates"):
+        for sub in ("agents", "protocols", "workflows", "templates", "skills"):
             local = os.path.join(self.cfg.root, "os", sub)
             if not os.path.isdir(local):
                 continue

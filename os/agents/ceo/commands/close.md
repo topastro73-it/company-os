@@ -27,7 +27,8 @@ Nessuno. Eseguibile solo in sessione admin (git).
    → verifica entry in `system/CHANGELOG.md` nello stesso commit; se manca, creala ora.
    Poi chiedi: "serve `osctl publish` per distribuire su Drive?" (→ `/admin publish`).
 7. **Guardrail**: esegui `scripts/audit/secret-scan.sh --staged`, `scripts/audit/link-lint.py`
-   e, se la sessione ha toccato file di sistema, `scripts/audit/i18n-parity.py`.
+   e, se la sessione ha toccato file di sistema, `scripts/audit/convention-check.py` e (dove
+   esiste, cioè nel template bilingue) `scripts/audit/i18n-parity.py`.
    Se rosso: fermati e sistema prima di committare.
 8. **Commit & push**: `git add -A` → commit `[ceo] close: YYYY-MM-DD` → `git fetch` →
    se il remote ha commit nuovi, `git merge origin/main --no-edit` → `git push origin main`

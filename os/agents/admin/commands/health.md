@@ -12,6 +12,8 @@ e on-demand (completo). Verde non è opzionale: rosso = si ferma e si sistema.
    - `secret-scan.sh` — token/chiavi/IBAN/file 🔴 fuori dalle destinazioni ammesse
    - `link-lint.py` — i path citati nei file di sistema esistono
    - `frontmatter-check.py` — `zone:` + `tier:` dichiarati sui file operativi
+   - `ledger-check.py` — ledger Org-OS pulito (niente cifre/🔴, formato, WO risolvibili):
+     sullo snapshot e, se `OS_DRIVE_MOUNT` è impostata, anche con `--drive` sul mount
 2. **ACL**: `osctl acl-audit` (drift permessi Drive) — vedi `/admin acl-audit`.
 3. **Sync freshness**: ultimo snapshot (nightly girato? quanto è vecchio `company/`?),
    publish pendenti (modifiche di sistema committate ma non distribuite).

@@ -31,7 +31,7 @@ cambiare in qualsiasi momento dicendolo in chat. Dettagli: `os/protocols/languag
 | `vault/` | 🔴 finance & legal & contratti — solo admin |
 | `tools/osctl/` | Sync engine git ↔ Drive (bootstrap, publish, snapshot, acl-audit) |
 | `tools/viewer/` | Lettore markdown standalone per chi lavora nel folder Drive |
-| `scripts/audit/` | Guardrail meccanici (secret-scan, link-lint, frontmatter, health) — in CI e pre-commit |
+| `scripts/audit/` | Guardrail meccanici (secret-scan, link-lint, i18n-parity, convention, ledger Org-OS, frontmatter, health) — in CI e pre-commit |
 | `system/` | CHANGELOG, learnings (LRN-XXX), wiki |
 
 ## Quotidiano

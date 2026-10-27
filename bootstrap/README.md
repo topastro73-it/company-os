@@ -91,6 +91,9 @@ git config core.hooksPath scripts/hooks
 
 Da quel momento ogni commit passa da `secret-scan --staged`: token/chiavi ovunque
 e file 🔴 fuori da `vault/` e `company/clienti/*/contratti/` bloccano il commit.
+Se nello stage ci sono file del ledger Org-OS (`company/direzione/ops/`), l'hook esegue anche
+`scripts/audit/ledger-check.py --staged` (cifre, dati 🔴, formato dei work order).
+`/admin health` segnala 🟡 se `core.hooksPath` non punta a `scripts/hooks`.
 
 ## 8. Attiva lo snapshot nightly
 

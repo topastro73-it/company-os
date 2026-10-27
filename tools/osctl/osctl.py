@@ -10,6 +10,8 @@ Comandi:
   osctl acl-audit   permessi Drive reali vs matrice attesa (exit 1 se drift critico);
                     --fix calcola le correzioni (dry-run, --apply per eseguirle)
   osctl status      stato config, env e dipendenze (funziona sempre, senza Drive)
+  osctl export-template  deriva il template pubblico company-os (config/export.yaml);
+                    dry-run di default, --apply scrive nel clone, mai commit né push
 
 Requisiti Drive: google-api-python-client + service account (GDRIVE_SA_KEY_PATH).
 `status` e i parser funzionano anche senza. Messaggi in italiano.
@@ -201,6 +203,10 @@ def main(argv=None):
     p = sub.add_parser("status", help="stato config/env (non richiede Drive)")
     p.add_argument("--dry-run", action="store_true")
 
+    p = sub.add_parser("export-template", help="istanza → template company-os (dry-run di default)")
+    p.add_argument("--apply", action="store_true", help="scrive nel working tree del template")
+    p.add_argument("--target", help="clone del template (default: config/export.yaml → target)")
+
     args = ap.parse_args(argv)
 
     try:
@@ -225,6 +231,9 @@ def main(argv=None):
         return run_acl_audit(cfg, fix=args.fix, apply_fix=apply_fix)
     if args.cmd == "status":
         return cmd_status(cfg, args)
+    if args.cmd == "export-template":
+        from lib.export_template import run_export
+        return run_export(cfg, apply=args.apply, target=args.target)
     return 2
 
 

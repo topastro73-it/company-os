@@ -20,6 +20,13 @@ Nessuno. Cadenza: settimanale (lunedì, o primo accesso della settimana).
    è stato pagato).
 5. **Flash report**: 6 righe — saldo, incassato, uscito, scaduto, prossime scadenze 7gg,
    anomalie. Prestiti/finanziamenti ricevuti: riga separata, **mai dentro i ricavi**.
+6. **Scorecard** (Org-OS): per ogni misurabile settimanale dei goal attivi aggiungi una riga
+   datata a `00-Direzione/ops/scorecard.md` (ledger, zona `direzione`; in admin sul mount Drive):
+   data, misurabile, owner `human:<slug>`, settimana, stato 🟢/🔴 rispetto alla soglia del criterio,
+   path del flash report in zona finance. **Mai cifre**: il valore resta nel flash report 🔴.
+   Se il file non esiste crealo col template sotto. Poi
+   `python3 scripts/audit/ledger-check.py --drive`, copia nello snapshot `company/direzione/ops/`,
+   `python3 scripts/audit/ledger-check.py`.
 
 ## Formato output
 ```markdown
@@ -35,8 +42,23 @@ Scaduto da incassare: €… · Scadenze 7gg: … · Anomalie: …
 ## Dettaglio riconciliazioni  ## Azioni (owner + entro)
 ```
 
+Template della Scorecard (ledger, nessun importo):
+```markdown
+---
+zone: direzione
+tier: 🟡
+type: scorecard
+---
+# Scorecard settimanale
+
+| Data | Misurabile | Owner | Settimana | Stato | Ref |
+|---|---|---|---|---|---|
+| YYYY-MM-DD | {misurabile del goal, es. runway in mesi vs soglia} | human:{slug} | YYYY-Wnn | 🟢/🔴 | `vault/finance/sync/sync-{YYYY-Wnn}.md` |
+```
+
 ## Destinazione
 Zona `finance` → `sync/sync-{YYYY-Wnn}.md` + registri aggiornati in place.
+Ledger (zona `direzione`, sottozona `ops`) → riga in `scorecard.md`.
 Commit (admin): `[finance] sync: settimana {n}`.
 
 ## Handoff

@@ -19,7 +19,7 @@ o se subito dopo ripubblichi la modifica sul master Drive; altrimenti edita su D
 
 `osctl publish` distribuisce il sistema sulle zone Drive:
 - `zones/` → i `CLAUDE.md` di zona e il contesto (`_OS/`, root, `90-Condivisi/`)
-- `os/` selezionati (agenti, protocolli, template) → `_OS/`
+- `os/` selezionati (agenti, protocolli, workflow, template, skill) → `_OS/`
 - `tools/viewer/viewer.html` → `_OS/`
 - seed iniziali di `company/` al bootstrap
 

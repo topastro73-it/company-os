@@ -19,6 +19,7 @@ Strategy, OKRs, decisions, board, investor updates.
 | Board material (agendas, minutes, prep) | `board/` |
 | Investor updates, pitch prep | `investor-updates/` |
 | CoS briefings and digests | `briefing/` |
+| Org-OS ledger: goals, work orders, scorecard, standup (`os/protocols/collaboration.md`, references only, never figures) | `ops/` (`goals/`, `wo/`, `scorecard.md`, `standup/`) |
 
 ## Rituals
 

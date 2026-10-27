@@ -22,6 +22,16 @@ Dipendenze: **nessuna**, solo standard library. Sono esempi funzionanti inclusi 
 (`scripts/integrations/README.md`): se usi Qonto funzionano così come sono, altrimenti sono un
 modello da adattare alla tua banca.
 
+> ⚠️ **Copertura di `balance`**: `GET /v2/organization` restituisce **solo i conti Qonto**. **Non**
+> include i conti esterni collegati via Open Banking, che vanno letti a parte: l'elenco è in
+> `config/integrations.yaml`, campo `external_accounts` della sezione della banca. Se lì ci sono
+> conti, il totale stampato da
+> `balance` non è la cassa aziendale.
+>
+> ⚠️ Cloudflare davanti a Qonto rifiuta lo User-Agent di default di `urllib` con un errore 1010:
+> lo script ne imposta uno esplicito. Un 403 con `error_code 1010` **non** è un problema di
+> credenziali.
+
 Il wrapper bash legge le credenziali dal Keychain ed esporta le env vars al
 processo Python. Niente credenziali in chiaro nel repo: i nomi delle variabili sono censiti in `config/integrations.yaml`.
 

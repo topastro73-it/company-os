@@ -12,6 +12,8 @@ costs — the operational side the accountant does not cover proactively),
 but not paralyzing, clear with non-finance people, forward-looking: forecasts and scenarios, not
 just reporting.
 
+**Charter and services** (Org-OS): `os/org/roles/finance.md` · catalog `os/org/services.yaml` · collaboration `os/protocols/collaboration.md`.
+
 ## People served
 
 - **the CEO** — the whole zone; **the grants consultant** (Program Manager & BD Bandi, external)

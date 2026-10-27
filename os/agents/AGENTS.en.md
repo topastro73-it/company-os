@@ -18,6 +18,8 @@ session (git) starts from the `ceo` agent.
 | Finance | `finance` | CEO, grants consultant (grants only) | Payment schedule, invoices, cashflow, weekly sync, grants, investor relations | `sync-settimanale` · `scadenzario` · `cashflow` · `fatture-status` · `investor-update` · `investor-crm` · `data-room` · `bandi-status` |
 | Compliance | `compliance` | CEO (legal) | ISO/NIS2/GDPR: status, gaps, policies, evidence, vendor assessment, contract review | `status` · `gap-analysis` · `policy-review` · `evidence-check` · `vendor-assessment` · `contract-review` |
 | Marketing | `marketing` | CEO | Content, nurture, launches, positioning | `content-plan` · `write-post` · `sequence` · `launch-plan` · `competitor-messaging` |
+| COO (Org-OS orchestrator) | `coo` | admin (`config/people.yaml`) | Coordinates roles on goals: intent, plan in waves of work orders, dispatch, standup, unblocking, checkpoints; reports to the CEO, never beyond `verified` | `plan-goal` · `dispatch` · `standup` · `unblock` · `checkpoint` |
+| Controller (plan-blind verifier) | `controller` | admin (`config/people.yaml`) | Falsifiable criteria before the plan and verification against sources, never against claims; reports to the CEO; 🔴 only in admin session | `criteria` · `verify` |
 | Admin | `admin` | the founder (founder only) | System: initial setup, publish, snapshot, acl-audit, people onboarding, health, export-template, changelog | `setup` · `publish` · `snapshot` · `acl-audit` · `onboard-person` · `health` · `export-template` · `changelog` |
 
 ## How to invoke an agent
@@ -56,8 +58,14 @@ finance ──vendor─────▶ compliance (assessment)     compliance �
 cos ──escalation─────▶ ceo (overdue P0s, decisions) cos ──flags──────────▶ every agent
 ceo ──direction──────▶ product / cto / sales / marketing / finance
 admin ──system───────▶ everyone (via osctl publish)
+coo ──reports to─────▶ ceo (checkpoints, priorities, conflicts, budget)
+coo ──catalog WOs────▶ finance / sales / cto / product (dispatch per wave)
+coo ──criteria/verify▶ controller (criteria before the PLAN, verify at end of wave)
+controller ──results─▶ coo (checkpoint) · ceo (critical FAIL)
 ```
 
 Cross-cutting rules: deals >€50k or discounts → `ceo` · anything touching personal data
 → `compliance` · no date/feature promised without `product`+`cto` · a customer's output
 only in `clienti/{slug}/`.
+Multi-role goals: ledger and work orders per `os/protocols/collaboration.md`; the `cos` reads and
+briefs, it does not assign work.

@@ -10,6 +10,8 @@ del cliente dentro l'azienda: porti il feedback dal campo a Product, mai pressio
 (capisci il loro business prima di vendere), competitivo ma fair, strutturato: processo
 e dati, non solo istinto.
 
+**Charter e servizi** (Org-OS): `os/org/roles/sales.md` · catalogo `os/org/services.yaml` · collaborazione `os/protocols/collaboration.md`.
+
 ## Persone servite
 
 - **Head of Sales**, **SDR** (per segmento: i segmenti reali sono in `config/company.yaml`), **Pre-sales**,

@@ -12,6 +12,8 @@ ricorrenti — la parte operativa che il commercialista non copre proattivamente
 ma non paralizzante, chiaro con i non-finance, forward-looking: forecast e scenari, non
 solo reportistica.
 
+**Charter e servizi** (Org-OS): `os/org/roles/finance.md` · catalogo `os/org/services.yaml` · collaborazione `os/protocols/collaboration.md`.
+
 ## Persone servite
 
 - **il CEO** — tutta la zona; **il consulente bandi** (Program Manager & BD Bandi, esterno)

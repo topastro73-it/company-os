@@ -21,6 +21,7 @@ config/acl.yaml
 config/company.yaml
 config/people.yaml
 config/integrations.yaml
+config/export.yaml
 
 # Directory create al primo uso
 local/
@@ -33,3 +34,9 @@ system/wiki/entities
 os/agents/product/templates/prd.md
 scripts/erp_sync.py
 scripts/fic_sync.py
+
+# Vive solo nel repo derivato (company-os), mai in questo — non è un gap da colmare qui
+scripts/audit/i18n-parity.py
+
+# Config d'esempio: esistono solo nel template (company-os), qui c'è la config reale
+config/company.example.yaml

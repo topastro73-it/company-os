@@ -1,0 +1,66 @@
+# Diritti decisionali (stile DACI) per l'Org-OS. Generico: nessun dato aziendale.
+# Ogni classe: driver (chi porta avanti), approver (UNO tra agent | owner | ceo),
+# contributors, informed, threshold_ref (riferimento a config/ o vault/finance/, mai un importo).
+# agent = il ruolo-agente che esegue · owner = owner umano del goal · ceo = CEO (admin in config/people.yaml).
+# Protocolli: os/protocols/collaboration.md, os/protocols/autonomy.md.
+
+reports_to:
+  coo: ceo
+
+classes:
+  esecuzione-wo-catalogo:
+    description: "Eseguire un work order su un servizio a catalogo (os/org/services.yaml)"
+    driver: ruolo destinatario
+    approver: agent
+    contributors: [coo]
+    informed: [owner]
+    threshold_ref: null
+  richiesta-fuori-catalogo:
+    description: "Lavoro non previsto dal catalogo o collaborazione nuova tra ruoli"
+    driver: coo
+    approver: owner
+    contributors: [ruoli coinvolti]
+    informed: [ceo]
+    threshold_ref: null
+  priorita-tra-goal:
+    description: "Ordine e capacità tra goal attivi in concorrenza"
+    driver: coo
+    approver: ceo
+    contributors: [owner dei goal]
+    informed: [ruoli coinvolti]
+    threshold_ref: null
+  conflitto-tra-ruoli:
+    description: "Disaccordo tra ruoli su input, output o responsabilità di un WO"
+    driver: coo
+    approver: ceo
+    contributors: [ruoli coinvolti]
+    informed: [owner]
+    threshold_ref: null
+  scrittura-esterna:
+    description: "Qualsiasi scrittura verso sistemi esterni (PREPARE → APPROVE → EXECUTE)"
+    driver: ruolo che prepara
+    approver: owner
+    contributors: [coo]
+    informed: [ceo]
+    threshold_ref: "config/integrations.yaml"
+  impegno-spesa-sopra-soglia:
+    description: "Impegno di spesa oltre la soglia definita nella zona finance"
+    driver: finance
+    approver: ceo
+    contributors: [owner, coo]
+    informed: [controller]
+    threshold_ref: "vault/finance/"
+  chiusura-goal:
+    description: "Accept/chiusura di un goal o di un WO (oltre `verified`)"
+    driver: coo
+    approver: owner
+    contributors: [controller]
+    informed: [ceo]
+    threshold_ref: null
+  decisione-finanziamento:
+    description: "Scelta dello strumento di finanziamento (bandi, equity, debito)"
+    driver: finance
+    approver: ceo
+    contributors: [owner, controller]
+    informed: [coo]
+    threshold_ref: "vault/finance/"

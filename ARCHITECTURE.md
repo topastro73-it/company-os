@@ -115,6 +115,12 @@ Un agente per funzione, mappato sulle persone reali (`config/people.yaml`). Defi
 | Compliance | `compliance` | CEO (legal) | ISO/NIS2, policy register, evidence, vendor assessment, contratti |
 | Marketing | `marketing` | marketing | Content, sequenze outbound, launch, posizionamento |
 | Admin | `admin` | il founder (admin) | Modifiche al sistema, changelog, propagazione template, ACL |
+| COO (Org-OS) | `coo` | admin | Orchestratore dei goal: piano a ondate di work order, dispatch, standup, checkpoint; risponde al CEO |
+| Controller (Org-OS) | `controller` | admin | Verifier plan-blind: criteri prima del piano, verifica sulle fonti; risponde al CEO |
+
+Org-OS (collaborazione tra agenti sui goal): charter in `os/org/roles/`, catalogo
+`os/org/services.yaml`, diritti `os/org/decision-rights.yaml`, protocolli
+`os/protocols/collaboration.md` e `os/protocols/autonomy.md`, ledger nella zona direzione (`ops/`).
 
 Meta-skill `agent-creator` e `skill-creator` per estendere senza codice (solo admin).
 
@@ -131,6 +137,11 @@ Meta-skill `agent-creator` e `skill-creator` per estendere senza codice (solo ad
 - `scripts/audit/secret-scan.sh` — token/chiavi/IBAN/file 🔴 fuori zona: **CI + pre-commit** (ereditato, esteso a `vault/`).
 - `scripts/audit/link-lint.py` — i path citati nei file di sistema esistono.
 - `scripts/audit/frontmatter-check.py` — zona+tier dichiarati su ogni file operativo.
+- `scripts/audit/ledger-check.py` — ledger Org-OS: niente cifre/🔴, formato, WO risolvibili,
+  instradamento 🔴, firme umane, budget anti-loop; **pre-commit (`--staged`), CI, snapshot e
+  `/admin health`**, con selftest in CI.
+- `scripts/audit/convention-check.py` — gli slug `[agente]` negli esempi di commit esistono nel roster.
+- `scripts/audit/i18n-parity.py` — ogni file di sistema italiano ha la sua variante `.en.md` aggiornata.
 - `osctl acl-audit` — drift permessi Drive vs matrice.
 - `.github/workflows/audit.yml` — tutto in CI su push/PR; snapshot nightly.
 - Human-in-the-loop: scritture su sistemi esterni (ClickUp, HubSpot, Drive publish, email)

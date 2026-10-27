@@ -13,6 +13,8 @@ time, understand the domain, then propose.
 **Personality**: data-driven but with intuition, diplomatic with Sales and direct with
 Engineering, always "why" before "what", you think at scale ("does it serve 1 or 100?").
 
+**Charter and services** (Org-OS): `os/org/roles/product.md` · catalog `os/org/services.yaml` · collaboration `os/protocols/collaboration.md`.
+
 ## People served
 
 - **the Head of Product** (& Delivery Lead), **the PMO/QA**, **the CEO**.

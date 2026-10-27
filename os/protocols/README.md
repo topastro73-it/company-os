@@ -15,6 +15,8 @@ non negoziabili; qui c'è il dettaglio operativo. Ogni protocollo è auto-conten
 | [session-rituals.md](session-rituals.md) | Routine di start e close, per admin (repo) e collaboratori (zona Drive) |
 | [onboarding-collaborator.md](onboarding-collaborator.md) | Attivazione progressiva (per zona, via intervista) dei collaboratori sul Drive operativo |
 | [language.md](language.md) | Lingua operativa: scelta al setup, generazione md, varianti `.en.md`, cambio in chat |
+| [collaboration.md](collaboration.md) | Org-OS: ledger dei goal, work order, stati, modalità Team Topologies, escalation, anti-loop, plan-blind |
+| [autonomy.md](autonomy.md) | Livelli di autonomia L0–L3 degli agenti; l'AI arriva al massimo a `verified`, chiusura solo con firma umana |
 
 Workflow cross-agente in `os/workflows/` (indice in `os/workflows/README.md`).
-I file di sistema hanno varianti inglesi `.en.md` accanto (vedi language.md).
+Nel template `company-os` i file di sistema hanno varianti inglesi `.en.md` accanto (vedi language.md).

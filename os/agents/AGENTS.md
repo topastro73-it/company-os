@@ -18,6 +18,8 @@ admin (git) parte dall'agente `ceo`.
 | Finance | `finance` | CEO, consulente bandi (solo bandi) | Scadenzario, fatture, cashflow, sync settimanale, bandi, investor relations | `sync-settimanale` · `scadenzario` · `cashflow` · `fatture-status` · `investor-update` · `investor-crm` · `data-room` · `bandi-status` |
 | Compliance | `compliance` | CEO (legal) | ISO/NIS2/GDPR: status, gap, policy, evidence, vendor assessment, contract review | `status` · `gap-analysis` · `policy-review` · `evidence-check` · `vendor-assessment` · `contract-review` |
 | Marketing | `marketing` | CEO | Content, nurture, launch, posizionamento | `content-plan` · `write-post` · `sequence` · `launch-plan` · `competitor-messaging` |
+| COO (orchestratore Org-OS) | `coo` | admin (`config/people.yaml`) | Coordina i ruoli sui goal: intento, piano a ondate di work order, dispatch, standup, sblocco, checkpoint; risponde al CEO, mai oltre `verified` | `plan-goal` · `dispatch` · `standup` · `unblock` · `checkpoint` |
+| Controller (verifier plan-blind) | `controller` | admin (`config/people.yaml`) | Criteri falsificabili prima del piano e verifica sulle fonti, mai sui claim; risponde al CEO; 🔴 solo in sessione admin | `criteria` · `verify` |
 | Admin | `admin` | il founder (solo founder) | Sistema: setup iniziale, publish, snapshot, acl-audit, onboarding persone, health, export-template, changelog | `setup` · `publish` · `snapshot` · `acl-audit` · `onboard-person` · `health` · `export-template` · `changelog` |
 
 ## Come si invoca un agente
@@ -56,8 +58,14 @@ finance ──vendor─────▶ compliance (assessment)     compliance �
 cos ──escalation─────▶ ceo (P0 scaduti, decisioni) cos ──segnalazioni────▶ ogni agente
 ceo ──direzione──────▶ product / cto / sales / marketing / finance
 admin ──sistema──────▶ tutti (via osctl publish)
+coo ──risponde a─────▶ ceo (checkpoint, priorità, conflitti, budget)
+coo ──WO a catalogo──▶ finance / sales / cto / product (dispatch per ondata)
+coo ──criteri/verifica▶ controller (criteria prima del PLAN, verify a fine ondata)
+controller ──esiti───▶ coo (checkpoint) · ceo (FAIL critico)
 ```
 
 Regole trasversali: deal >€50k o discount → `ceo` · tutto ciò che tocca dati personali
 → `compliance` · nessuna data/feature promessa senza `product`+`cto` · output di un
 cliente solo in `clienti/{slug}/`.
+Goal multi-ruolo: ledger e work order secondo `os/protocols/collaboration.md`; il `cos` legge e
+fa briefing, non assegna lavoro.

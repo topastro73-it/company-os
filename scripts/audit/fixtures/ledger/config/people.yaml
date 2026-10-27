@@ -1,0 +1,16 @@
+# Fixture ermetica — persone fittizie.
+admin:
+  - persona-a
+people:
+  persona-a:
+    name: Persona A
+    type: internal
+    onboarded: true
+  persona-b:
+    name: Persona B
+    type: external
+    onboarded: false
+  persona-c:
+    name: Persona C
+    type: internal
+    onboarded: true

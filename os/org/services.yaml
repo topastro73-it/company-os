@@ -1,0 +1,92 @@
+# Catalogo X-as-a-Service dei ruoli-agente (Org-OS). Generico: nessun dato aziendale.
+# Ogni servizio: id `ruolo/servizio`, role, input, output, output-zone (zona o `zona.sotto`
+# di config/acl.yaml), output-tier (🔴 | 🟡 | 🟢), sla (giorni lavorativi).
+# Un WO chiama un servizio con `to: <role>` e `service: <servizio>` (o l'id completo).
+# Regola ADR-004: i servizi con dati sensibili consegnano 🟡 nella zona del ruolo; solo finance
+# converte in valuta, dentro la zona finance. Protocollo: os/protocols/collaboration.md.
+
+services:
+  sales/forecast-incassi:
+    role: sales
+    input: "pipeline pesata della zona commerciale (opportunità, stage, probabilità, date attese)"
+    output: "forecast incassi a 12 mesi per mese e per opportunità, con assunzioni e scenari"
+    output-zone: commerciale
+    output-tier: "🟡"
+    sla: 3
+  cto/stima-effort-progetto:
+    role: cto
+    input: "elenco progetti/iniziative e spec o roadmap della zona prodotto"
+    output: "stima effort tecnico per progetto: giornate, ruoli, esterni non salariali (mai valuta)"
+    output-zone: prodotto
+    output-tier: "🟡"
+    sla: 5
+  product/stima-effort-progetto:
+    role: product
+    input: "elenco progetti/iniziative e roadmap della zona prodotto"
+    output: "stima effort di product, delivery e QA per progetto, legata alla roadmap (mai valuta)"
+    output-zone: prodotto
+    output-tier: "🟡"
+    sla: 5
+  finance/piano-cassa:
+    role: finance
+    input: "riconciliazione di cassa, costi ricorrenti, forecast incassi, stime effort per progetto"
+    output: "piano di cassa a 12 mesi con scenari base e stress e runway esplicita"
+    output-zone: finance
+    output-tier: "🔴"
+    sla: 5
+  finance/riconciliazione-cassa:
+    role: finance
+    input: "registri di cassa e costi della zona finance, letture ERP/fatturazione/banca in sola lettura"
+    output: "baseline di cassa riconciliata con scostamenti e freschezza delle fonti"
+    output-zone: finance
+    output-tier: "🔴"
+    sla: 3
+  finance/pipeline-finanziamenti:
+    role: finance
+    input: "fabbisogno dello scenario stress, registri bandi e investitori della zona finance"
+    output: "pipeline finanziamenti (bandi, equity, debito) con copertura del fabbisogno stress"
+    output-zone: finance
+    output-tier: "🔴"
+    sla: 5
+  controller/criteri-goal:
+    role: controller
+    input: "GOAL e CONTEXT del goal, canone (mai PLAN né work order)"
+    output: "CRITERIA.md con criteri falsificabili Observe / Fails if e soglie confermate dall'owner"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 2
+  controller/verifica-goal:
+    role: controller
+    input: "GOAL, CRITERIA e lista fonti osservabili (mai PLAN, wo/, WAVE né claim degli agenti)"
+    output: "esito per criterio nel ledger (VERIFY.md) e dettaglio con le prove nella zona finance"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 2
+  coo/piano-goal:
+    role: coo
+    input: "intento del goal dall'owner umano; CRITERIA registrati prima del piano"
+    output: "GOAL, CONTEXT e poi PLAN a ondate con work order (criteria-commit citato)"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 2
+  coo/dispatch:
+    role: coo
+    input: "PLAN e work order dell'ondata"
+    output: "ondata eseguita dai ruoli, WO aggiornati, WAVE-NN con il costo in token"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 1
+  coo/standup:
+    role: coo
+    input: "ledger dei goal attivi"
+    output: "standup datato: ondata corrente, WO bloccati, prossima ondata"
+    output-zone: direzione.ops
+    output-tier: "🟡"
+    sla: 1
+  ceo/decisione-goal:
+    role: ceo
+    input: "sintesi di checkpoint (VERIFY, WAVE, standup) o decisione sopra soglia"
+    output: "CHECKPOINT/ACCEPT firmato o decisione in direzione/decisions/"
+    output-zone: direzione
+    output-tier: "🟡"
+    sla: 3

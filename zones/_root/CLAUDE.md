@@ -6,7 +6,7 @@
 
 ## Chi siamo
 
-{company} — descrizione, mission, modello di business e flywheel in `_OS/context/COMPANY.md`.
+Chi siamo — descrizione, mission, modello di business e flywheel — in `_OS/context/COMPANY.md`.
 Caricalo a inizio sessione: è la fonte di verità su chi siamo, cosa facciamo e per chi.
 
 ## Prima riga di ogni risposta

@@ -38,6 +38,7 @@ fatturazione:
 banca:
   role: "saldi, movimenti, riconciliazione (credenziali in keychain, mai nel repo)"
   env: [BANK_LOGIN, BANK_SECRET]
+  external_accounts: []     # conti collegati via Open Banking che l'API della banca non restituisce
 
 stripe:
   role: "subscription/incassi: MRR, churn, riconciliazione payout"

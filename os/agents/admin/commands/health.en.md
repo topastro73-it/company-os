@@ -12,6 +12,8 @@ and on-demand (full). Green is not optional: red = stop and fix.
    - `secret-scan.sh` — tokens/keys/IBANs/🔴 files outside the allowed destinations
    - `link-lint.py` — paths cited in system files exist
    - `frontmatter-check.py` — `zone:` + `tier:` declared on operational files
+   - `ledger-check.py` — Org-OS ledger clean (no figures/🔴, format, resolvable WOs):
+     on the snapshot and, if `OS_DRIVE_MOUNT` is set, also with `--drive` on the mount
 2. **ACL**: `osctl acl-audit` (Drive permission drift) — see `/admin acl-audit`.
 3. **Sync freshness**: last snapshot (did the nightly run? how old is `company/`?),
    pending publishes (system changes committed but not distributed).

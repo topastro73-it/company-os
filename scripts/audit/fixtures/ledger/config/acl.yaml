@@ -1,0 +1,46 @@
+# Fixture ermetica per scripts/audit/tests/test_ledger_check.py — dati fittizi.
+zones:
+  direzione:
+    drive_path: "00-Direzione"
+    sync: drive_master
+    write: [admin]
+    read: [persona-a, persona-c]
+    subfolders:
+      ops:
+        write: [admin]
+        read: [persona-a, persona-c]
+  commerciale:
+    drive_path: "10-Commerciale"
+    sync: drive_master
+    write: [persona-a, persona-c]
+    read: [everyone]
+  prodotto:
+    drive_path: "30-Prodotto"
+    sync: drive_master
+    write: [persona-a]
+    read: [all_internal]
+  finance:
+    drive_path: "40-Finance"
+    sync: drive_master
+    snapshot_target: vault
+    tier: restricted
+    write: [persona-a]
+    read: [persona-a]
+    subfolders:
+      bandi:
+        write: [persona-a, persona-b]
+        read: [persona-a, persona-b]
+
+roles:
+  coo:
+    read: [direzione, direzione.ops]
+    write: [direzione.ops]
+  controller:
+    read: [finance, commerciale, direzione, direzione.ops]
+    write: [direzione.ops, finance]
+  finance:
+    read: [finance, finance.bandi, direzione.ops, commerciale]
+    write: [finance, finance.bandi, direzione.ops]
+  sales:
+    read: [commerciale, direzione.ops]
+    write: [commerciale, direzione.ops]

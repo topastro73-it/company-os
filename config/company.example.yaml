@@ -22,6 +22,11 @@ positioning:
   icp: "<Ideal Customer Profile: chi compra>"
   end_user: "<chi usa il prodotto, se diverso dal buyer>"
   flywheel: "<le fasi del ciclo cliente, es. Attract → Retain → Generate>"
+  # Segmenti di mercato: le chiavi sono quelle del campo `segment` di opportunità e funnel.
+  segments:
+    segment-a: "<segmento primario>"
+    segment-b: "<segmento secondario>"
+    segment-c: "<terzo segmento>"
   differentiators: ["<differenziatore 1>", "<differenziatore 2>"]
 
 pricing:
