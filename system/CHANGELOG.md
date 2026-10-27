@@ -14,7 +14,7 @@ Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distrib
   `assets/logo-ink.png` / `logo-white.png` (segnaposto "YOUR LOGO"). La sezione "Brand" del README
   spiega come adattarlo.
 - Indice `os/skills/SKILLS.md` e skill presentations aggiornati.
-- Allineamento: CyberangelsOS kernel 2.10.1 ↔ company-os 0.7.0.
+- Allineamento: CyberangelsOS kernel 2.10.2 ↔ company-os 0.7.0.
 
 ## [0.6.0] — feat: Org-OS, export meccanico, allineamento al kernel 2.10.0
 
