@@ -20,6 +20,7 @@ Reference agents: see `ARCHITECTURE.md` §6 (`ceo`, `cos`, `sales`, `delivery`, 
 | **Business Analysis** | `os/skills/business-analysis/SKILL.md` | Product (owner), CEO, CoS | Interactive functional analysis: AS-IS/TO-BE, process map, data model, gap analysis, functional spec |
 | **QA & Testing** | `os/skills/qa-testing/SKILL.md` | CTO (owner), Product | Test plan, test cases, test report, smoke/security tests in `company/prodotto/testing/` |
 | **ClickUp** | `os/skills/clickup/SKILL.md` | Product, CTO, CoS | Sync specs/roadmap/actions with ClickUp — always PREPARE → APPROVE → EXECUTE via `clickup-pending/` |
+| **Operating Rhythm** | `os/skills/operating-rhythm/SKILL.md` | CoS (owner), CEO, Sales, Delivery, Product | A person's view of the repo: my day, call prep, minutes and recap, approval queue, account status, team radar |
 | **Gmail** | `os/skills/gmail/SKILL.md` | All agents | Email as context (scan, thread search) — never sensitive data outside its zone |
 | **Fatture in Cloud** | `os/skills/fatture-in-cloud/SKILL.md` | Finance (owner), CEO, CoS | Sync issued invoices, receivables aging, cashflow → `vault/finance/` |
 | **Qonto** | `os/skills/qonto/SKILL.md` | Finance (owner), CEO, CoS | Balances, transactions and bank reconciliation → `vault/finance/` |

@@ -4,6 +4,27 @@ Every change to system files (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tools/`)
 an entry here in the same commit. Categories: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. After merging a system change → `osctl publish` to distribute it to Drive.
 
+## [0.8.0] — feat: Operating Rhythm skill, transcripts from a URL, accurate publish dry-run
+
+- feat(skills): `os/skills/operating-rhythm/` — a person's view of the repo, in nine commands:
+  `my-day`, `meeting-prep`, `publish-call`, `follow-up-all`, `approvals`, `project-pulse`,
+  `new-project`, `record-decision`, `team-radar`. Sources are the zone files (people, accounts,
+  opportunities, `P-NNN` projects, `type: minuta` minutes, decisions, `*-pending/` files) plus
+  ClickUp, Calendar and Gmail. `publish-call` writes the minutes and updates the opportunity and
+  account; external writes stay PREPARE → APPROVE → EXECUTE. Complements the `/cos` commands.
+- feat(skills): every meeting command **always** searches the transcripts, with a relevance filter
+  (sources shared with other companies), an already-imported check, and nothing from excluded
+  meetings in the repo.
+- feat(config): `config/integrations.example.yaml → meeting_transcripts` — transcript sources are
+  configurable URLs (`sources[]`: `url`, `provider` clickup | drive | url inferred from the host,
+  `label`, `title_format`, `shared`) plus `include_terms`/`exclude_terms`.
+- fix(osctl): `osctl publish --dry-run` queries Drive read-only and reports only what a real run
+  would upload (it used to list the whole `company/` seed); without a key it falls back to "to
+  check". New `--only PATH` (alias `--path`, repeatable) to publish chosen files or folders only.
+  Tests in `scripts/audit/tests/test_publish.py`.
+- docs(protocols): `language.md` §2 — the `.en.md` variant rule applies to system files only.
+- Alignment: CyberangelsOS kernel 2.11.0 ↔ company-os 0.8.0.
+
 ## [0.7.0] — feat: PDF report template (A4 landscape)
 
 - feat(presentations): `os/skills/presentations/report/` — HTML template for reports and documents

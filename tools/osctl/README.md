@@ -44,7 +44,9 @@ python3 tools/osctl/osctl.py bootstrap               # DRY-RUN: piano cartelle +
 python3 tools/osctl/osctl.py bootstrap --apply       # crea l'albero Drive, imposta le ACL,
                                                      # scrive i drive_id in config/acl.yaml
 python3 tools/osctl/osctl.py publish                 # git → Drive (sistema + company seed)
-python3 tools/osctl/osctl.py publish --dry-run
+python3 tools/osctl/osctl.py publish --dry-run       # sola lettura su Drive: cosa caricherebbe
+python3 tools/osctl/osctl.py publish --only zones/_root   # solo un file/cartella (ripetibile)
+python3 tools/osctl/osctl.py publish --only zones/_root/context/COMPANY.md --dry-run
 python3 tools/osctl/osctl.py snapshot                # Drive → git (company/, vault/finance/)
 python3 tools/osctl/osctl.py acl-audit               # drift permessi (exit 1 se critico)
 python3 tools/osctl/osctl.py acl-audit --fix         # correzioni in DRY-RUN
@@ -56,6 +58,13 @@ python3 tools/osctl/osctl.py export-template --apply # scrive nel clone (mai com
 Note operative:
 
 - `bootstrap` è **idempotente**: cartelle e permessi già esistenti non vengono duplicati.
+- `publish --dry-run` non scrive mai su Drive ma lo **interroga in sola lettura**
+  (`find_child` + `modifiedTime`): l'elenco è quello che caricherebbe un run vero, seed
+  `company/` compreso (solo i file locali più nuovi del remoto). Senza chiave del service
+  account degrada a modalità offline: i file del seed risultano "da verificare".
+- `publish --only PATH` (alias `--path`, ripetibile) pubblica solo i file sotto quei path
+  repo-relativi. Per distribuire una modifica di sistema senza toccare il seed `company/`:
+  `--only zones/_root` o `--only os/protocols/language.md`.
 - `publish` converte in **Google Doc** i `.md` con frontmatter `render: gdoc` o con
   `type:` incluso in `publish.gdoc_default_for` (acl.yaml).
 - `snapshot` **non committa**: scrive `company/.snapshot-manifest.json` e stampa il diff;

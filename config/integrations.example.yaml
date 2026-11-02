@@ -26,6 +26,25 @@ hubspot:
   role: "CRM specchio: la pipeline master è nella zona commerciale; hubspot-id nel frontmatter linka"
   env: []                    # connector OAuth
 
+meeting_transcripts:
+  role: "trascrizioni dei meeting lette da os/skills/operating-rhythm (sempre, a ogni comando sui meeting)"
+  # Fonti: una o più URL da cui recuperare le trascrizioni. `provider` si deduce dall'host
+  # se omesso: app.clickup.com → clickup · drive.google.com / docs.google.com → drive ·
+  # altro → url (pagina o feed letto così com'è). Lista vuota = solo minute del repo e testo incollato.
+  sources: []
+  # - name: clickup-notetaker
+  #   url: "https://app.clickup.com/<workspace-id>/inbox?tab=primary"
+  #   provider: clickup
+  #   label: "ClickUp AI Notetaker"            # va nel `source:` delle minute
+  #   title_format: "{titolo} - MM/DD/YYYY"     # come la fonte data i titoli (qui data USA)
+  #   shared: true                              # fonte condivisa con altre aziende: filtro obbligatorio
+  # - name: drive-transcripts
+  #   url: "https://drive.google.com/drive/folders/<folder-id>"
+  # Pertinenza (valgono per tutte le fonti): segnali forti oltre ad account, opportunità e persone del repo.
+  include_terms: []          # es. nome dell'azienda, prodotti, partner di canale
+  # Meeting di altre aziende/progetti presenti nelle stesse fonti: mai importati nel repo.
+  exclude_terms: []
+
 gmail:
   role: "contesto email per ruolo (read-only); bozze solo via APPROVE"
   env: []

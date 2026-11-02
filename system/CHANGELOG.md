@@ -4,6 +4,27 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.8.0] — feat: skill Operating Rhythm, trascrizioni da URL, dry-run di publish fedele
+
+- feat(skills): `os/skills/operating-rhythm/` — la vista della persona sul repo, in nove comandi:
+  `my-day`, `meeting-prep`, `publish-call`, `follow-up-all`, `approvals`, `project-pulse`,
+  `new-project`, `record-decision`, `team-radar`. Le fonti sono i file delle zone (persone,
+  account, opportunità, progetti `P-NNN`, minute `type: minuta`, decisioni, file `*-pending/`) più
+  ClickUp, Calendar e Gmail. `publish-call` scrive la minuta e aggiorna opportunità e scheda; le
+  scritture esterne restano PREPARE → APPROVE → EXECUTE. Complementare ai comandi `/cos`.
+- feat(skills): ogni comando sui meeting cerca **sempre** tra le trascrizioni, con filtro di
+  pertinenza (fonti condivise con altre aziende), controllo già-importato e nessun contenuto dei
+  meeting esclusi nel repo.
+- feat(config): `config/integrations.example.yaml → meeting_transcripts` — le fonti delle
+  trascrizioni sono URL configurabili (`sources[]`: `url`, `provider` clickup | drive | url dedotto
+  dall'host, `label`, `title_format`, `shared`) più `include_terms`/`exclude_terms`.
+- fix(osctl): `osctl publish --dry-run` interroga Drive in sola lettura e riporta solo ciò che un run
+  vero caricherebbe (prima listava tutto il seed `company/`); senza chiave degrada a "da
+  verificare". Nuovo `--only PATH` (alias `--path`, ripetibile) per pubblicare solo file o cartelle
+  scelti. Test in `scripts/audit/tests/test_publish.py`.
+- docs(protocols): `language.md` §2 — la regola delle varianti `.en.md` vale solo per i file di sistema.
+- Allineamento: CyberangelsOS kernel 2.11.0 ↔ company-os 0.8.0.
+
 ## [0.7.0] — feat: template report PDF (A4 orizzontale)
 
 - feat(presentations): `os/skills/presentations/report/` — template HTML per report e documenti

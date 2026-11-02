@@ -31,6 +31,8 @@ Write the answer to `config/company.yaml → language` (creating the file from t
   base (`X.md`) and the English variant alongside (`X.en.md`). With `language: en`, load and
   present the `.en.md` variant when it exists (fallback: the base file); with `language: it`
   always use the base file. `osctl publish` publishes the right variant to Drive.
+  The rule applies to system files only: in `company/` an `.en.md` is a document of its own
+  (e.g. the English version of a deck) and is published as is.
 
 ## 3. Changing language on the fly
 

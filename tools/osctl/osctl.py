@@ -5,7 +5,8 @@ Comandi:
   osctl bootstrap   crea l'albero Drive da config/acl.yaml, imposta le ACL e
                     scrive i drive_id nel config (idempotente; DRY-RUN di
                     default, usa --apply per eseguire davvero)
-  osctl publish     git → Drive: zone CLAUDE.md, os/, viewer, company/ seed
+  osctl publish     git → Drive: zone CLAUDE.md, os/, viewer, company/ seed;
+                    --only PATH limita lo scope, --dry-run interroga Drive in sola lettura
   osctl snapshot    Drive → git: zone drive_master in company/ (+vault/), manifest
   osctl acl-audit   permessi Drive reali vs matrice attesa (exit 1 se drift critico);
                     --fix calcola le correzioni (dry-run, --apply per eseguirle)
@@ -190,7 +191,12 @@ def main(argv=None):
     p.add_argument("--apply", action="store_true", help="esegue davvero le modifiche")
 
     p = sub.add_parser("publish", help="git → Drive")
-    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--dry-run", action="store_true",
+                   help="nessuna scrittura: interroga Drive in sola lettura e mostra "
+                        "cosa caricherebbe un run vero")
+    p.add_argument("--only", "--path", action="append", dest="only", metavar="PATH",
+                   help="pubblica solo questo file o cartella (repo-relativo, ripetibile), "
+                        "es. --only zones/_root")
 
     p = sub.add_parser("snapshot", help="Drive → git (non committa)")
     p.add_argument("--dry-run", action="store_true")
@@ -221,7 +227,7 @@ def main(argv=None):
         return cmd_bootstrap(cfg, args)
     if args.cmd == "publish":
         from lib.publish import run_publish
-        return run_publish(cfg, dry_run=args.dry_run)
+        return run_publish(cfg, dry_run=args.dry_run, only=args.only)
     if args.cmd == "snapshot":
         from lib.snapshot import run_snapshot
         return run_snapshot(cfg, dry_run=args.dry_run)
