@@ -4,6 +4,19 @@ Ogni modifica ai file di sistema (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tool
 una entry qui nello stesso commit. Categorie: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. Dopo il merge di una modifica di sistema → `osctl publish` per distribuirla su Drive.
 
+## [0.9.0] — feat: intervista iniziale — LLM locale, cloud o ibrido
+
+- feat(admin): `/admin setup` Fase 0b — subito dopo la lingua, prima di generare altri file, chiede
+  *"Vuoi usare un LLM locale (es. Ollama) per i contenuti riservati e la ricerca?"*. **Locale**:
+  macchina e RAM, Ollama, percorso dei modelli (anche disco esterno), modello di embedding; 🔴 solo in
+  locale. **Cloud**: niente domande su Ollama, ricerca a parole chiave, file 🔴 esclusi da ricerca e
+  prompt (detto in chiaro). **Ibrido** (consigliato se la macchina regge): cloud per il lavoro
+  normale, locale solo per 🔴 ed embedding. Le fasi 1, 3 e 6 leggono la scelta.
+- feat(config): `config/company.example.yaml → llm` (`mode`, `search`, `restricted`, campi Ollama).
+  `search: semantic` registra la scelta: la ricerca semantica è in arrivo, oggi resta quella a parole
+  chiave. `.env.example → OLLAMA_MODELS`.
+- docs: `CLAUDE.md` §11, `bootstrap/README.md` (IT/EN).
+
 ## [0.8.0] — feat: skill Operating Rhythm, trascrizioni da URL, dry-run di publish fedele
 
 - feat(skills): `os/skills/operating-rhythm/` — la vista della persona sul repo, in nove comandi:

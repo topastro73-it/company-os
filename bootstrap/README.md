@@ -7,7 +7,8 @@ ACL impostate, collaboratori a bordo, guardrail attivi. Riferimenti:
 ## 0. Configura l'istanza (intervista iniziale)
 
 Apri Claude Code nella root del repo e lancia **`/admin setup`**: è l'intervista
-iniziale (**lingua di lavoro** — italiano o inglese, poi identità azienda, persone,
+iniziale (**lingua di lavoro** — italiano o inglese, poi **LLM locale, cloud o ibrido** per i
+contenuti riservati e la ricerca, poi identità azienda, persone,
 strumenti, zone) e compila `config/*.yaml` dalle copie di `config/*.example.yaml`.
 La lingua scelta governa risposte, generazione dei file e la variante dei file di sistema
 presentata/pubblicata (`os/protocols/language.md`); potrai cambiarla in qualsiasi momento

@@ -60,3 +60,17 @@ board:
 # momento dicendolo in chat (os/protocols/language.md). Governa risposte, generazione md
 # e quale variante dei file di sistema viene presentata/pubblicata (.en.md se en).
 language: it
+
+# Modalità LLM — scelta nell'intervista iniziale subito dopo la lingua (/admin setup, Fase 0b).
+# Le fasi successive del setup e gli agenti leggono questo blocco per sapere dove si possono
+# lavorare i contenuti 🔴 RESTRICTED e quale ricerca usare. Cambiala dicendolo in chat.
+llm:
+  mode: cloud                  # local | cloud | hybrid
+  search: keyword              # keyword (oggi) | semantic (in arrivo: registrato, non ancora attivo)
+  restricted: excluded         # local-only (local/hybrid) | excluded (cloud: fuori da ricerca e prompt)
+  # Solo per local / hybrid:
+  machine: ""                  # es. "laptop 32 GB RAM"
+  ollama_installed: ""         # yes | no
+  models_path: ""              # es. ~/.ollama/models oppure /path/to/external-disk/ollama-models
+  embedding_model: ""          # es. nomic-embed-text
+  local_uses: []               # local: [all] · hybrid: [restricted, embeddings]

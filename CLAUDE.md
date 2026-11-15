@@ -64,7 +64,9 @@ Architettura completa: `ARCHITECTURE.md`. Sessione qui = sessione **admin** (fou
     `config/company.yaml → language` (`it` | `en`). Su un'istanza nuova (manca
     `config/company.yaml`) esegui `/admin setup` (`os/agents/admin/commands/setup.md`):
     l'intervista iniziale parte dalla domanda sulla lingua, **prima di generare qualsiasi
-    cosa**, e prosegue con azienda, persone e strumenti. Risposte in chat e ogni file md
+    cosa**; subito dopo chiede se usare un LLM locale, cloud o ibrido (`config/company.yaml → llm`:
+    con `cloud` i file 🔴 restano esclusi dalla ricerca e dai prompt; con `local`/`hybrid` si lavorano
+    solo in locale) e prosegue con azienda, persone e strumenti. Risposte in chat e ogni file md
     generato usano quella lingua; con `en` carica/presenta le varianti `.en.md` dei file di
     sistema. L'utente può cambiarla in qualsiasi momento dicendolo in chat → aggiorna la
     config e ripubblica.

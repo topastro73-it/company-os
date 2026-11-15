@@ -7,7 +7,8 @@ ACLs set, collaborators onboarded, guardrails active. References:
 ## 0. Configure the instance (initial interview)
 
 Open Claude Code in the repo root and run **`/admin setup`**: it is the initial
-interview (**working language** — Italian or English, then company identity, people,
+interview (**working language** — Italian or English, then **local, cloud or hybrid LLM** for
+restricted content and search, then company identity, people,
 tools, zones) and it fills in `config/*.yaml` from the `config/*.example.yaml` copies.
 The chosen language governs replies, file generation and which variant of the system files
 is presented/published (`os/protocols/language.md`); you can change it at any time

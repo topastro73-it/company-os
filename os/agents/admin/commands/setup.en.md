@@ -43,6 +43,39 @@ The very first question, before generating any file (`os/protocols/language.md` 
 Write `config/company.yaml → language` by copying `config/company.example.yaml`. From here on, the
 whole interview and every generated file use that language.
 
+## Phase 0b — Local, cloud or hybrid LLM
+
+Right after the language, before generating any other file, because it decides where 🔴 RESTRICTED
+content (`vault/`, `40-Finance/`) may be processed:
+
+> 🧠 Do you want to use a local LLM (e.g. Ollama) for restricted content and search?
+> [local / cloud / hybrid — recommended if the machine can handle it]
+
+Explain in half a line what a "local LLM" is: a model that runs on the computer, without sending
+text to an external service. Recommend **hybrid** if the machine has at least 16 GB of RAM.
+Write the answer to `config/company.yaml → llm` (the same file as the language, no new file).
+
+- **Local** — then ask, one at a time: machine and RAM (infer them if you can, e.g. `sysctl -n
+  hw.memsize`, and ask for confirmation); whether Ollama is already installed (`ollama --version`;
+  if not, point to https://ollama.com and move on); where the models live (default
+  `~/.ollama/models`, or an external disk, e.g. `/path/to/external-disk/ollama-models`, set via
+  `OLLAMA_MODELS` in `.env`); the embedding model (suggest `nomic-embed-text`).
+  Write `mode: local`, `search: semantic`, `restricted: local-only`, `local_uses: [all]`.
+  Say: *"🔴 content is processed only locally."*
+- **Cloud** — no Ollama questions. Write `mode: cloud`, `search: keyword`, `restricted: excluded`.
+  Say it plainly: *"In cloud mode, 🔴 RESTRICTED files (`vault/`, `40-Finance/`) stay excluded from
+  search and from what I send to the model. If you want me to read one, you'll have to ask me
+  explicitly."*
+- **Hybrid** — cloud for normal work, local **only** for 🔴 content and embeddings. Ask the local
+  branch questions limited to these two uses (RAM, Ollama, models path, embedding model: no large
+  chat model needed). Write `mode: hybrid`, `search: semantic`, `restricted: local-only`,
+  `local_uses: [restricted, embeddings]`.
+
+Be honest about search: **today** there is only keyword search over the files, with 🔴 files
+excluded; semantic search with local embeddings is **coming soon**. `search: semantic` records the
+choice, but until it exists keyword search is used. "I don't know" → `cloud`, the most cautious
+default. The following phases read `llm.mode`.
+
 ## Phase 1 — Who you are
 
 Five questions, in this order. After each one, write the field.
@@ -54,6 +87,9 @@ Five questions, in this order. After each one, write the field.
 | 3 | Do you sell to businesses, to consumers, or both? And do you go through resellers/partners? | `company.yaml → positioning.model` |
 | 4 | What are your two or three main types of customer? (your own names for them, not standard categories) | `company.yaml → positioning.segments` |
 | 5 | Is there a regulated sector that constrains you? (e.g. healthcare, finance, security; or none) | `zones/_root/context/COMPANY.md` |
+
+If `llm.mode: cloud` and answer 5 points to sensitive data (healthcare, finance), remind them that
+🔴 documents go in `vault/` or `40-Finance/` and stay out of search and prompts.
 
 On number 4: these are the labels that will show up all through the sales pipeline. If they don't
 have them yet, `segment-a`, `segment-b` is fine: they can be renamed later — and tell them so.
@@ -97,6 +133,10 @@ just skip it.
 | **Shared documents** | Where do the company's files live today? | `config/acl.yaml` | it is the system's operational plane: see Phase 4 |
 | **Compliance** | Do you have certifications underway, or asked for by customers? (ISO 27001, SOC 2, GDPR, NIS2, none) | `zones/_root/context/COMPANY.md` | agent `compliance`, skill `audit-compliance` |
 
+If `llm.mode` is `local` or `hybrid`, add one line to the phase: check that Ollama responds
+(`ollama list`) and that the embedding model is pulled (`ollama pull {model}`); if `models_path`
+is outside the default, remind them to put `OLLAMA_MODELS` in `.env`. With `cloud`, skip.
+
 Close the phase with: *"Anything we haven't connected can be added at any time, just tell me. There
 is no need to redo the setup."*
 
@@ -137,7 +177,7 @@ Always close with this block, even if the interview was interrupted halfway thro
 
 ```
 ✅ Configured
-   Company: {name} · language: {it|en} · {N} people · {N} integrations connected
+   Company: {name} · language: {it|en} · LLM: {local|cloud|hybrid} · {N} people · {N} integrations connected
 
 ⏳ Still open (does not block using the system)
    • {what} — {who/how}

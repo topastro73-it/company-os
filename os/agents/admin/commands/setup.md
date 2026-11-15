@@ -43,6 +43,39 @@ Prima domanda in assoluto, prima di generare qualsiasi file (`os/protocols/langu
 Scrivi `config/company.yaml → language` copiando `config/company.example.yaml`. Da qui in avanti
 tutta l'intervista e ogni file generato usano quella lingua.
 
+## Fase 0b — LLM locale, cloud o ibrido
+
+Subito dopo la lingua, prima di generare qualsiasi altro file, perché decide dove si possono
+lavorare i contenuti 🔴 RESTRICTED (`vault/`, `40-Finance/`):
+
+> 🧠 Vuoi usare un LLM locale (es. Ollama) per i contenuti riservati e la ricerca?
+> [locale / cloud / ibrido — consigliato se la macchina regge]
+
+Spiega in mezza riga cosa vuol dire "LLM locale": un modello che gira sul computer, senza mandare
+testo a un servizio esterno. Consiglia **ibrido** se la macchina ha almeno 16 GB di RAM.
+Scrivi la risposta in `config/company.yaml → llm` (stesso file della lingua, nessun file nuovo).
+
+- **Locale** — poi chiedi, una alla volta: macchina e RAM (deducile se puoi, es. `sysctl -n
+  hw.memsize`, e chiedi conferma); se Ollama è già installato (`ollama --version`; se no, indica
+  https://ollama.com e prosegui); dove stanno i modelli (default `~/.ollama/models`, oppure un disco
+  esterno, es. `/path/to/external-disk/ollama-models`, da impostare con `OLLAMA_MODELS` in `.env`);
+  il modello di embedding (suggerisci `nomic-embed-text`).
+  Scrivi `mode: local`, `search: semantic`, `restricted: local-only`, `local_uses: [all]`.
+  Dì: *"I contenuti 🔴 si lavorano solo in locale."*
+- **Cloud** — nessuna domanda su Ollama. Scrivi `mode: cloud`, `search: keyword`,
+  `restricted: excluded`. Dillo in chiaro: *"In modalità cloud i file 🔴 RESTRICTED (`vault/`,
+  `40-Finance/`) restano esclusi dalla ricerca e da ciò che mando al modello. Se vuoi che ne legga
+  uno, dovrai chiedermelo esplicitamente."*
+- **Ibrido** — cloud per il lavoro normale, locale **solo** per i contenuti 🔴 e per gli embedding.
+  Fai le domande del ramo locale limitate a questi due usi (RAM, Ollama, percorso dei modelli,
+  modello di embedding: non serve un modello di chat grande). Scrivi `mode: hybrid`,
+  `search: semantic`, `restricted: local-only`, `local_uses: [restricted, embeddings]`.
+
+Sii onesto sulla ricerca: **oggi** c'è solo la ricerca a parole chiave sui file, con i file 🔴
+esclusi; la ricerca semantica con embedding locali è **in arrivo**. `search: semantic` registra la
+scelta, ma finché non esiste si usa quella a parole chiave. "Non lo so" → `cloud`, il default più
+prudente. Le fasi successive leggono `llm.mode`.
+
 ## Fase 1 — Chi siete
 
 Cinque domande, in quest'ordine. Dopo ognuna scrivi il campo.
@@ -54,6 +87,9 @@ Cinque domande, in quest'ordine. Dopo ognuna scrivi il campo.
 | 3 | Vendete ad aziende, a consumatori, o entrambi? E passate da rivenditori/partner? | `company.yaml → positioning.model` |
 | 4 | Quali sono i vostri due o tre tipi di cliente principali? (nomi vostri, non categorie standard) | `company.yaml → positioning.segments` |
 | 5 | C'è un settore regolamentato che vi condiziona? (es. sanità, finanza, sicurezza; oppure nessuno) | `zones/_root/context/COMPANY.md` |
+
+Se `llm.mode: cloud` e la risposta alla 5 indica dati sensibili (sanità, finanza), ricorda che i
+documenti 🔴 vanno in `vault/` o `40-Finance/` e restano fuori dalla ricerca e dai prompt.
 
 Sulla 4: sono le etichette che compariranno in tutta la pipeline commerciale. Se non le hanno
 ancora, va bene `segment-a`, `segment-b`: si rinominano dopo, e diglielo.
@@ -95,6 +131,10 @@ l'integrazione non c'è ma il posto dove aggiungerla è quello. Se "non ancora",
 | **Documenti condivisi** | Dove vivono oggi i file dell'azienda? | `config/acl.yaml` | è il piano operativo del sistema: vedi Fase 4 |
 | **Compliance** | Avete certificazioni in corso o richieste dai clienti? (ISO 27001, SOC 2, GDPR, NIS2, nessuna) | `zones/_root/context/COMPANY.md` | agente `compliance`, skill `audit-compliance` |
 
+Se `llm.mode` è `local` o `hybrid`, aggiungi una riga alla fase: verifica che Ollama risponda
+(`ollama list`) e che il modello di embedding sia scaricato (`ollama pull {modello}`); se
+`models_path` è fuori dal default, ricorda di mettere `OLLAMA_MODELS` in `.env`. Con `cloud`, salta.
+
 Chiudi la fase con: *"Tutto quello che non abbiamo collegato si aggiunge in qualsiasi momento
 dicendomelo. Non serve rifare il setup."*
 
@@ -135,7 +175,7 @@ Chiudi sempre con questo blocco, anche se l'intervista è stata interrotta a met
 
 ```
 ✅ Configurato
-   Azienda: {nome} · lingua: {it|en} · {N} persone · {N} integrazioni collegate
+   Azienda: {nome} · lingua: {it|en} · LLM: {local|cloud|hybrid} · {N} persone · {N} integrazioni collegate
 
 ⏳ Da completare (non blocca l'uso del sistema)
    • {cosa} — {chi/come}

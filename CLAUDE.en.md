@@ -65,8 +65,10 @@ Full architecture: `ARCHITECTURE.md`. A session here is an **admin** session (fo
 11. **Fresh instance and language** (`os/protocols/language.md`): the operating language is
     `config/company.yaml → language` (`it` | `en`). On a fresh instance (no
     `config/company.yaml`) run `/admin setup` (`os/agents/admin/commands/setup.md`): the
-    initial interview starts with the language question, **before generating anything**, and
-    goes on with company, people and tools. Chat replies and every generated md file use that
+    initial interview starts with the language question, **before generating anything**; right
+    after, it asks whether to use a local, cloud or hybrid LLM (`config/company.yaml → llm`: with
+    `cloud`, 🔴 files stay excluded from search and prompts; with `local`/`hybrid` they are
+    processed only locally), and goes on with company, people and tools. Chat replies and every generated md file use that
     language; with `en`, load and present the `.en.md` variants of the system files. The user
     can change it at any time by saying so in chat → update the config and republish.
 
