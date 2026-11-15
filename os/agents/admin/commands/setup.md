@@ -59,7 +59,10 @@ Scrivi la risposta in `config/company.yaml → llm` (stesso file della lingua, n
   hw.memsize`, e chiedi conferma); se Ollama è già installato (`ollama --version`; se no, indica
   https://ollama.com e prosegui); dove stanno i modelli (default `~/.ollama/models`, oppure un disco
   esterno, es. `/path/to/external-disk/ollama-models`, da impostare con `OLLAMA_MODELS` in `.env`);
-  il modello di embedding (suggerisci `nomic-embed-text`).
+  il modello di embedding: suggerisci **`bge-m3`** (`ollama pull bge-m3`), multilingue: funziona sui
+  contenuti in italiano e risponde anche a domande in inglese su note italiane, dove `nomic-embed-text`
+  (solo inglese) dà risultati poco pertinenti. Pesa circa 1,2 GB, vettori da 1024 dimensioni.
+  Alternativa leggera per chi lavora solo in inglese: `nomic-embed-text` (circa 274 MB).
   Scrivi `mode: local`, `search: semantic`, `restricted: local-only`, `local_uses: [all]`.
   Dì: *"I contenuti 🔴 si lavorano solo in locale."*
 - **Cloud** — nessuna domanda su Ollama. Scrivi `mode: cloud`, `search: keyword`,
@@ -132,7 +135,7 @@ l'integrazione non c'è ma il posto dove aggiungerla è quello. Se "non ancora",
 | **Compliance** | Avete certificazioni in corso o richieste dai clienti? (ISO 27001, SOC 2, GDPR, NIS2, nessuna) | `zones/_root/context/COMPANY.md` | agente `compliance`, skill `audit-compliance` |
 
 Se `llm.mode` è `local` o `hybrid`, aggiungi una riga alla fase: verifica che Ollama risponda
-(`ollama list`) e che il modello di embedding sia scaricato (`ollama pull {modello}`); se
+(`ollama list`) e che il modello di embedding sia scaricato (`ollama pull bge-m3`, o quello scelto); se
 `models_path` è fuori dal default, ricorda di mettere `OLLAMA_MODELS` in `.env`. Con `cloud`, salta.
 
 Chiudi la fase con: *"Tutto quello che non abbiamo collegato si aggiunge in qualsiasi momento

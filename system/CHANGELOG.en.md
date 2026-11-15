@@ -4,6 +4,14 @@ Every change to system files (`os/`, `zones/`, `config/`, `CLAUDE.md`, `tools/`)
 an entry here in the same commit. Categories: `feat` / `change` / `fix` / `breaking` / `refactor`.
 Semver. After merging a system change → `osctl publish` to distribute it to Drive.
 
+## [0.9.1] — change: default embedding model bge-m3
+
+- change(admin): `/admin setup` Phase 0b (local/hybrid) suggests `ollama pull bge-m3` instead of
+  `nomic-embed-text`, which stays as the lightweight alternative for English-only work. Reason:
+  `nomic-embed-text` is English-only and gives poorly relevant results on Italian notes; `bge-m3` is
+  multilingual and faster to build the index (~1.2 GB vs ~274 MB, 1024-dimension vectors).
+- change(config): `config/company.example.yaml → llm.embedding_model`, comment updated.
+
 ## [0.9.0] — feat: initial interview — local, cloud or hybrid LLM
 
 - feat(admin): `/admin setup` Phase 0b — right after the language, before generating other files, it
